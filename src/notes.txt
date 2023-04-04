@@ -2,11 +2,12 @@ File Structrue Front end
 
 //SRC
     App.ts(App.js)
-        -Sign In page component
+        -Sign In page component(from components folder);
         -Route Sign In
         -Route Sign Up
         -Route Account(admin/dispatch/driver)
     //components
+        -SignInComponent.ts(SignInComponent.js)
         -NavbarComponent.ts(NavbarComponent.js)(layout: anything that stays the same)
         -FooterComponent.ts(FooterComponent.js)
         //DriverAccount
