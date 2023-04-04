@@ -1,25 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+// import SignIn from './components/SignInComponent';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* <SignIn /> */}
+      <h1>Hi there</h1>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui nihil architecto ratione aliquam repellat suscipit cum commodi accusamus, atque, animi debitis. Dignissimos, quisquam incidunt. Quaerat inventore perspiciatis molestias excepturi laborum!</p>
+      <p>Test</p>
+    </>
   );
 }
 
