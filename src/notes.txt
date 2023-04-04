@@ -1,0 +1,50 @@
+File Structrue Front end
+
+//SRC
+    App.ts(App.js)
+        -Sign In page component
+        -Route Sign In
+        -Route Sign Up
+        -Route Account(admin/dispatch/driver)
+    //components
+        -NavbarComponent.ts(NavbarComponent.js)(layout: anything that stays the same)
+        -FooterComponent.ts(FooterComponent.js)
+        //DriverAccount
+            -Route Welcome Page(ts/js)
+                -(Appears only when account is first created)
+            -Route Dashboard(ts/js)
+                -Notifications Modal
+            -Route Trailer Count Form(ts/js)
+            -Route Account(ts/js)
+                -Delete Account Modal
+                -Update Account Modal
+            -Route Trailer Submission Message(ts/js)
+        //DispatcherAccount
+            -Route Welcome Page(ts/js)
+                -(appears only when account is first created)
+            -Route Dashboard(ts/js)
+                -Notifications Modal
+            -Route Account(ts/js)
+                -Delete Account Modal
+                -Update Account Modal
+            -Route Trailer Count Request Form(ts/js)
+            -Route Request Sent Message(ts/js)
+            -Route Add New Location Form(ts/js)
+            -Route Location Added Message(ts/js)
+            -Route View Details(ts/js)
+                -Driver Info Popover
+        //AdminAccount
+            -Route Welcome Pages(ts/js)
+                -(Appears only when account is first created)
+            -Route Dashboard(ts/js)
+                -Notifications Modal
+            -Route Account(ts/js)
+                -Offcanvas for managing team(deleting accounts)
+                -Update Account Modal
+                -Delete Organization Modal
+            -Route Trailer Count Request Form(ts/js)
+            -Route Request Sent Message(ts/js)
+            -Route Add New Location Form(ts/js)
+            -Route Location Added(ts/js)
+            -Route View Details(ts/js)
+            
