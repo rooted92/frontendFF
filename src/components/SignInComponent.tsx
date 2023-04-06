@@ -1,12 +1,27 @@
 import React from "react";
+import '../App.css';
+import {Container, Row, Col} from 'react-bootstrap';
 
 
 function SignIn() {
 
     return(
         <>
-            <h1>Hello!</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quo, possimus veritatis, ea incidunt, aliquam eum deleniti doloribus ipsa vero dolor aut magnam voluptatibus sint? Iure repellendus quas id illum reiciendis. Suscipit libero facere cum explicabo mollitia perferendis sint.</p>
+            <Container>
+                <Row className="">
+                    <Col xs={6}>
+                        test
+                        <Row>
+                            <Col >
+                                <p className="col-4 text-center bg-dark">Test</p>                                    
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col xs={6}>
+                        test
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 }
