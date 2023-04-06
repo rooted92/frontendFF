@@ -12,7 +12,7 @@ function SignIn() {
                     <Col xs={5} className="align-self-center">
                         <Row className="justify-content-center">
                             <h1 className="text-center">FleetFinder</h1>
-                            <Col className="col-4 align justify-content-center rounded loginBox">
+                            <Col className="col-4 justify-content-center rounded loginBox">
                                 <input type="text" className="my-5" />
                                 <input type="text" className="mb-3" />                                
                             </Col>
