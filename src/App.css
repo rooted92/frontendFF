@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Biryani:wght@200&family=Dosis&family=Fugaz+One&family=Gochi+Hand&family=Inter:wght@400;700&family=Jaldi&family=Manrope:wght@800&family=Philosopher&family=Poor+Story&family=Roboto:wght@300;400&family=Rubik+Dirt&family=Source+Sans+Pro&family=Space+Mono&family=Special+Elite&display=swap');
+
 :root {
   --jaldiFont: 'Jaldi', sans-serif;
 }
@@ -10,7 +12,7 @@ body {
   background-image: url('./assets/truckSplashImg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position-y: 10%;
+  background-position-y: 50%;
   height: 100vh;
   width: auto;
 }
@@ -19,4 +21,33 @@ body {
   border: solid 2px #6A82FF;
   min-width: 17.625rem;
   height: 21rem;
+  border-radius: 1.25rem;
 }
+
+.loginInput{
+  height: 2.875rem;
+  min-width: 13.5rem;
+  border: solid 2px #2C49E1;
+  border-radius: .625rem;
+}
+
+input .form-control {
+  height: 2.875rem;
+  min-width: 13.5rem;
+  border: solid 2px #2C49E1 !important;
+  border-radius: .625rem;
+}
+
+.loginInput::placeholder {
+  padding-left: .5rem;
+  color: gray;
+}
+
+.signInButton {
+  height: 2.875rem;
+  min-width: 13.5rem;
+  background-color: rgba(44, 73, 225, 1) !important;
+  border: none;
+  border-radius: .625rem;
+}
+
