@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Biryani:wght@200&family=Dosis&family=Fugaz+One&family=Gochi+Hand&family=Inter:wght@400;700&family=Jaldi&family=Manrope:wght@800&family=Philosopher&family=Poor+Story&family=Roboto:wght@300;400&family=Rubik+Dirt&family=Source+Sans+Pro&family=Space+Mono&family=Special+Elite&display=swap');
 
 body {
-
+  font-size: 1rem;
 }
+
+
+/* Begin CSS for Sign In Page */
 
 .splashImg {
   background-image: url('./assets/truckSplashImg.jpg');
@@ -26,9 +29,18 @@ body {
 
 }
 
+.signUpText {
+  position: absolute;
+  top: 36.5rem;
+}
+
 .yellowText {
   color: rgba(246, 250, 65, 1);
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.nav-link {
+  color: rgba(44, 73, 225, 1) !important;
 }
 
 .loginBox {
@@ -47,7 +59,7 @@ body {
 }
 
 .loginFleetLogo {
-  max-height: 4rem;
+  max-height: 4.875rem;
   min-width: auto;
 }
 
@@ -71,3 +83,10 @@ input .form-control {
   border-radius: .625rem;
 }
 
+/* ************* END sign in page CSS ********************** */
+
+/* Begin CSS for Sign Up Page */
+
+.darkBlueBG {
+  background-color: rgba(8, 0, 47, 1);
+}
