@@ -9,9 +9,10 @@ File Structrue Front end
             dispatch/
             driver)
     //components
-        -SignInComponent.ts(SignInComponent.js)
-        -NavbarComponent.ts(NavbarComponent.js)(layout: anything that stays the same)
-        -FooterComponent.ts(FooterComponent.js)
+        -SignUpComponent.tsx()
+        -SignInComponent.ts(SignInComponent.tsx)
+        -NavbarComponent.ts(NavbarComponent.tsx)(layout: anything that stays the same)
+        -FooterComponent.ts(FooterComponent.tsx)
         -Route Welcome Page(ts/js)
         //DriverAccount
                 -(Appears only when account is first created)
