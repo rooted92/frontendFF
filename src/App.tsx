@@ -10,9 +10,9 @@ import SignUpConfirmation from './components/SignUpConfirmation';
 function App(){
   return (
     // <NavbarComponent />
-    // <DriverDashBoard />
+    <DriverDashBoard />
       // <DriverWelcomePage />
-      <SignUpConfirmation />
+      // <SignUpConfirmation />
 
   );
 }
