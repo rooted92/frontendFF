@@ -2,7 +2,7 @@ import React from "react";
 import '../App.css';
 import { Container, Row, Col, Button, Form, Nav } from 'react-bootstrap';
 import FleetLogoIcon from '../assets/fleetlogo.png';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function SignIn(): JSX.Element {
