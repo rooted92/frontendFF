@@ -44,9 +44,18 @@ export default function DriverWelcomePage() {
     <Container>
         <Row>
             <Col className='d-flex justify-content-center'>
-            <ol>
+            <ol className='stepsCuz'>
                 <li>
-                    Hello
+                Start by clicking on the 'Add Location' button, which is located in <br/> the top right corner of your dashboard.
+                </li>
+                <li>
+                Once you click on the button, you'll be directed to a form. Fill out <br/> the required information in the form to add a new yard location <br/> to your dashboard.  
+                </li>
+                <li>
+                Once you have completed the form, click on the 'Submit' button.
+                </li>
+                <li>
+                After submitting the form, your new location will be added to <br/> your dashboard.
                 </li>
             </ol>
             </Col>
