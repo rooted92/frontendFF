@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Biryani:wght@200&family=Dosis&family=Fugaz+One&family=Gochi+Hand&family=Inter:wght@400;700&family=Jaldi&family=Manrope:wght@800&family=Philosopher&family=Poor+Story&family=Roboto:wght@300;400&family=Rubik+Dirt&family=Source+Sans+Pro&family=Space+Mono&family=Special+Elite&display=swap');
+
+body {
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.splashImg {
+  background-image: url('./assets/truckSplashImg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  height: 100vh;
+  width: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.splashText {
+  /* position: absolute; */
+  /* top: 20rem; */
+  margin-top: 12.6875rem !important;
+  font-size: 3.25rem;
+  font-family: 'Orelega One', cursive;
   color: white;
+  background-color: rgba(8, 0, 47, 0.68);
+  /* width: 50%; */
+  height: 12.4375rem;
+
 }
 
-.App-link {
-  color: #61dafb;
+.yellowText {
+  color: rgba(246, 250, 65, 1);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.loginBox {
+  border: solid 1px #6A82FF;
+  min-width: 17.625rem;
+  height: 21rem;
+  border-radius: 1.25rem;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
+.loginInput{
+  height: 2.875rem;
+  min-width: 13.5rem;
+  border: solid 1px #2C49E1;
+  border-radius: .625rem;
+}
+
+.loginFleetLogo {
+  max-height: 4rem;
+  min-width: auto;
+}
+
+input .form-control {
+  height: 2.875rem;
+  min-width: 13.5rem;
+  border: solid 2px #2C49E1 !important;
+  border-radius: .625rem;
+}
+
+.loginInput::placeholder {
+  padding-left: .5rem;
+  color: gray;
+}
+
+.signInButton {
+  height: 2.875rem;
+  min-width: 13.5rem;
+  background-color: rgba(44, 73, 225, 1) !important;
+  border: none;
+  border-radius: .625rem;
+}
+

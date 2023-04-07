@@ -3,15 +3,17 @@ File Structrue Front end
 //SRC
     App.ts(App.js)
         -Sign In page component(from components folder);
-        -Route Sign In
         -Route Sign Up
-        -Route Account(admin/dispatch/driver)
+        -Route Account(
+            admin/
+            dispatch/
+            driver)
     //components
         -SignInComponent.ts(SignInComponent.js)
         -NavbarComponent.ts(NavbarComponent.js)(layout: anything that stays the same)
         -FooterComponent.ts(FooterComponent.js)
+        -Route Welcome Page(ts/js)
         //DriverAccount
-            -Route Welcome Page(ts/js)
                 -(Appears only when account is first created)
             -Route Dashboard(ts/js)
                 -Notifications Modal
@@ -21,7 +23,6 @@ File Structrue Front end
                 -Update Account Modal
             -Route Trailer Submission Message(ts/js)
         //DispatcherAccount
-            -Route Welcome Page(ts/js)
                 -(appears only when account is first created)
             -Route Dashboard(ts/js)
                 -Notifications Modal
@@ -35,7 +36,6 @@ File Structrue Front end
             -Route View Details(ts/js)
                 -Driver Info Popover
         //AdminAccount
-            -Route Welcome Pages(ts/js)
                 -(Appears only when account is first created)
             -Route Dashboard(ts/js)
                 -Notifications Modal
@@ -49,3 +49,7 @@ File Structrue Front end
             -Route Location Added(ts/js)
             -Route View Details(ts/js)
             
+
+*NOTES
+
+Make sure driver and dispatch can communicate

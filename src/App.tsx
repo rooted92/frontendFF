@@ -1,20 +1,20 @@
+import React from 'react';
 import './App.css';
-import NavbarComponent from './components/NavbarComponent';
-import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import DriverDashBoard from './components/DriverDashBoard';
-import DriverWelcomePage from './components/DriverWelcomePage';
-import SignUpConfirmation from './components/SignUpConfirmation';
+import SignIn from './components/SignInComponent';
+import SignUp from './components/SignUpComponent';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App(){
   return (
-    // <NavbarComponent />
-    <DriverDashBoard />
-      // <DriverWelcomePage />
-      // <SignUpConfirmation />
-
-  );
+    <BrowserRouter>
+      <SignIn />
+      <Routes>
+        {/* <Route path='/SignUp' element={<SignUp />}> */}
+        {/*  */}
+      </Routes>
+    </BrowserRouter >
+  )
 }
 
 export default App;
