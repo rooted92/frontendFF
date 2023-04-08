@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import FleetFinderIcon from '../assets/fleetlogo.png';
 import Footer from "./FooterComponent";
 
+import '../App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 const SignUp = (): JSX.Element => {
     return (
         <>

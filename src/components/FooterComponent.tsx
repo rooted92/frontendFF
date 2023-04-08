@@ -5,7 +5,7 @@ import FleetFinderIcon from '../assets/fleetlogo.png';
 
 const Footer = () => {
     return (
-        <Container fluid className="w-100 mt-3 sticky-bottom footer">
+        <Container fluid className="w-100 mt-3 footer">
             <Row className="h-100 d-flex justify-content-between">
                 <Col className="col-3 align-self-center">
                     <p className="m-0">&#169; 2023</p>

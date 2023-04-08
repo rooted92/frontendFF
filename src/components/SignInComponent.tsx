@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function SignIn(): JSX.Element {
 
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,6 +18,7 @@ function SignIn(): JSX.Element {
             password
         }
         console.log(userData);
+        navigate('/DispatchDashboard');
     }
 
     return (
