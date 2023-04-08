@@ -2,11 +2,12 @@ import React from "react";
 import { Container, Row, Col, Form, Button, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FleetFinderIcon from '../assets/fleetlogo.png';
+import Footer from "./FooterComponent";
 
 const SignUp = (): JSX.Element => {
     return (
         <>
-            <Container >
+            <Container className="mx-4">
                 <Row className="py-5 w-100 d-flex justify-content-between m-0">
                     <Col className="col-6 d-flex flex-row justify-content-center leftSignUpColumn rounded rounded-4">
                         <Row className="d-flex w-100 justify-content-center">
@@ -76,6 +77,7 @@ const SignUp = (): JSX.Element => {
                     </Col>
                 </Row>
             </Container>
+            {/* <Footer /> */}
         </>
     )
 }
