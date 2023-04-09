@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../FooterComponent";
-import { Button, Col, Container, Row, Accordion } from "react-bootstrap";
+import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
 import '../../App.css';
 
 const DispatchDashboard = () => {
@@ -18,32 +18,52 @@ const DispatchDashboard = () => {
                         <Button className="darkBlueBG">Add Location</Button>
                     </Col>
                 </Row>
+                {/* Accordion to view trailers currently in transit */}
                 <Row>
                     <Col className="col-12">
                         <Accordion defaultActiveKey="0">
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>In Transit</Accordion.Header>
                                 <Accordion.Body>
-                                    <Row className="d-flex justify-content-around">
-                                        <Col className="col-3 mx-1 trailerInTransit rounded mb-3 align-self-center">
-                                            <p className="m-0 p-2">316 In Transit <span className="blueText">Assigned To - Pedro Castaneda</span></p>
+                                    <Row className="d-flex justify-content-start">
+                                        <Col className="col-4 mb-3 align-self-center">
+                                            <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
+                                            </div>
                                         </Col>
-                                        <Col className="col-3 trailerInTransit rounded mb-3">
-                                            <p className="m-0 p-2">316 In Transit <span>Assigned To - Pedro Castaneda</span></p>
+                                        <Col className="col-4 mb-3 align-self-center">
+                                            <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
+                                            </div>
                                         </Col>
-                                        <Col className="col-3 trailerInTransit rounded mb-3">
-                                            <p className="m-0 p-2">316 In Transit <span>Assigned To - Pedro Castaneda</span></p>
+                                        <Col className="col-4 mb-3 align-self-center">
+                                            <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
+                                            </div>
                                         </Col>
-                                        <Col className="col-3 trailerInTransit rounded mb-3">
-                                            <p className="m-0 p-2">316 In Transit <span>Assigned To - Pedro Castaneda</span></p>
-                                        </Col>
-                                        <Col className="col-3 trailerInTransit rounded mb-3">
-                                            <p className="m-0 p-2">316 In Transit <span>Assigned To - Pedro Castaneda</span></p>
+                                        <Col className="col-4 mb-3 align-self-center">
+                                            <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
+                                            </div>
                                         </Col>
                                     </Row>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
+                    </Col>
+                </Row>
+                <Row className="mt-5 d-flex justify-content-start">
+                    <Col className="col-3">
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title>Napa Yard</Card.Title>
+                                <Card.Text>
+                                    Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.
+                                </Card.Text>
+                                <Button variant="primary">View Details</Button>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
             </Container>

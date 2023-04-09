@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<SignIn />}></Route>
         <Route path='/SignUp' element={<SignUp />} />
+        
         <Route path='DispatchDashboard' element={<DispatchDashboard />} />
       </Routes>
     </BrowserRouter >
