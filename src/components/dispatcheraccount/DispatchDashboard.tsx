@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../FooterComponent";
 import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
 import '../../App.css';
 
-const DispatchDashboard = () => {
+// Create a models folder and import from there trailer, driver, etc. models
+
+const DispatchDashboard = (): JSX.Element => {
+
+    const [truckNumber, setTruckNumber] = useState(0);
+
     return (
         <>
             {/* Template for Dispatch Dashboard (also template for how pages will be structured out to avoid issues with footer not staying in place) */}
@@ -57,7 +62,7 @@ const DispatchDashboard = () => {
                         </Row>
                         <Row className="my-5 d-flex justify-content-center">
                             {/* here we will map through the yard locations array and create col-3 divs for each card. */}
-                            <Col className="col-3 d-flex flex-column align-items-center">
+                            <Col className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-3 d-flex flex-column align-items-center">
                                 <Card>
                                     <Card.Body>
                                         <Card.Title>Napa Yard</Card.Title>
@@ -90,105 +95,7 @@ const DispatchDashboard = () => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                            <Col className="col-3 d-flex flex-column align-items-center">
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>Napa Yard</Card.Title>
-                                        <Card.Text>
-                                            <Row className="d-flex justify-content-around">
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Empty: 12</p>
-                                                    <p>Loaded: 8</p>
-                                                    <p>Clean: 4</p>
-                                                    <p>Dirty: 1</p>
-                                                </Col>
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Dry Vans: 10</p>
-                                                    <p>Reefers: 4</p>
-                                                    <p>Tankers: 6</p>
-                                                    <p>Total: 20</p>
-                                                </Col>
-                                            </Row>
-                                        </Card.Text>
-                                        <Row className="d-flex justify-content-center">
-                                            <Col className="col-6">
-                                                <Button className="darkBlueBG">View Details</Button>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <p className="m-0 mt-4 text-center">Last updated on: Feb 24, 2023 9:36AM</p>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-3 d-flex flex-column align-items-center">
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>Napa Yard</Card.Title>
-                                        <Card.Text>
-                                            <Row className="d-flex justify-content-around">
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Empty: 12</p>
-                                                    <p>Loaded: 8</p>
-                                                    <p>Clean: 4</p>
-                                                    <p>Dirty: 1</p>
-                                                </Col>
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Dry Vans: 10</p>
-                                                    <p>Reefers: 4</p>
-                                                    <p>Tankers: 6</p>
-                                                    <p>Total: 20</p>
-                                                </Col>
-                                            </Row>
-                                        </Card.Text>
-                                        <Row className="d-flex justify-content-center">
-                                            <Col className="col-6">
-                                                <Button className="darkBlueBG">View Details</Button>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <p className="m-0 mt-4 text-center">Last updated on: Feb 24, 2023 9:36AM</p>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-3 d-flex flex-column align-items-center">
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>Napa Yard</Card.Title>
-                                        <Card.Text>
-                                            <Row className="d-flex justify-content-around">
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Empty: 12</p>
-                                                    <p>Loaded: 8</p>
-                                                    <p>Clean: 4</p>
-                                                    <p>Dirty: 1</p>
-                                                </Col>
-                                                <Col className="col-4 text-nowrap">
-                                                    <p>Dry Vans: 10</p>
-                                                    <p>Reefers: 4</p>
-                                                    <p>Tankers: 6</p>
-                                                    <p>Total: 20</p>
-                                                </Col>
-                                            </Row>
-                                        </Card.Text>
-                                        <Row className="d-flex justify-content-center">
-                                            <Col className="col-6">
-                                                <Button className="darkBlueBG">View Details</Button>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <p className="m-0 mt-4 text-center">Last updated on: Feb 24, 2023 9:36AM</p>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
+                            
                         </Row>
                     </Container>
                 </div>

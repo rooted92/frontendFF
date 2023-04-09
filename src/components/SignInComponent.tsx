@@ -5,7 +5,7 @@ import FleetFinderIcon from '../assets/fleetlogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-function SignIn(): JSX.Element {
+const SignIn = (): JSX.Element => {
 
     let navigate = useNavigate();
 

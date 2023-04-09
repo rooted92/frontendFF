@@ -3,7 +3,7 @@ import { Col, Container, Row, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FleetFinderIcon from '../assets/fleetlogo.png';
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
     return (
         <Container fluid className="w-100 mt-3 footer">
             <Row className="h-100 d-flex justify-content-between">
