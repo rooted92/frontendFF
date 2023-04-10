@@ -6,6 +6,7 @@ import SignUp from './components/SignUpComponent';
 import DispatchDashboard from './components/dispatcheraccount/DispatchDashboard';
 // import WelcomeMessage from './components/WelcomeMsgComponent';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCountRequestFormComponent';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='DispatchDashboard' element={<DispatchDashboard />} />
           {/* May not need welcome component in route... Probably not needed, continue testing.. */}
           {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
+          <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
         </Routes>
       </BrowserRouter >
     // </div>

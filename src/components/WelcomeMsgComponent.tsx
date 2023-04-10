@@ -107,7 +107,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
         } else {
             return (
                 <>
-                    <h1>NO MATCH</h1>
+                    <h1 className='text-center text-danger fw-bold'>NO MATCH</h1>
                 </>
             )
         }

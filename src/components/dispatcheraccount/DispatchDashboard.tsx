@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
-import '../../App.css';
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -12,6 +11,12 @@ const DispatchDashboard = (): JSX.Element => {
     // useLocation grabs the current pathname
     const location = useLocation();
     console.log(typeof location.pathname);
+
+    let navigate = useNavigate();
+
+    const handleRequest = () => {
+        navigate('/TrailerCountRequestForm');
+    }
 
     const [truckNumber, setTruckNumber] = useState(0);
     const [routeName, setRouteName] = useState('');
@@ -28,7 +33,7 @@ const DispatchDashboard = (): JSX.Element => {
                                 <p className="fs-3">Yard Locations</p>
                             </Col>
                             <Col className="col-4 d-flex justify-content-end align-self-start">
-                                <Button className="mx-2 lightBlueBG">Request Trailer Count</Button>
+                                <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
                                 <Button className="darkBlueBG">Add Location</Button>
                             </Col>
                         </Row>
