@@ -1,13 +1,25 @@
-import React from "react";
-import '../App.css';
+import React, { useState } from "react";
+// import '../App.css';
 import { Container, Row, Col, Button, Form, Nav } from 'react-bootstrap';
-import FleetLogoIcon from '../assets/fleetlogo.png';
-import { Link } from 'react-router-dom';
+import FleetFinderIcon from '../assets/fleetlogo.png';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-function SignIn(): JSX.Element {
+const SignIn = (): JSX.Element => {
 
+    let navigate = useNavigate();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = () => {
+        let userData = {
+            email,
+            password
+        }
+        console.log(userData);
+        navigate('/DispatchDashboard');
+    }
 
     return (
         <div>
@@ -15,12 +27,10 @@ function SignIn(): JSX.Element {
                 <Row >
                     <Col xs={5} className="align-self-center">
                         <Row className="justify-content-center">
-                            <Row className="justify-content-center mb-5">
-                                <Col className="col-5 d-flex justify-content-end p-0">
-                                    <img className="loginFleetLogo" src={FleetLogoIcon} alt="Fleet Finder logo" />
-                                </Col>
-                                <Col className="col-7 p-0">
-                                    <p className="text-start fs-1">FleetFinder</p>
+                            <Row className="justify-content-center mb-4">
+                                <Col className="col-12 d-flex flex-row justify-content-center">
+                                    <img className="loginFleetLogo" src={FleetFinderIcon} alt="Fleet Finder logo" />
+                                    <p className="text-start fs-1 pt-2">FleetFinder</p>
                                 </Col>
                             </Row>
                             <Col className="col-4 d-flex flex-column align-items-center loginBox">
@@ -28,20 +38,39 @@ function SignIn(): JSX.Element {
                                     <Form.Group controlId="emailLoginInput">
                                         <Form.Label visuallyHidden>Email</Form.Label>
                                         {/* <Form.Control className="mt-5" type="email" placeholder="Email"></Form.Control> */}
-                                        <input type="email" className="mt-5 loginInput" placeholder="Email" />
+                                        <input
+                                            required
+                                            type="email"
+                                            className="mt-5 loginInput"
+                                            placeholder="Email"
+                                            // Destructuring 'e' object
+                                            onChange={({target: {value}}) => {
+                                                setEmail(value)
+                                                // console.log(value);
+                                            }} />
                                     </Form.Group>
                                     <Form.Group controlId="passwordLoginInput">
                                         <Form.Label visuallyHidden>Password</Form.Label>
-                                        <input type="password" className="mt-3 loginInput" placeholder="Password" />
+                                        <input
+                                            required
+                                            type="password"
+                                            className="mt-3 loginInput"
+                                            placeholder="Password"
+                                            onChange={({target: {value}}) => {
+                                                setPassword(value)
+                                                // console.log(value);
+                                            }} />
                                     </Form.Group>
-                                    <Button type="submit" className="signInButton mt-3 text-white">Sign In</Button>
+                                    <Button
+                                        // type="submit"
+                                        className="signInButton mt-3 text-white" 
+                                        onClick={handleSubmit} >Sign In</Button>
                                 </Form>
 
-                                <Row className="mt-5">
-                                    <Col>
+                                <Row className="mt-5 signUpText">
+                                    <Col className="col-12 p-0">
                                         {/* Set link to correct path... */}
-                                        
-                                        <p>Don't have an account? <Nav.Link as={Link} to="/SignUp">Sign Up</Nav.Link></p>
+                                        <p>Don't have an account? <Nav.Link as={Link} to="/SignUp" className="blueText d-inline">Sign Up!</Nav.Link></p>
                                     </Col>
                                 </Row>
                             </Col>

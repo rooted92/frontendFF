@@ -9,13 +9,16 @@ File Structrue Front end
             dispatch/
             driver)
     //components
-        -SignInComponent.ts(SignInComponent.js)
-        -NavbarComponent.ts(NavbarComponent.js)(layout: anything that stays the same)
-        -FooterComponent.ts(FooterComponent.js)
-        -Route Welcome Page(ts/js)
+        -SignUpComponent.tsx()
+        -SignInComponent.ts(SignInComponent.tsx)
+        -NavbarComponent.ts(NavbarComponent.tsx)(layout: anything that stays the same)
+        -FooterComponent.ts(FooterComponent.tsx)
+        -Welcome Page(ts/js), appears only when account is first created
         //DriverAccount
-                -(Appears only when account is first created)
-            -Route Dashboard(ts/js)
+            -import Welcome Message
+            -import Navbar(ts/js)
+            -import Footer(tsx)
+            -Route Dashboard
                 -Notifications Modal
             -Route Trailer Count Form(ts/js)
             -Route Account(ts/js)
@@ -23,8 +26,10 @@ File Structrue Front end
                 -Update Account Modal
             -Route Trailer Submission Message(ts/js)
         //DispatcherAccount
-                -(appears only when account is first created)
-            -Route Dashboard(ts/js)
+            -import Welcome Message
+            -import Navbar(ts/js)
+            -import Footer(tsx)
+            -Route Dashboard
                 -Notifications Modal
             -Route Account(ts/js)
                 -Delete Account Modal
@@ -36,7 +41,9 @@ File Structrue Front end
             -Route View Details(ts/js)
                 -Driver Info Popover
         //AdminAccount
-                -(Appears only when account is first created)
+            -import Welcome Message
+            -import Navbar(ts/js)
+            -import Footer(tsx)
             -Route Dashboard(ts/js)
                 -Notifications Modal
             -Route Account(ts/js)
