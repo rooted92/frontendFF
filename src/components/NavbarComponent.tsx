@@ -1,8 +1,8 @@
 import React from 'react'
 import '../index.css'
 import { Row, Col, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
-import Logo from '../Asset/FleetLogo.png'
-import Bell from '../Asset/Bell.png'
+import Logo from '../assets/fleetlogo.png'
+import Bell from '../assets/Bell.png'
 
 export default function NavbarComponent() {
   return (

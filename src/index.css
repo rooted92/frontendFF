@@ -11,3 +11,99 @@ body {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+
+@font-face {
+  font-family: Jaldi ;
+  src: url("https://fonts.googleapis.com/css2?family=Jaldi&display=swap");
+}
+
+.brColor{
+  background-color: #08002F;
+  height: 58px;
+}
+
+.fleetCustomize{
+  color: whitesmoke;
+  font-family: Jaldi ;
+  padding-top: 5px;
+  font-size: 20px;
+}
+
+.accCount{
+  color: whitesmoke;
+  padding-left: 5px;
+  font-family: Jaldi ;
+}
+
+.dashCuz{
+  color: #2C49E1;
+  padding-left: 60rem;
+  padding-top: 5px;
+  font-family: Jaldi ;
+}
+
+.bellNoti{
+  padding-right: 15px;
+}
+
+.cardCuz{
+  padding-top: 6rem;
+}
+
+.rowCardCuz{
+  padding-left: 10rem;
+}
+
+.borderColor{
+  border-color: red;
+}
+
+.textColor{
+  color: whitesmoke;
+}
+
+.yardCuz{
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: Jaldi ;
+  padding-left: 1rem;
+  
+}
+
+.locationCuz{
+  padding-left: 20rem;
+}
+
+.butCuz{
+  padding-left: 63rem;
+}
+
+.welcomeCuz{
+  padding-top: 3rem;
+  font-family: Jaldi ;
+}
+
+.wellCuz{
+  font-family: Jaldi ;
+}
+
+.stepsCuz{
+  font-family: Jaldi ;
+  font-size: 1.5rem;
+  color: #2C49E1;
+}
+
+.signCuz{
+  padding-top: 10rem;
+}
+
+.suCuz{
+  color: #2C49E1;
+  font-family: Jaldi ;
+}
+
+.siButton{
+  padding-top: 2rem;
+}

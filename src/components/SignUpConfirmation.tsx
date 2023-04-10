@@ -1,7 +1,7 @@
 import React from 'react'
 import '../index.css'
 import { Row, Col, Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap'
-import Logo from '../Asset/FleetLogo.png'
+import Logo from '../assets/fleetlogo.png'
 
 export default function SignUpConfirmation() {
   return (
