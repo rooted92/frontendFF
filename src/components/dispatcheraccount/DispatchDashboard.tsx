@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "../FooterComponent";
+import WelcomeMessage from "../WelcomeMsgComponent";
 import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
 import '../../App.css';
 
@@ -7,7 +9,12 @@ import '../../App.css';
 
 const DispatchDashboard = (): JSX.Element => {
 
+    // useLocation grabs the current pathname
+    const location = useLocation();
+    console.log(typeof location.pathname);
+
     const [truckNumber, setTruckNumber] = useState(0);
+    const [routeName, setRouteName] = useState('');
 
     return (
         <>
@@ -98,6 +105,7 @@ const DispatchDashboard = (): JSX.Element => {
                             
                         </Row>
                     </Container>
+                    <WelcomeMessage checkURL={location.pathname} />
                 </div>
                 <Footer />
             </div>
