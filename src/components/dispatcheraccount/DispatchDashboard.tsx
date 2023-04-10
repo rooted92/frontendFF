@@ -18,6 +18,10 @@ const DispatchDashboard = (): JSX.Element => {
         navigate('/TrailerCountRequestForm');
     }
 
+    const handleAddLocation = () => {
+        navigate('/AddLocationForm');
+    }
+
     const [truckNumber, setTruckNumber] = useState(0);
     const [routeName, setRouteName] = useState('');
 
@@ -34,7 +38,7 @@ const DispatchDashboard = (): JSX.Element => {
                             </Col>
                             <Col className="col-4 d-flex justify-content-end align-self-start">
                                 <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
-                                <Button className="darkBlueBG">Add Location</Button>
+                                <Button className="darkBlueBG" onClick={handleAddLocation}>Add Location</Button>
                             </Col>
                         </Row>
                         {/* Accordion to view trailers currently in transit */}

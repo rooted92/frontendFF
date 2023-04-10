@@ -7,6 +7,7 @@ import DispatchDashboard from './components/dispatcheraccount/DispatchDashboard'
 // import WelcomeMessage from './components/WelcomeMsgComponent';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCountRequestFormComponent';
+import AddLocationForm from './components/dispatcheraccount/AddLocationFormComponent';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           {/* May not need welcome component in route... Probably not needed, continue testing.. */}
           {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
           <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
+          <Route path='/AddLocationForm' element={<AddLocationForm />} />
         </Routes>
       </BrowserRouter >
     // </div>

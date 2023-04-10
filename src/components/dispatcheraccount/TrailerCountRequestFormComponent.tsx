@@ -44,7 +44,7 @@ const TrailerCountRequestForm = (): JSX.Element => {
                                             <option value="U.S. Cold McClellan">Pedro Castaneda</option>
                                         </Form.Select>
                                     </Form.Group>
-                                    <Row>
+                                    <Row className="mt-3">
                                         <Col className="col-6">
                                             <Button
                                             className="bg-danger btn border-danger w-100"
