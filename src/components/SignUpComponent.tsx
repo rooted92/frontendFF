@@ -7,6 +7,10 @@ import Footer from "./FooterComponent";
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 const SignUp = (): JSX.Element => {
+
+
+    // TODO - Create an object that will hold sign up form data
+
     return (
         <>
             <Container className="mx-4">
