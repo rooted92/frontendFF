@@ -106,10 +106,12 @@ body {
 .suCuz{
   color: #2C49E1;
   font-family: Jaldi ;
+  font-weight: bold;
 }
 
 .siButton{
-  padding-top: 2rem;
+  background-color: rgba(8, 0, 47, 1) !important;
+  width: 8rem;
 }
 
 .buttonColor{
@@ -146,4 +148,17 @@ body {
   font-family: Jaldi ;
   font-weight: bold !important;
   padding-top: 18rem;
+}
+
+.footCuz{
+ padding-top: 22rem;
+}
+
+.listCuz{
+  border-color: #2C49E1 !important;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.aCuz{
+  color: #2C49E1;
 }

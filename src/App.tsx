@@ -11,6 +11,8 @@ import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCount
 import AddLocationForm from './components/dispatcheraccount/AddLocationFormComponent';
 import SubmitTrailerCount from './components/driveraccount/SubmitTrailerCount';
 import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmission';
+import DriverAccount from './components/driveraccount/DriverAccount';
+import SignUpConfirmation from './components/SignUpConfirmation';
 
 function App(){
   return (
@@ -28,6 +30,8 @@ function App(){
           <Route path='/AddLocationForm' element={<AddLocationForm />} />
           <Route path='/SubmitTrailerCount' element={<SubmitTrailerCount />} />
           <Route path='/ThankYouForSubmission' element={<ThankYouForSubmission />} />
+          <Route path='/DriverAccount' element={<DriverAccount />} />
+          <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
         </Routes>
       </BrowserRouter >
     // </div>
