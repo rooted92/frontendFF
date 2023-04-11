@@ -9,6 +9,8 @@ import DriverDashBoard from './components/driveraccount/DriverDashBoard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCountRequestFormComponent';
 import AddLocationForm from './components/dispatcheraccount/AddLocationFormComponent';
+import SubmitTrailerCount from './components/driveraccount/SubmitTrailerCount';
+import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmission';
 
 function App(){
   return (
@@ -24,6 +26,8 @@ function App(){
           {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
           <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
           <Route path='/AddLocationForm' element={<AddLocationForm />} />
+          <Route path='/SubmitTrailerCount' element={<SubmitTrailerCount />} />
+          <Route path='/ThankYouForSubmission' element={<ThankYouForSubmission />} />
         </Routes>
       </BrowserRouter >
     // </div>

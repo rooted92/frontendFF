@@ -111,3 +111,39 @@ body {
 .siButton{
   padding-top: 2rem;
 }
+
+.buttonColor{
+  background-color: rgba(8, 0, 47, 1) !important;
+  width: 10rem;
+}
+
+.fCuz{
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.lineCuz{
+  padding-top: 19rem;
+}
+
+.lCuz{
+  width: 100%;
+}
+
+.trfCuz{
+  color: black !important;
+  font-family: Jaldi ;
+  font-weight: bold !important;
+}
+
+.footCuz{
+  padding-top: 4rem;
+}
+
+.tfysCuz{
+  color: #2C49E1;
+  font-family: Jaldi ;
+  font-weight: bold !important;
+  padding-top: 18rem;
+}
