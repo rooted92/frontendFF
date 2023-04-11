@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignIn from './components/SignInComponent';
+import { SignIn } from './components/SignInComponent';
 import SignUp from './components/SignUpComponent';
 import DispatchDashboard from './components/dispatcheraccount/DispatchDashboard';
 import DriverDashBoard from './components/driveraccount/DriverDashBoard';
@@ -10,24 +10,26 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCountRequestFormComponent';
 import AddLocationForm from './components/dispatcheraccount/AddLocationFormComponent';
 import ConfirmationMessage from './components/dispatcheraccount/ConfirmationMsgComponent';
+import SignUpConfirmation from './components/SignUpConfirmation';
 
-function App(){
+function App() {
   return (
     // <div className='appContainer'>
-      <BrowserRouter>
-        {/* <SignIn /> */}
-        <Routes>
-          <Route path='/' element={<SignIn />}></Route>
-          <Route path='/SignUp' element={<SignUp />} />
-          <Route path='DispatchDashboard' element={<DispatchDashboard />} />
-          <Route path='/DriverDashboard' element={<DriverDashBoard />} />
-          {/* May not need welcome component in route... Probably not needed, continue testing.. */}
-          {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
-          <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
-          <Route path='/AddLocationForm' element={<AddLocationForm />} />
-          <Route path='/ConfirmationMessage' element={<ConfirmationMessage />} />
-        </Routes>
-      </BrowserRouter >
+    <BrowserRouter>
+      {/* <SignIn /> */}
+      <Routes>
+        <Route path='/' element={<SignIn />}></Route>
+        <Route path='/SignUp' element={<SignUp />} />
+        <Route path='/DispatchDashboard' element={<DispatchDashboard />} />
+        <Route path='/DriverDashboard' element={<DriverDashBoard />} />
+        {/* May not need welcome component in route... Probably not needed, continue testing.. */}
+        {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
+        <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
+        <Route path='/AddLocationForm' element={<AddLocationForm />} />
+        <Route path='/ConfirmationMessage' element={<ConfirmationMessage />} />
+        <Route path='SignUpConfirmation' element={<SignUpConfirmation />} />
+      </Routes>
+    </BrowserRouter >
     // </div>
   )
 }

@@ -4,6 +4,7 @@ import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
 import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
+import { userInfo } from "../SignInComponent";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -20,11 +21,12 @@ const DispatchDashboard = (): JSX.Element => {
     }
 
     const handleAddLocation = () => {
+        console.log(userInfo);
         navigate('/AddLocationForm');
     }
 
-    const [truckNumber, setTruckNumber] = useState(0);
-    const [routeName, setRouteName] = useState('');
+    const [truckNumber, setTruckNumber] = useState<number>(0);
+    const [routeName, setRouteName] = useState<string>('');
 
     return (
         <>

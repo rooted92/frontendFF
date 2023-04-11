@@ -1,6 +1,5 @@
-import React from 'react'
 import '../index.css'
-import { Row, Col, Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap'
+import { Row, Col, Navbar, Container, Nav, Button } from 'react-bootstrap'
 import Logo from '../assets/fleetlogo.png'
 import Bell from '../assets/Bell.png'
 
@@ -27,7 +26,7 @@ export default function NavbarComponent(): JSX.Element {
               <Nav.Link className='text-white'>Dashboard</Nav.Link>
             </Col>
             <Col className='col-3'>
-              <Nav.Link>Account</Nav.Link>
+              <Nav.Link className='text-white'>Account</Nav.Link>
             </Col>
           </Row>
         </Container>

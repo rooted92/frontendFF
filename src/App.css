@@ -232,3 +232,7 @@ div .accordion .accordion-item {
   height: auto;
   font-size: .7rem;
 }
+
+.nav-link:hover {
+  color: rgba(44, 73, 225, 1) !important;
+}
