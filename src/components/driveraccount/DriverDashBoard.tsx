@@ -21,7 +21,7 @@ export default function DriverDashBoard() {
                 <Row className='rowCardCuz'>
                     <Col className='cardCuz'>
                         <Card style={{ width: '30rem', height: '20rem' }}>
-                            <Card.Body className='borderColor'>
+                            <Card.Body>
                                 <Card.Title className='text-center'> Past Submissions </Card.Title>
                                 <Card.Text>
                                    
@@ -31,15 +31,7 @@ export default function DriverDashBoard() {
                         </Card>
                     </Col>
                     <Col className='cardCuz'>
-                    <Card style={{ width: '15rem', height: '3rem' }}>
-                            <Card.Body className='cbCuz'>
-                                <Card.Title className='text-center subCuz'> +Submit Trailer Count </Card.Title>
-                                <Card.Text>
-                                   
-                                </Card.Text>
-                               
-                            </Card.Body>
-                        </Card>
+                    <Button className='buttonColor'> +Submint Trailer Count</Button>
                     </Col>
                 </Row>
             </Container>
