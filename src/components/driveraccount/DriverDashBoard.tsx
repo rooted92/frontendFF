@@ -20,7 +20,7 @@ export default function DriverDashBoard() {
             <Container>
                 <Row className='rowCardCuz'>
                     <Col className='cardCuz'>
-                        <Card style={{ width: '30rem', height: '20rem' }}>
+                        <Card style={{ width: '30rem', height: '25rem' }}>
                             <Card.Body>
                                 <Card.Title className='text-center'> Past Submissions </Card.Title>
                                 <Card.Text>
