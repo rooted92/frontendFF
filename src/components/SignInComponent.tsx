@@ -1,25 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import '../App.css';
 import { Container, Row, Col, Button, Form, Nav } from 'react-bootstrap';
 import FleetFinderIcon from '../assets/fleetlogo.png';
 import { Link, useNavigate } from 'react-router-dom';
+import { Login, GetLoggedInUserData } from "../services/DataService";
 
+let userInfo = {
+    id: null,
+    name: null,
+    email: null,
+    phoneNumber: null,
+    organizationID: null,
+    accountType: null,
+    isDarkMode: null
+}
 
 const SignIn = (): JSX.Element => {
+    // const UserLogin = async () => {
+    //     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/Login`);
+    //     const data = await response.json();
+    //     console.log(data);
+    // }
 
+    // useEffect(() => {
+    //     UserLogin();
+    // }, []);
     let navigate = useNavigate();
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+   
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = () => {
+    const handleLogin = async () => {
         let userData = {
             email,
             password
         }
+
         console.log(userData);
-        navigate('/DispatchDashboard');
+
+        let token = await Login(userData);
+        userInfo = await GetLoggedInUserData(email);
+        console.log(token);
+        if (token.token != null) {
+            try {
+                localStorage.setItem('Token', token.token);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+
+        console.log(userInfo);
+        if (userInfo.accountType === 'Driver') {
+            navigate("/DriverDashboard");
+        } else if(userInfo.accountType === 'Dispatcher') {
+            navigate("/DispatchDashboard");
+        } else if(userInfo.accountType === 'Admin'){
+            navigate("/AdminAccount");
+        }
+
     }
+
+    // using useEffect to get the first call of userInfo, so that when we actually sign the data from GetLogingUserData() is already returned
+    // useEffect(() => {
+        
+    // }, []);
+
+
 
     return (
         <div>
@@ -44,7 +91,7 @@ const SignIn = (): JSX.Element => {
                                             className="mt-5 loginInput"
                                             placeholder="Email"
                                             // Destructuring 'e' object
-                                            onChange={({target: {value}}) => {
+                                            onChange={({ target: { value } }) => {
                                                 setEmail(value)
                                                 // console.log(value);
                                             }} />
@@ -56,15 +103,15 @@ const SignIn = (): JSX.Element => {
                                             type="password"
                                             className="mt-3 loginInput"
                                             placeholder="Password"
-                                            onChange={({target: {value}}) => {
+                                            onChange={({ target: { value } }) => {
                                                 setPassword(value)
                                                 // console.log(value);
                                             }} />
                                     </Form.Group>
                                     <Button
                                         // type="submit"
-                                        className="signInButton mt-3 text-white" 
-                                        onClick={handleSubmit} >Sign In</Button>
+                                        className="signInButton mt-3 text-white"
+                                        onClick={handleLogin} >Sign In</Button>
                                 </Form>
 
                                 <Row className="mt-5 signUpText">
@@ -93,4 +140,4 @@ const SignIn = (): JSX.Element => {
     );
 }
 
-export default SignIn;
+export {SignIn, userInfo};

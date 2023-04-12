@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import NavbarComponent from "../NavbarComponent";
 
 const TrailerCountRequestForm = (): JSX.Element => {
 
@@ -20,10 +21,12 @@ const TrailerCountRequestForm = (): JSX.Element => {
             <div className="pageContainer">
                 <div className="mainContent">
                     {/* Navbar Here */}
-                    <Container className="mt-5">
-                        <h1 className="text-center fw-bold">Trailer Count Request Form</h1>
+                    <NavbarComponent />
+                    <Container className="my-5">
+                        
                         <Row className="d-flex justify-content-center">
                             <Col className="col-4 requestForm p-4">
+                                <h2 className="text-center fw-bold">Trailer Count Request</h2>
                                 <Form>
                                     <Form.Group className="mb-3" controlId="yardLocation">
                                         <Form.Label>Location</Form.Label>

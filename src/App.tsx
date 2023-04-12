@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignIn from './components/SignInComponent';
+import { SignIn } from './components/SignInComponent';
 import SignUp from './components/SignUpComponent';
 import DispatchDashboard from './components/dispatcheraccount/DispatchDashboard';
 import DriverDashBoard from './components/driveraccount/DriverDashBoard';
@@ -9,12 +9,13 @@ import DriverDashBoard from './components/driveraccount/DriverDashBoard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TrailerCountRequestForm from './components/dispatcheraccount/TrailerCountRequestFormComponent';
 import AddLocationForm from './components/dispatcheraccount/AddLocationFormComponent';
+import ConfirmationMessage from './components/dispatcheraccount/ConfirmationMsgComponent';
 import SubmitTrailerCount from './components/driveraccount/SubmitTrailerCount';
 import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmission';
 import DriverAccount from './components/driveraccount/DriverAccount';
 import SignUpConfirmation from './components/SignUpConfirmation';
 
-function App(){
+function App() {
   return (
     // <div className='appContainer'>
       <BrowserRouter>

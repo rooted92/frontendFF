@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
-import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
+import NavbarComponent from "../NavbarComponent";
+import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
+import { userInfo } from "../SignInComponent";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -19,18 +21,20 @@ const DispatchDashboard = (): JSX.Element => {
     }
 
     const handleAddLocation = () => {
+        console.log(userInfo);
         navigate('/AddLocationForm');
     }
 
-    const [truckNumber, setTruckNumber] = useState(0);
-    const [routeName, setRouteName] = useState('');
+    const [truckNumber, setTruckNumber] = useState<number>(0);
+    const [routeName, setRouteName] = useState<string>('');
 
     return (
         <>
             {/* Template for Dispatch Dashboard (also template for how pages will be structured out to avoid issues with footer not staying in place) */}
             <div className="pageContainer">
                 <div className="mainContent">
-                    {/* import dashboard here */}
+                    {/* import navbar here */}
+                    <NavbarComponent />
                     <Container className="mt-5">
                         <Row className="d-flex justify-content-between mb-3">
                             <Col className="col-4">
