@@ -30,8 +30,8 @@ export default function SignUpConfirmation() {
 
         <Container>
             <Row>
-                <Col className='siButton text-center'>
-                <Button>Sign In</Button>
+                <Col className=' text-center pt-3'>
+                <Button className='siButton text-center'>Sign In</Button>
                 </Col>
             </Row>
         </Container>
