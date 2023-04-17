@@ -12,7 +12,7 @@ interface WelcomeProps {
 // destructuing object to get checkURL
 const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
 
-    const [userName, setUserName] = useState('TestName');
+    const [userName, setUserName] = useState('Pedro');
     const [isNextClicked, setIsNextClicked] = useState(false);
     // console.log(props.checkURL)
 

@@ -2,8 +2,15 @@ import '../index.css'
 import { Row, Col, Navbar, Container, Nav, Button } from 'react-bootstrap'
 import Logo from '../assets/fleetlogo.png'
 import Bell from '../assets/Bell.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function NavbarComponent(): JSX.Element {
+
+  let navigate = useNavigate();
+
+  const handleLinkToDashboard = () => navigate('/DispatchDashboard');
+  const handleLinkToAccount = () => navigate('/DispatchAccountPage');
+
   return (
     <>
       <Navbar className='mainNav' variant="dark">
@@ -23,10 +30,10 @@ export default function NavbarComponent(): JSX.Element {
               <Button className='bg-transparent bellButton d-flex align-items-center'><img src={Bell} alt="Bell Icon" className='bellIcon' /><span className='redCircle'>2</span></Button>
             </Col>
             <Col className='col-3'>
-              <Nav.Link className='text-white'>Dashboard</Nav.Link>
+              <Nav.Link className='text-white' onClick={handleLinkToDashboard}>Dashboard</Nav.Link>
             </Col>
             <Col className='col-3'>
-              <Nav.Link className='text-white'>Account</Nav.Link>
+              <Nav.Link className='text-white' onClick={handleLinkToAccount}>Account</Nav.Link>
             </Col>
           </Row>
         </Container>

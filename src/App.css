@@ -236,3 +236,16 @@ div .accordion .accordion-item {
 .nav-link:hover {
   color: rgba(44, 73, 225, 1) !important;
 }
+
+/* Dispatch Account Page CSS */
+
+.listGroupStyleTemplate {
+  border: solid 1px rgba(106, 130, 255, 1);
+  box-shadow: rgba(0, 0, 0, 0.25);
+}
+
+.lightBlueBorder {
+  border: solid 1px rgba(106, 130, 255, 1) !important;
+}
+
+/* END Dispatch Account Page CSS */

@@ -7,6 +7,7 @@ const ConfirmationMessage = () => {
 
     let navigate = useNavigate();
     const location: object = useLocation();
+    console.log(location);
 
     const handleReturn = () => {
         navigate('/DispatchDashboard');

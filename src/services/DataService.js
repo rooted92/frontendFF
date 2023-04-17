@@ -2,14 +2,14 @@
 
 const Login = async (loginUser) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/Login`,
-    {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(loginUser)
-    });
-    if(!response.ok){
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginUser)
+        });
+    if (!response.ok) {
         const message = `An error has occured ${response.status}`;
         throw new Error(message);
     }
@@ -20,29 +20,29 @@ const Login = async (loginUser) => {
     // console.log(data);
 }
 
-const GetLoggedInUserData = async (email)  => {
+const GetLoggedInUserData = async (email) => {
     // waiting on email as route
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUserInfo/${email}`);
     const data = await response.json();
     console.log(data);
     return data;
-}
+} 
 
 // Functions to Create Accounts for Admin, Driver, and Dispatch
 
 const CreateUserAccount = async (createdUser) => {
-    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/User/AddUser',{
-        method : 'POST',
-        headers : {
-            'Content-Type' : "application/json"
+    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/User/AddUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body : JSON.stringify(createdUser)
+        body: JSON.stringify(createdUser)
     });
-    if(!response.ok){
+    if (!response.ok) {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
-    } 
-    let data = await response.json();
+    }
+    let data = await response.text();
     console.log(data);
     return data;
 }
@@ -50,10 +50,10 @@ const CreateUserAccount = async (createdUser) => {
 // SignUp Functions
 const GetOrganizationByJoinCode = async (joinCode) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Organization/GetOrganizationByJoinCode/${joinCode}`);
-    if(!response.ok){
+    if (!response.ok) {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
-    } 
+    }
     let data = await response.json();
     console.log(data);
     return data;
@@ -61,14 +61,14 @@ const GetOrganizationByJoinCode = async (joinCode) => {
 
 // Functions for ADMIN & DISPATCHER accounts
 const AddNewLocation = async (newYard) => {
-    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/AddYard`,{
-        method : 'POST',
-        headers : {
-            'Content-Type' : "application/json"
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/AddYard`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': "application/json"
         },
-        body : JSON.stringify(newYard)
+        body: JSON.stringify(newYard)
     });
-    if(!response.ok){
+    if (!response.ok) {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
     }
@@ -80,8 +80,9 @@ const AddNewLocation = async (newYard) => {
 // Functions for DISPATCHER account
 
 
+
 // Funtions for DRIVER account
 
 
 
-export {Login, GetLoggedInUserData, CreateUserAccount, GetOrganizationByJoinCode, AddNewLocation};
+export { Login, GetLoggedInUserData, CreateUserAccount, GetOrganizationByJoinCode, AddNewLocation };
