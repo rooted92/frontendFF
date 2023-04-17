@@ -74,6 +74,37 @@ const DispatchDashboard = (): JSX.Element => {
         }
     ]);
 
+    const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
+        {
+            TrailerNumber: 316,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 5004,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 314,
+            inTransit: false
+        },
+        {
+            TrailerNumber: 4806,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 5310,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 76,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 701,
+            inTransit: true
+        }
+    ]);
+
     // useLocation grabs the current pathname
     const location = useLocation();
     // console.log(typeof location.pathname);
@@ -126,7 +157,20 @@ const DispatchDashboard = (): JSX.Element => {
                                                     <Accordion.Body>
                                                         <Row className="d-flex justify-content-start">
                                                             {/* Here we will map though in transit array and create col-4 for each trailer in transit */}
-                                                            <Col className="col-4 mb-3 align-self-center">
+                                                            {
+                                                                trailersInTransit.map((trailer, index) => {
+                                                                    if (trailer.inTransit) {
+                                                                        return (
+                                                                            <Col key={index} className="col-4 mb-3 align-self-center">
+                                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                                                    <p className="m-0 p-2">{trailer.TrailerNumber} In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
+                                                                                </div>
+                                                                            </Col>
+                                                                        )
+                                                                    }
+                                                                })
+                                                            }
+                                                            {/* <Col className="col-4 mb-3 align-self-center">
                                                                 <div className="trailerInTransit rounded d-flex justify-content-around">
                                                                     <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
                                                                 </div>
@@ -145,7 +189,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                                 <div className="trailerInTransit rounded d-flex justify-content-around">
                                                                     <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
                                                                 </div>
-                                                            </Col>
+                                                            </Col> */}
                                                         </Row>
                                                     </Accordion.Body>
                                                 </Accordion.Item>
