@@ -34,6 +34,42 @@ export default function NavbarComponent(): JSX.Element {
       timestamp: 1620996600,
       submittedBy: 'Shad Skikos',
       action: 'added'
+    },
+    {
+      message: 'Napa Yard Updated',
+      timestamp: 1615419720,
+      submittedBy: 'Pedro Castaneda',
+      action: 'updated'
+    },
+    {
+      message: 'Enocore Updated',
+      timestamp: 1628161500,
+      submittedBy: 'Joaquin Reyes',
+      action: 'updated'
+    },
+    {
+      message: 'Napa Yard Updated',
+      timestamp: 1615419720,
+      submittedBy: 'Pedro Castaneda',
+      action: 'updated'
+    },
+    {
+      message: 'Enocore Updated',
+      timestamp: 1628161500,
+      submittedBy: 'Joaquin Reyes',
+      action: 'updated'
+    },
+    {
+      message: 'Napa Yard Updated',
+      timestamp: 1615419720,
+      submittedBy: 'Pedro Castaneda',
+      action: 'updated'
+    },
+    {
+      message: 'Enocore Updated',
+      timestamp: 1628161500,
+      submittedBy: 'Joaquin Reyes',
+      action: 'updated'
     }
   ]);
 
