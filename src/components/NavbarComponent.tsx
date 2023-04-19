@@ -49,6 +49,7 @@ export default function NavbarComponent(): JSX.Element {
     return textColor;
   }
 
+  // this function will return a string vvv
   const TimeFormatter = (ut: number): string => {
     let date: any = new Date(ut * 1000);
     let monthShort: string = date.toLocaleDateString('en-US', {month: 'short'});
@@ -56,8 +57,6 @@ export default function NavbarComponent(): JSX.Element {
     console.log(monthShort, numericDate);
     return `${monthShort} ${numericDate}`;
   }
-
-  // TimeFormatter(1648394160);
 
   const handleLinkToDashboard = () => navigate('/DispatchDashboard');
   const handleLinkToAccount = () => navigate('/DispatchAccountPage');
@@ -68,10 +67,6 @@ export default function NavbarComponent(): JSX.Element {
   const handleShow = () => setShow(true);
 
   // Can we used user info object to check their account type and used that to setup the condition for displaying the correct offcanvas, account etc?
-
-  // Can I have ourt mortgage company fax them mortgage payment history to medical, what is your fax number 7075652929
-
-
 
   return (
     <>
@@ -92,7 +87,8 @@ export default function NavbarComponent(): JSX.Element {
               <Button
                 className='bg-transparent bellButton d-flex align-items-center'
                 onClick={handleShow}>
-                <img src={Bell} alt="Bell Icon" className='bellIcon' /><span className='redCircle'>2</span>
+                <img src={Bell} alt="Bell Icon" className='bellIcon' />
+                {notifications.length > 0 ? <span className='redCircle'>{notifications.length}</span> : null}
               </Button>
               <Offcanvas show={show} onHide={handleClose} placement='end'>
                 <Offcanvas.Header>
