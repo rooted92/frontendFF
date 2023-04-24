@@ -108,7 +108,6 @@ const SignUp = (): JSX.Element => {
 
         // if admin and usr already exists
 
-
     }
 
 

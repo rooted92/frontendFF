@@ -2,10 +2,13 @@ import { Container, Navbar, Row, Col, Button, Modal, ListGroup } from "react-boo
 import Footer from "../FooterComponent";
 import { useState } from "react";
 import NavbarComponent from "../NavbarComponent";
+import { GetLoggedInUserData } from "../../services/DataService";
+import { userInfo } from "../SignInComponent";
 
 // props: {showAccount: boolean, hideAccount: Function}
 const DispatchAccountPage = (): JSX.Element => {
 
+    console.log(userInfo);
     const [showDelete, setShowDelete] = useState<boolean>(false);
     const [showUpdate, setShowUpdate] = useState<boolean>(false);
 
@@ -21,6 +24,7 @@ const DispatchAccountPage = (): JSX.Element => {
     }
 
     const handleUpdateAccount = () => {
+
         console.log('Account Updated');
         setShowUpdate(false);
     }
@@ -44,11 +48,11 @@ const DispatchAccountPage = (): JSX.Element => {
                             <Col className="col-4">
                                 <ListGroup className="listGroupStyleTemplate">
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        <p className="fs-2 m-0">Dispatcher</p>
+                                        <p className="fs-2 m-0">{userInfo.accountType}</p>
                                     </ListGroup.Item>
-                                    <ListGroup.Item className="p-3 lightBlueBorder">Email:</ListGroup.Item>
-                                    <ListGroup.Item className="p-3 lightBlueBorder">Phone:</ListGroup.Item>
-                                    <ListGroup.Item className="p-3 lightBlueBorder">Number:</ListGroup.Item>
+                                    <ListGroup.Item className="p-3 lightBlueBorder">Email: {userInfo.email}</ListGroup.Item>
+                                    <ListGroup.Item className="p-3 lightBlueBorder">Phone: {userInfo.phoneNumber}</ListGroup.Item>
+                                    <ListGroup.Item className="p-3 lightBlueBorder">Name: {userInfo.name}</ListGroup.Item>
                                     <ListGroup.Item className="p-4 lightBlueBorder">
                                         <Container>
                                             <Row className="d-flex justify-content-center">

@@ -124,7 +124,6 @@ const SignIn = (): JSX.Element => {
                         </Row>
                     </Col>
                     <Col xs={7} className="splashImg p-0">
-
                         <Row className="m-0">
                             <Col className="col-12 text-center d-flex flex-column align-content-center p-0">
                                 <div className="splashText">

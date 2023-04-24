@@ -5,7 +5,7 @@ import NavbarComponent from "./NavbarComponent";
 
 const TableComponent = (): JSX.Element => {
 
-
+    
 
     return (
         <>
@@ -15,6 +15,7 @@ const TableComponent = (): JSX.Element => {
                     <Container>
                         <Row>
                             <Col className="col-12">
+                                <p></p>
                             </Col>
                         </Row>
                         <Row>
