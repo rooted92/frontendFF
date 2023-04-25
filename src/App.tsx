@@ -14,7 +14,7 @@ import SubmitTrailerCount from './components/driveraccount/SubmitTrailerCount';
 import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmission';
 import DriverAccount from './components/driveraccount/DriverAccount';
 import SignUpConfirmation from './components/SignUpConfirmation';
-import DispatchAccountPage from './components/dispatcheraccount/DispatchAccountPageComponent';
+import AccountPage from './components/AccountPageComponent';
 
 function App() {
   return (
@@ -25,7 +25,6 @@ function App() {
           <Route path='/' element={<SignIn />}></Route>
           <Route path='/SignUp' element={<SignUp />} />
           <Route path='DispatchDashboard' element={<DispatchDashboard />} />
-          <Route path='/DispatchAccountPage' element={<DispatchAccountPage />}/>
           <Route path='/DriverDashboard' element={<DriverDashBoard />} />
           {/* May not need welcome component in route... Probably not needed, continue testing.. */}
           {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
@@ -35,7 +34,7 @@ function App() {
           <Route path='/ThankYouForSubmission' element={<ThankYouForSubmission />} />
           <Route path='/DriverAccount' element={<DriverAccount />} />
           <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
-
+          <Route path='/AccountPage' element={<AccountPage />} />
         </Routes>
       </BrowserRouter >
     // </div>

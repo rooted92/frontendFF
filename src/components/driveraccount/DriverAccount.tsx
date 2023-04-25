@@ -6,7 +6,7 @@ import Bell from '../../assets/Bell.png'
 import NavbarComponent from '../NavbarComponent'
 import Footer from '../FooterComponent'
 
-export default function DriverAccount() {
+export default function DriverAccount() { 
     return (
         <div>
             <NavbarComponent />
