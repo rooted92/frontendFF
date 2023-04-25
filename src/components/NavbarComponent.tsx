@@ -95,7 +95,7 @@ export default function NavbarComponent(): JSX.Element {
   }
 
   const handleLinkToDashboard = () => navigate('/DispatchDashboard');
-  const handleLinkToAccount = () => navigate('/DispatchAccountPage');
+  const handleLinkToAccount = () => navigate('/AccountPage');
 
   const [show, setShow] = useState(false);
 
