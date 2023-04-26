@@ -16,6 +16,14 @@ let userInfo = {
 }
 
 const SignIn = (): JSX.Element => {
+
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        localStorage.setItem("userData", JSON.stringify(userInfo));
+    }, [userInfo]);
+
+
     // const UserLogin = async () => {
     //     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/Login`);
     //     const data = await response.json();

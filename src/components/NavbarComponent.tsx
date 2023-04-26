@@ -90,7 +90,7 @@ export default function NavbarComponent(): JSX.Element {
     let date: any = new Date(ut * 1000);
     let monthShort: string = date.toLocaleDateString('en-US', {month: 'short'});
     let numericDate: string = date.toLocaleDateString('en-US', {month: 'numeric', day: 'numeric', year: 'numeric'});
-    console.log(monthShort, numericDate);
+    // console.log(monthShort, numericDate);
     return `${monthShort} ${numericDate}`;
   }
 
@@ -138,7 +138,7 @@ export default function NavbarComponent(): JSX.Element {
                   <Row className='d-flex justify-content-center'>
                     {
                       notifications.map((notification, index) => {
-                        console.log(notification.timestamp)
+                        // console.log(notification.timestamp)
                         return (
                           <>
                             <Col key={index} className='col-10 bg-white rounded mb-3 py-2'>
