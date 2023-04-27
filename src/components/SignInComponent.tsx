@@ -5,22 +5,20 @@ import FleetFinderIcon from '../assets/fleetlogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { Login, GetLoggedInUserData } from "../services/DataService";
 
-let userInfo = {
-    id: null,
-    name: null,
-    email: null,
-    phoneNumber: null,
-    organizationID: null,
-    accountType: null,
-    isDarkMode: null
-}
-
 const SignIn = (): JSX.Element => {
 
-    const [userData, setUserData] = useState([]);
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
 
     useEffect(() => {
-        localStorage.setItem("userData", JSON.stringify(userInfo));
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }, [userInfo]);
 
 
@@ -47,24 +45,24 @@ const SignIn = (): JSX.Element => {
         console.log(userData);
 
         let token = await Login(userData);
-        userInfo = await GetLoggedInUserData(email);
+        setUserInfo(await GetLoggedInUserData(email));
         console.log(token);
         if (token.token != null) {
             try {
                 localStorage.setItem('Token', token.token);
-            }
-            catch (err) {
-                console.log(err);
-            }
-        }
 
-        console.log(userInfo);
+                console.log(userInfo);
         if (userInfo.accountType === 'Driver') {
             navigate("/DriverDashboard");
         } else if(userInfo.accountType === 'Dispatcher') {
             navigate("/DispatchDashboard");
         } else if(userInfo.accountType === 'Admin'){
             navigate("/AdminAccount");
+        }
+            }
+            catch (err) {
+                console.log(err);
+            }
         }
 
     }
@@ -147,4 +145,4 @@ const SignIn = (): JSX.Element => {
     );
 }
 
-export {SignIn, userInfo};
+export {SignIn};

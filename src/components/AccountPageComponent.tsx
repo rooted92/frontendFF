@@ -6,21 +6,22 @@ import { GetLoggedInUserData } from "../services/DataService";
 
 const AccountPage = (): JSX.Element => {
 
-    const [userData, setUserData] = useState({
-        id: null,
-        name: null,
-        email: null,
-        phoneNumber: null,
-        organizationID: null,
-        accountType: null,
-        isDarkMode: null});
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
 
         useEffect(() => {
-            const userInfo = JSON.parse(localStorage.getItem('userData')!);
-        if (userData) {
-            setUserData(userInfo);
+            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
         }
-        }, [userData]);
+        }, []);
 
 
     // const [items, setItems] = useState([]);
@@ -78,16 +79,16 @@ const AccountPage = (): JSX.Element => {
                             <Col className="col-4">
                                 <ListGroup className="listGroupStyleTemplate">
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        <p className="fs-2 m-0">{userData.accountType}</p>
+                                        <p className="fs-2 m-0">{userInfo.accountType}</p>
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Email: {userData.email}
+                                        Email: {userInfo.email}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Phone: {userData.phoneNumber}
+                                        Phone: {userInfo.phoneNumber}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Name: {userData.name}
+                                        Name: {userInfo.name}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-4 lightBlueBorder">
                                         <Container>

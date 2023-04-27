@@ -1,14 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
 import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
-import { userInfo } from "../SignInComponent";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
 const DispatchDashboard = (): JSX.Element => {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+        useEffect(() => {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+        }, []);
 
     // Seed data for yard locations
     const [yardLocations, setYardLocations] = useState<Array<any>>([
