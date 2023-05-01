@@ -104,8 +104,22 @@ const SignUp = (): JSX.Element => {
     }, [userAccountInfo]);
 
     useEffect(() => {
-        console.log(organizationJoinCode);
+        console.log(userAccountInfo);
     }, [organizationJoinCode]);
+
+    useEffect(() => {
+        if (createdUserStr === 'Incorrect Organization Code') {
+            // Incorrect organzition code
+            alert(createdUserStr)
+        } else if (createdUserStr === 'User Already Exists') {
+            alert(createdUserStr)
+        } else if (createdUserStr === 'User Account Created') {
+            // take them to signup if account was created
+            // User account created
+            // console.log(createdUserStr);
+            navigate('/SignUpConfirmation');
+        }
+    }, [createdUserStr]);
 
     const handleCreateAccount = async () => {
         // first fetch organziation by join code
@@ -144,20 +158,6 @@ const SignUp = (): JSX.Element => {
         // console.log(userAccountInfo);
         // console.log(userAccountInfo.OrganizationJoinCode);
 
-        if (createdUserStr === 'Incorrect Organization Code') {
-            // Incorrect organzition code
-            alert(createdUserStr)
-        } else if (createdUserStr === 'User Already Exists') {
-            alert(createdUserStr)
-        } else if (createdUserStr === 'User Account Created') {
-            // take them to signup if account was created
-            // User account created
-            // console.log(createdUserStr);
-            navigate('/SignUpConfirmation');
-        } else {
-            console.error(createdUserStr);
-        }
-
         // if admin and usr already exists
 
     }
@@ -194,7 +194,7 @@ const SignUp = (): JSX.Element => {
                                             <option disabled>Select Account Type</option>
                                             <option value='Dispatcher'>Dispatcher</option>
                                             <option value='Driver'>Driver</option>
-                                            <option value='Organization'>Organization</option>
+                                            <option value='Admin'>Organization</option>
                                         </Form.Select>
                                     </Form.Group>
 
