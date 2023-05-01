@@ -15,6 +15,7 @@ import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmiss
 import DriverAccount from './components/driveraccount/DriverAccount';
 import SignUpConfirmation from './components/SignUpConfirmation';
 import AccountPage from './components/AccountPageComponent';
+import AdminDashboard from './components/adminaccount/AdminDashboard';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/DriverAccount' element={<DriverAccount />} />
           <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
           <Route path='/AccountPage' element={<AccountPage />} />
+          <Route path='/AdminDashboard' element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter >
     // </div>

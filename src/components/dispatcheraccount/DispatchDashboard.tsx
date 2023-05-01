@@ -19,12 +19,12 @@ const DispatchDashboard = (): JSX.Element => {
         isDarkMode: undefined
     });
 
-        useEffect(() => {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
-        }, []);
+    }, []);
 
     // Seed data for yard locations
     const [yardLocations, setYardLocations] = useState<Array<any>>([
