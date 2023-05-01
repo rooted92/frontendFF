@@ -47,6 +47,22 @@ const CreateUserAccount = async (createdUser) => {
     return data;
 }
 
+const CreateOrganization = async (organizationName) => {
+    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/Organization/AddOrganization', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(organizationName)
+    });
+    if (!response.ok) {
+        const message = `An Error has Occurred ${response.status}`;
+        throw new Error(message);
+    }
+    let data = await response.text();
+    return data;
+}
+
 // SignUp Functions
 const GetOrganizationByJoinCode = async (joinCode) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Organization/GetOrganizationByJoinCode/${joinCode}`);
@@ -85,4 +101,4 @@ const AddNewLocation = async (newYard) => {
 
 
 
-export { Login, GetLoggedInUserData, CreateUserAccount, GetOrganizationByJoinCode, AddNewLocation };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation };

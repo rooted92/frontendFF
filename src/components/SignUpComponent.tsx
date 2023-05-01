@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Button, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import FleetFinderIcon from '../assets/fleetlogo.png';
 import { useEffect, useState } from "react";
-import { CreateUserAccount, GetOrganizationByJoinCode } from "../services/DataService";
+import { CreateUserAccount, GetOrganizationByJoinCode, CreateOrganization } from "../services/DataService";
 
 const SignUp = (): JSX.Element => {
 
@@ -35,7 +35,7 @@ const SignUp = (): JSX.Element => {
     }
 
     // Using union types to let typescript know the data type will either be null or a string/number
-    let userAccountInfo: UserAccountType  = {};
+    // let userAccountInfo: UserAccountType  = {};
     
     let navigate = useNavigate();
     const [account, setAccount] = useState<null | string>(null);
@@ -44,28 +44,68 @@ const SignUp = (): JSX.Element => {
     const [phoneNumber, setPhoneNumber] = useState<null | string>(null);
     const [email, setEmail] = useState<null | string>(null);
     const [password, setPassword] = useState<null | string>(null);
-    const [organizationName, setOrganizationName] = useState<null | string>(null);
-    const [joinCode, setJoinCode] = useState<null | string>(null);
+    const [organizationInput, setOrganizationInput] = useState<null | string>(null);
+    const [organizationJoinCode, setOrganizationJoinCode] = useState<null | string>(null);
     const [label, setLabel] = useState<string>('');
     const [placeHolder, setPlaceHolder] = useState<string>('');
+    const [isOrgCreated, setIsOrgCreated] = useState<boolean>(false);
+    const [createdUserStr, setCreatedUserStr] = useState<string>('');
+
+    const [userAccountInfo, setUserAccountInfo] = useState({});
 
 
     // if account is dispatcher or driver hide organization name and only display join code
     // else if admin display organization name and hide join code
-    const HandleSetLabelAndPlaceholder = (account: string | null) => {
-        if (account === 'Dispatcher' || account === 'Driver') {
-            setLabel('Organization Join Code');
-            setPlaceHolder('Enter join code');
-            console.log('Account is dispatcher or driver');
-        } else if (account === 'Organization') {
+
+    useEffect(() => {
+        if (account === 'Organization') {
             setLabel('Organization Name');
             setPlaceHolder('Enter company name');
-            console.log('account is admin');
         } else {
-            setLabel('');
-            setPlaceHolder('');
+            setLabel('Organization Join Code');
+            setPlaceHolder('Enter join code');
         }
-    }
+    }, [account]);
+
+    // const HandleSetLabelAndPlaceholder = (account: string | null) => {
+    //     if (account === 'Dispatcher' || account === 'Driver') {
+    //         setLabel('Organization Join Code');
+    //         setPlaceHolder('Enter join code');
+    //         console.log('Account is dispatcher or driver');
+    //     } else if (account === 'Organization') {
+    //         setLabel('Organization Name');
+    //         setPlaceHolder('Enter company name');
+    //         console.log('account is admin');
+    //     } else {
+    //         setLabel('');
+    //         setPlaceHolder('');
+    //     }
+    // }
+
+    useEffect(() => {
+        if (account === 'Dispatcher' || account === 'Driver') {
+            setOrganizationJoinCode(organizationInput);
+        }
+    }, [organizationInput])
+
+    useEffect(() => {
+        setUserAccountInfo({
+            Name: `${lastName}, ${firstName}`,
+            Email: email,
+            PhoneNumber: phoneNumber,
+            OrganizationJoinCode: organizationJoinCode,
+            AccountType: account,
+            Password: password
+        });
+    }, [lastName, firstName, email, phoneNumber, organizationInput, account, password]);
+
+    useEffect(() => {
+        console.log(userAccountInfo);
+    }, [userAccountInfo]);
+
+    useEffect(() => {
+        console.log(organizationJoinCode);
+    }, [organizationJoinCode]);
 
     const handleCreateAccount = async () => {
         // first fetch organziation by join code
@@ -73,24 +113,36 @@ const SignUp = (): JSX.Element => {
 
         // then create user if organzition exist
 
-        userAccountInfo = {
-            Name: `${lastName}, ${firstName}`,
-            Email: email,
-            PhoneNumber: phoneNumber,
-            OrganizationJoinCode: joinCode,
-            AccountType: account,
-            Password: password
-        }
+        
+
+        // userAccountInfo = {
+        //     Name: `${lastName}, ${firstName}`,
+        //     Email: email,
+        //     PhoneNumber: phoneNumber,
+        //     OrganizationJoinCode: organizationInput,
+        //     AccountType: account,
+        //     Password: password
+        // }
 
         // create org
         // org created then -> create acc
         // checks if org name matches anoter, chec first if that 
 
-        console.log('Before calling fetch: ', userAccountInfo);
-        let createdUserStr = await CreateUserAccount(userAccountInfo);
+        // console.log('Before calling fetch: ', userAccountInfo);
+
+        if (account === 'Organization') {
+            console.log(organizationInput);
+            setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
+            setIsOrgCreated(true);
+        }
+
+        if (isOrgCreated) {
+            setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+        }
+        
         // console.log(createdUserStr);
         // console.log(userAccountInfo);
-        console.log(userAccountInfo.OrganizationJoinCode);
+        // console.log(userAccountInfo.OrganizationJoinCode);
 
         if (createdUserStr === 'Incorrect Organization Code') {
             // Incorrect organzition code
@@ -102,7 +154,7 @@ const SignUp = (): JSX.Element => {
             // User account created
             // console.log(createdUserStr);
             navigate('/SignUpConfirmation');
-        } else if (createdUserStr === 'Error Nothing Saved To Table') {
+        } else {
             console.error(createdUserStr);
         }
 
@@ -134,12 +186,12 @@ const SignUp = (): JSX.Element => {
                                         <Form.Select
                                             className="inputFieldStyle"
                                             defaultValue="Select Account Type"
+                                            // placeholder="Select Account Type"
                                             onChange={e => {
                                                 setAccount(e.target.value);
                                                 // HandleSetLabelAndPlaceholder(e.target.value);
-                                            }}
-                                            onClick={() => HandleSetLabelAndPlaceholder(account)} >
-                                            <option>Select Account Type</option>
+                                            }}>
+                                            <option disabled>Select Account Type</option>
                                             <option value='Dispatcher'>Dispatcher</option>
                                             <option value='Driver'>Driver</option>
                                             <option value='Organization'>Organization</option>
@@ -199,14 +251,7 @@ const SignUp = (): JSX.Element => {
                                         className="inputFieldStyle"
                                         type="text"
                                         placeholder={placeHolder}
-                                        onChange={e => {
-                                            if (label === 'Organization Name') {
-                                                setOrganizationName(e.target.value)
-                                            } else if (label === 'Organization Join Code') {
-                                                setJoinCode(e.target.value);
-                                            }
-
-                                        }} />
+                                        onChange={e => { setOrganizationInput(e.target.value) }} />
                                 </Form.Group>
 
                                 <Button
