@@ -32,5 +32,5 @@ const AdminDashboard = (): JSX.Element => {
     )
 }
 
-export default AdminDashboard();
+export default AdminDashboard;
 
