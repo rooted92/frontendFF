@@ -104,7 +104,7 @@ const SignIn = (): JSX.Element => {
                                             className="mt-3 loginInput"
                                             placeholder="Password"
                                             onChange={({ target: { value } }) => {
-                                                setPassword(value)
+                                                setPassword(value);
                                                 // console.log(value);
                                             }} />
                                     </Form.Group>

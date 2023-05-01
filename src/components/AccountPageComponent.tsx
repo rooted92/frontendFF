@@ -1,12 +1,33 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+// import localsto
 import { userInfo } from "./SignInComponent";
 import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
+import { GetLoggedInUserData } from "../services/DataService";
 
 
 const AccountPage = (): JSX.Element => {
     console.log(userInfo);
+   
+    const [savedUser, setSavedUser] = useState({});
+    const [user, setUser] = useState({});
+    // setUser(userInfo);
+
+    useEffect(() => {
+        setSavedUser(userInfo)
+        setUser(savedUser);
+        localStorage.setItem('users', JSON.stringify(user));
+    }, [user]);
+
+    useEffect(() => {
+        let userData = JSON.parse('user');
+    });
+
+    // let user = await GetLoggedInUserData(userInfo.email);
+    console.log('This is user:');
+    // console.log(user);
+
     const [showDelete, setShowDelete] = useState<boolean>(false);
     const [showUpdate, setShowUpdate] = useState<boolean>(false);
 
