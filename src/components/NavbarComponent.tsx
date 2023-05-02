@@ -90,12 +90,12 @@ export default function NavbarComponent(): JSX.Element {
     let date: any = new Date(ut * 1000);
     let monthShort: string = date.toLocaleDateString('en-US', {month: 'short'});
     let numericDate: string = date.toLocaleDateString('en-US', {month: 'numeric', day: 'numeric', year: 'numeric'});
-    console.log(monthShort, numericDate);
+    // console.log(monthShort, numericDate);
     return `${monthShort} ${numericDate}`;
   }
 
   const handleLinkToDashboard = () => navigate('/DispatchDashboard');
-  const handleLinkToAccount = () => navigate('/DispatchAccountPage');
+  const handleLinkToAccount = () => navigate('/AccountPage');
 
   const [show, setShow] = useState(false);
 

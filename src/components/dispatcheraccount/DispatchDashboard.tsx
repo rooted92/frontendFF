@@ -120,6 +120,10 @@ const DispatchDashboard = (): JSX.Element => {
         navigate('/AddLocationForm');
     }
 
+    const handleViewDetails = () => {
+        navigate('/YardDetails');
+    }
+
     // const [truckNumber, setTruckNumber] = useState<number>(0);
     // const [routeName, setRouteName] = useState<string>('');
 
@@ -223,7 +227,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                                 </Card.Text>
                                                                 <Row className="d-flex justify-content-center">
                                                                     <Col className="col-6">
-                                                                        <Button className="darkBlueBG">View Details</Button>
+                                                                        <Button onClick={handleViewDetails} className="darkBlueBG">View Details</Button>
                                                                     </Col>
                                                                 </Row>
                                                                 <Row>

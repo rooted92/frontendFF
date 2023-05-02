@@ -15,6 +15,8 @@ import ThankYouForSubmission from './components/driveraccount/ThankYouForSubmiss
 import DriverAccount from './components/driveraccount/DriverAccount';
 import SignUpConfirmation from './components/SignUpConfirmation';
 import AccountPage from './components/AccountPageComponent';
+import TableComponent from './components/TableComponent';
+import { Tab } from 'react-bootstrap';
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
           <Route path='/DriverAccount' element={<DriverAccount />} />
           <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
           <Route path='/AccountPage' element={<AccountPage />} />
+          <Route path='/YardDetails' element={<TableComponent />} />
         </Routes>
       </BrowserRouter >
     // </div>
