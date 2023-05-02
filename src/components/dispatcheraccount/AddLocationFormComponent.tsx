@@ -2,12 +2,28 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
-import { useState } from "react";
-import { userInfo } from "../SignInComponent";
+import { useState, useEffect } from "react";
 import { AddNewLocation } from "../../services/DataService";
 
 
 const AddLocationForm = () => {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+        useEffect(() => {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+        }, []);
 
     let navigate = useNavigate();
     const [locationName, setLocationName] = useState<string>('');

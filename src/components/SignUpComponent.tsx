@@ -110,8 +110,6 @@ const SignUp = (): JSX.Element => {
 
     }
 
-
-
     return (
         <>
             <div className="pageContainer">

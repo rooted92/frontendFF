@@ -1,10 +1,10 @@
 // import '../index.css'
 import '../App.css';
-import { Row, Col, Navbar, Container, Nav, Button, Offcanvas } from 'react-bootstrap'
-import Logo from '../assets/fleetlogo.png'
-import Bell from '../assets/Bell.png'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Row, Col, Navbar, Container, Nav, Button, Offcanvas } from 'react-bootstrap';
+import Logo from '../assets/fleetlogo.png';
+import Bell from '../assets/Bell.png';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function NavbarComponent(): JSX.Element {
 
@@ -138,7 +138,7 @@ export default function NavbarComponent(): JSX.Element {
                   <Row className='d-flex justify-content-center'>
                     {
                       notifications.map((notification, index) => {
-                        console.log(notification.timestamp)
+                        // console.log(notification.timestamp)
                         return (
                           <>
                             <Col key={index} className='col-10 bg-white rounded mb-3 py-2'>

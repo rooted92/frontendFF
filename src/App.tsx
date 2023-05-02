@@ -17,6 +17,7 @@ import SignUpConfirmation from './components/SignUpConfirmation';
 import AccountPage from './components/AccountPageComponent';
 import TableComponent from './components/TableComponent';
 import { Tab } from 'react-bootstrap';
+import AdminDashboard from './components/adminaccount/AdminDashboard';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
           <Route path='/AccountPage' element={<AccountPage />} />
           <Route path='/YardDetails' element={<TableComponent />} />
+          <Route path='/AdminDashboard' element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter >
     // </div>

@@ -1,12 +1,28 @@
 import { Container, Navbar, Row, Col, Button, Modal, ListGroup } from "react-bootstrap";
 import Footer from "../FooterComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarComponent from "../NavbarComponent";
 import { GetLoggedInUserData } from "../../services/DataService";
-import { userInfo } from "../SignInComponent";
 
 // props: {showAccount: boolean, hideAccount: Function}
 const DispatchAccountPage = (): JSX.Element => {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+        useEffect(() => {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+        }, []);
 
     console.log(userInfo);
     const [showDelete, setShowDelete] = useState<boolean>(false);
