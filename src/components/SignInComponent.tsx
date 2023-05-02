@@ -8,70 +8,55 @@ import { Login, GetLoggedInUserData } from "../services/DataService";
 const SignIn = (): JSX.Element => {
 
     const [userInfo, setUserInfo] = useState({
-        id: undefined,
-        name: undefined,
-        email: undefined,
-        phoneNumber: undefined,
-        organizationID: undefined,
-        accountType: undefined,
-        isDarkMode: undefined
+        id: null,
+        name: null,
+        email: null,
+        phoneNumber: null,
+        organizationID: null,
+        accountType: null,
+        isDarkMode: null
+    });
+    const [token, setToken] = useState({
+        token: null,
     });
 
     useEffect(() => {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        // console.log(token);
+        if (token.token != null) {
+            try {
+                localStorage.setItem('Token', token.token);
+
+                // console.log(userInfo);
+                if (userInfo.accountType === 'Driver') {
+                    navigate("/DriverDashboard");
+                } else if(userInfo.accountType === 'Dispatcher') {
+                    navigate("/DispatchDashboard");
+                } else if(userInfo.accountType === 'Admin'){
+                    navigate("/AdminAccount");
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
     }, [userInfo]);
 
-
-    // const UserLogin = async () => {
-    //     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/Login`);
-    //     const data = await response.json();
-    //     console.log(data);
-    // }
-
-    // useEffect(() => {
-    //     UserLogin();
-    // }, []);
     let navigate = useNavigate();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
    
-
     const handleLogin = async () => {
         let userData = {
             email,
             password
         }
 
-        console.log(userData);
+        // console.log(userData);
 
-        let token = await Login(userData);
+        setToken(await Login(userData));
         setUserInfo(await GetLoggedInUserData(email));
-        console.log(token);
-        if (token.token != null) {
-            try {
-                localStorage.setItem('Token', token.token);
-
-                console.log(userInfo);
-        if (userInfo.accountType === 'Driver') {
-            navigate("/DriverDashboard");
-        } else if(userInfo.accountType === 'Dispatcher') {
-            navigate("/DispatchDashboard");
-        } else if(userInfo.accountType === 'Admin'){
-            navigate("/AdminAccount");
-        }
-            }
-            catch (err) {
-                console.log(err);
-            }
-        }
-
     }
-
-    // using useEffect to get the first call of userInfo, so that when we actually sign the data from GetLogingUserData() is already returned
-    // useEffect(() => {
-        
-    // }, []);
-
 
 
     return (
