@@ -42,21 +42,10 @@ const SignIn = (): JSX.Element => {
         }
     }, [userInfo]);
 
-
-    // const UserLogin = async () => {
-    //     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/Login`);
-    //     const data = await response.json();
-    //     console.log(data);
-    // }
-
-    // useEffect(() => {
-    //     UserLogin();
-    // }, []);
     let navigate = useNavigate();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
    
-
     const handleLogin = async () => {
         let userData = {
             email,
@@ -68,12 +57,6 @@ const SignIn = (): JSX.Element => {
         setToken(await Login(userData));
         setUserInfo(await GetLoggedInUserData(email));
     }
-
-    // using useEffect to get the first call of userInfo, so that when we actually sign the data from GetLogingUserData() is already returned
-    // useEffect(() => {
-        
-    // }, []);
-
 
 
     return (

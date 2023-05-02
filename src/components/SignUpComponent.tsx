@@ -14,15 +14,7 @@ const SignUp = (): JSX.Element => {
     // so have two functions one that wil first create org using org endpoint
     // then another to create amin account
     // (organiztion if deleted will need to delete whole organization not just admin account) 
-    // const [inputs, setInputs] = useState({
-    //     "ID": 0,
-    //     "Name": null,
-    //     "Email": null,
-    //     "PhoneNumber": null,
-    //     "OrganizationID": null,
-    //     "AccountType": null,
-    //     "Password": null
-    // });
+
 
     // Create type for userAccountInfo object
     type UserAccountType = {
@@ -67,26 +59,11 @@ const SignUp = (): JSX.Element => {
         }
     }, [account]);
 
-    // const HandleSetLabelAndPlaceholder = (account: string | null) => {
-    //     if (account === 'Dispatcher' || account === 'Driver') {
-    //         setLabel('Organization Join Code');
-    //         setPlaceHolder('Enter join code');
-    //         console.log('Account is dispatcher or driver');
-    //     } else if (account === 'Organization') {
-    //         setLabel('Organization Name');
-    //         setPlaceHolder('Enter company name');
-    //         console.log('account is admin');
-    //     } else {
-    //         setLabel('');
-    //         setPlaceHolder('');
-    //     }
-    // }
-
     useEffect(() => {
         if (account === 'Dispatcher' || account === 'Driver') {
             setOrganizationJoinCode(organizationInput);
         }
-    }, [organizationInput])
+    }, [organizationInput]);
 
     useEffect(() => {
         setUserAccountInfo({
@@ -99,13 +76,13 @@ const SignUp = (): JSX.Element => {
         });
     }, [lastName, firstName, email, phoneNumber, organizationInput, account, password]);
 
-    useEffect(() => {
-        console.log(userAccountInfo);
-    }, [userAccountInfo]);
+    // useEffect(() => {
+    //     console.log(userAccountInfo);
+    // }, [userAccountInfo]);
 
-    useEffect(() => {
-        console.log(userAccountInfo);
-    }, [organizationJoinCode]);
+    // useEffect(() => {
+    //     console.log(userAccountInfo);
+    // }, [organizationJoinCode]);
 
     useEffect(() => {
         if (createdUserStr === 'Incorrect Organization Code') {
@@ -122,28 +99,6 @@ const SignUp = (): JSX.Element => {
     }, [createdUserStr]);
 
     const handleCreateAccount = async () => {
-        // first fetch organziation by join code
-        // set orgId in this fetc
-
-        // then create user if organzition exist
-
-        
-
-        // userAccountInfo = {
-        //     Name: `${lastName}, ${firstName}`,
-        //     Email: email,
-        //     PhoneNumber: phoneNumber,
-        //     OrganizationJoinCode: organizationInput,
-        //     AccountType: account,
-        //     Password: password
-        // }
-
-        // create org
-        // org created then -> create acc
-        // checks if org name matches anoter, chec first if that 
-
-        // console.log('Before calling fetch: ', userAccountInfo);
-
         if (account === 'Organization') {
             console.log(organizationInput);
             setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
@@ -153,13 +108,6 @@ const SignUp = (): JSX.Element => {
         if (isOrgCreated) {
             setCreatedUserStr(await CreateUserAccount(userAccountInfo));
         }
-        
-        // console.log(createdUserStr);
-        // console.log(userAccountInfo);
-        // console.log(userAccountInfo.OrganizationJoinCode);
-
-        // if admin and usr already exists
-
     }
 
 
