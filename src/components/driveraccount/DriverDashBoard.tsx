@@ -24,9 +24,8 @@ export default function DriverDashBoard() {
                             <Card.Body>
                                 <Card.Title className='text-center'> Past Submissions </Card.Title>
                                 <Card.Text>
-                                   
+                                    
                                 </Card.Text>
-                               
                             </Card.Body>
                         </Card>
                     </Col>
@@ -35,13 +34,6 @@ export default function DriverDashBoard() {
                     </Col>
                 </Row>
             </Container>
-
-
-
-
-
-
-
         </div>
 
     )
