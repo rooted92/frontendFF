@@ -22,12 +22,12 @@ const SignIn = (): JSX.Element => {
 
     useEffect(() => {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
-        console.log(token);
+        // console.log(token);
         if (token.token != null) {
             try {
                 localStorage.setItem('Token', token.token);
 
-                console.log(userInfo);
+                // console.log(userInfo);
                 if (userInfo.accountType === 'Driver') {
                     navigate("/DriverDashboard");
                 } else if(userInfo.accountType === 'Dispatcher') {
@@ -52,7 +52,7 @@ const SignIn = (): JSX.Element => {
             password
         }
 
-        console.log(userData);
+        // console.log(userData);
 
         setToken(await Login(userData));
         setUserInfo(await GetLoggedInUserData(email));
