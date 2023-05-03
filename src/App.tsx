@@ -29,9 +29,7 @@ function App() {
           <Route path='/SignUp' element={<SignUp />} />
           <Route path='DispatchDashboard' element={<DispatchDashboard />} />
           <Route path='/DriverDashboard' element={<DriverDashBoard />} />
-          {/* May not need welcome component in route... Probably not needed, continue testing.. */}
-          {/* <Route path='/WelcomeMessage' element={<WelcomeMessage/>} /> */}
-          <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />}></Route>
+          <Route path='/TrailerCountRequestForm' element={<TrailerCountRequestForm />} />
           <Route path='/AddLocationForm' element={<AddLocationForm />} />
           <Route path='/SubmitTrailerCount' element={<SubmitTrailerCount />} />
           <Route path='/ThankYouForSubmission' element={<ThankYouForSubmission />} />
@@ -40,6 +38,7 @@ function App() {
           <Route path='/AccountPage' element={<AccountPage />} />
           <Route path='/YardDetails' element={<TableComponent />} />
           <Route path='/AdminDashboard' element={<AdminDashboard />} />
+          <Route path='/YardAddedConfirmation' element={<ConfirmationMessage />} />
         </Routes>
       </BrowserRouter >
     // </div>
