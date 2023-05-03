@@ -13,7 +13,7 @@ const SignUp = (): JSX.Element => {
     // For admin, create organization fistr then create amdmin user account
     // so have two functions one that wil first create org using org endpoint
     // then another to create amin account
-    // (organiztion if deleted will need to delete whole organization not just admin account) 
+    // (organiztion if deleted will need to delete whole organization not just admin account)
 
 
     // Create type for userAccountInfo object

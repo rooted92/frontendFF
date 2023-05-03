@@ -76,8 +76,8 @@ const GetOrganizationByJoinCode = async (joinCode) => {
 }
 
 // Functions for ADMIN & DISPATCHER accounts
-const AddNewLocation = async (newYard) => {
-    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/AddYard`, {
+const AddNewLocation = async (newYard, id) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/AddYard/${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': "application/json"
