@@ -50,7 +50,7 @@ const SignUp = (): JSX.Element => {
     // else if admin display organization name and hide join code
 
     useEffect(() => {
-        if (account === 'Organization') {
+        if (account === 'Admin') {
             setLabel('Organization Name');
             setPlaceHolder('Enter company name');
         } else {
