@@ -50,7 +50,7 @@ const SignUp = (): JSX.Element => {
     // else if admin display organization name and hide join code
 
     useEffect(() => {
-        if (account === 'Organization') {
+        if (account === 'Admin') {
             setLabel('Organization Name');
             setPlaceHolder('Enter company name');
         } else {
@@ -60,6 +60,7 @@ const SignUp = (): JSX.Element => {
     }, [account]);
 
     useEffect(() => {
+
         if (account === 'Dispatcher' || account === 'Driver') {
             setOrganizationJoinCode(organizationInput);
         }
@@ -74,11 +75,11 @@ const SignUp = (): JSX.Element => {
             AccountType: account,
             Password: password
         });
-    }, [lastName, firstName, email, phoneNumber, organizationInput, account, password]);
+    }, [lastName, firstName, email, phoneNumber, organizationJoinCode, account, password]);
 
-    // useEffect(() => {
-    //     console.log(userAccountInfo);
-    // }, [userAccountInfo]);
+    useEffect(() => {
+        console.log(userAccountInfo);
+    }, [userAccountInfo]);
 
     // useEffect(() => {
     //     console.log(userAccountInfo);
@@ -105,9 +106,8 @@ const SignUp = (): JSX.Element => {
             setIsOrgCreated(true);
         }
 
-        if (isOrgCreated) {
-            setCreatedUserStr(await CreateUserAccount(userAccountInfo));
-        }
+        setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+
     }
 
     return (
