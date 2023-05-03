@@ -67,6 +67,37 @@ const AdminDashboard = (): JSX.Element => {
         }
     ]);
 
+    const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
+        {
+            TrailerNumber: 316,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 5004,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 314,
+            inTransit: false
+        },
+        {
+            TrailerNumber: 4806,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 5310,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 76,
+            inTransit: true
+        },
+        {
+            TrailerNumber: 701,
+            inTransit: true
+        }
+    ]);
+
     let navigate = useNavigate();
 
     const handleRequest = () => {
