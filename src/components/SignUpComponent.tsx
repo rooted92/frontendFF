@@ -100,7 +100,7 @@ const SignUp = (): JSX.Element => {
     }, [createdUserStr]);
 
     const handleCreateAccount = async () => {
-        if (account === 'Organization') {
+        if (account === 'Admin') {
             console.log(organizationInput);
             setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
             setIsOrgCreated(true);
