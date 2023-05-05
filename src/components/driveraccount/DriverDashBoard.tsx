@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import '../../index.css'
 import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
 import Logo from '../../assets/fleetlogo.png';
@@ -7,6 +7,25 @@ import NavbarComponent from '../NavbarComponent';
 import Footer from '../FooterComponent';
 
 export default function DriverDashBoard() {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
+
+
     return (
         <div className='pageContainer'>
             {/* <Navbar expand="lg">
