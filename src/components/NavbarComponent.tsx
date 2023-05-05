@@ -88,14 +88,17 @@ export default function NavbarComponent(): JSX.Element {
   // this function will return a string vvv
   const TimeFormatter = (ut: number): string => {
     let date: any = new Date(ut * 1000);
-    let monthShort: string = date.toLocaleDateString('en-US', {month: 'short'});
-    let numericDate: string = date.toLocaleDateString('en-US', {month: 'numeric', day: 'numeric', year: 'numeric'});
+    let monthShort: string = date.toLocaleDateString('en-US', { month: 'short' });
+    let numericDate: string = date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
     // console.log(monthShort, numericDate);
     return `${monthShort} ${numericDate}`;
   }
 
   const handleLinkToDashboard = () => navigate('/DispatchDashboard');
   const handleLinkToAccount = () => navigate('/AccountPage');
+  const handleLogout = () => {
+
+  }
 
   const [show, setShow] = useState(false);
 
@@ -158,6 +161,9 @@ export default function NavbarComponent(): JSX.Element {
             </Col>
             <Col className='col-3'>
               <Nav.Link className='text-white' onClick={handleLinkToAccount}>Account</Nav.Link>
+            </Col>
+            <Col className='col-3 p-0'>
+              <Nav.Link className='text-white' onClick={handleLogout}>Logout</Nav.Link>
             </Col>
           </Row>
         </Container>
