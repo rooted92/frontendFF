@@ -40,17 +40,15 @@ const AddLocationForm = () => {
         console.log('submitted');
         console.log('OrG ID', userInfo.organizationID);
         let yardObject = {
-            ID: 0,
             Name: locationName,
             Address: address,
             City: city,
             State: state,
             Zipcode: zip,
             OrganizationID: userInfo.organizationID,
-            isDeleted: false
         }
         console.log(yardObject);
-        let newLocation = await AddNewLocation(yardObject);
+        let newLocation = await AddNewLocation(yardObject, userInfo.id);
         console.log(newLocation);
         if (newLocation) {
             navigate('/ConfirmationMessage');
