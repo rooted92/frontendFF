@@ -86,6 +86,16 @@ const SignUp = (): JSX.Element => {
     // }, [organizationJoinCode]);
 
     useEffect(() => {
+        if (account === 'Admin') {
+            CreateAdminUser();
+        }
+    }, [organizationJoinCode]);
+
+    const CreateAdminUser = async () => {
+            setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+    }
+
+    useEffect(() => {
         if (createdUserStr === 'Incorrect Organization Code') {
             // Incorrect organzition code
             alert(createdUserStr)

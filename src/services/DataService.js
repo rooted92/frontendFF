@@ -60,6 +60,7 @@ const CreateOrganization = async (organizationName) => {
         throw new Error(message);
     }
     let data = await response.json();
+    console.log(data);
     return data.joinCode;
 }
 
