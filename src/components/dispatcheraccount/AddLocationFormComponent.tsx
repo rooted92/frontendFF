@@ -62,7 +62,7 @@ const AddLocationForm = () => {
             <div className="pageContainer">
                 <div className='mainContent'>
                     {/* Navbar here */}
-                    <NavbarComponent accountType={} />
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container className="my-5">
                         <Row className="justify-content-center">
                             <Col className="col-6 col-md-4 addLocationForm p-4">
