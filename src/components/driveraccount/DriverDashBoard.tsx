@@ -3,8 +3,28 @@ import '../../index.css'
 import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap'
 import Logo from '../../assets/fleetlogo.png'
 import Bell from '../../assets/Bell.png'
+import { useState, useEffect } from 'react'
 
 export default function DriverDashBoard() {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
+
+
     return (
         <div className='brColor'>
             <Navbar expand="lg">
