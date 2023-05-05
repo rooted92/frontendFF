@@ -86,13 +86,14 @@ const SignUp = (): JSX.Element => {
     // }, [organizationJoinCode]);
 
     useEffect(() => {
-        if (account === 'Admin') {
+        if (account === 'Admin' && isOrgCreated == true) {
             CreateAdminUser();
         }
-    }, [organizationJoinCode]);
+    }, [userAccountInfo]);
 
     const CreateAdminUser = async () => {
-            setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+        console.log(userAccountInfo);
+        setCreatedUserStr(await CreateUserAccount(userAccountInfo));
     }
 
     useEffect(() => {
@@ -111,13 +112,12 @@ const SignUp = (): JSX.Element => {
 
     const handleCreateAccount = async () => {
         if (account === 'Admin') {
-            console.log(organizationInput);
+            // console.log(organizationInput);
             setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
             setIsOrgCreated(true);
+        } else {
+            CreateAdminUser();
         }
-
-        setCreatedUserStr(await CreateUserAccount(userAccountInfo));
-
     }
 
     return (
