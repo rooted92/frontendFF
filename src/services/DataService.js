@@ -97,7 +97,7 @@ const AddNewLocation = async (newYard, id) => {
 // Functions for DISPATCHER account
 
 const GetAllYards = async () => {
-    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/Yards/GetAllYards');
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/GetAllYards`);
     const data = await response.json();
     console.log(data);
     return data;

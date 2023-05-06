@@ -4,6 +4,7 @@ import { Col, Container, Row, Form, Button, Card, Accordion } from "react-bootst
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { useState, useEffect } from "react";
+import { GetAllYards } from "../../services/DataService";
 
 const AdminDashboard = (): JSX.Element => {
 
@@ -28,47 +29,24 @@ const AdminDashboard = (): JSX.Element => {
 
     const [yardLocations, setYardLocations] = useState<Array<any>>([
         {
-            ID: 1,
-            Name: 'Napa Yard',
-            Address: '123 Main St',
-            City: 'Napa',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 2,
-            Name: 'PPP Yard',
-            Address: '123 Main St',
-            City: 'Petaluma',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-
-        {
-            ID: 5,
-            Name: 'Encore',
-            Address: '123 Main St',
-            City: 'Fairfield',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 6,
-            Name: 'U.S. Cold McClellan',
-            Address: '123 Main St',
-            City: 'Sacramento',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
+            ID: null,
+            Name: null,
+            Address: null,
+            City: null,
+            State: null,
+            Zipcode: null,
+            OrganizationID: null,
+            IsDeleted: null
         }
     ]);
+
+    useEffect(() => {
+        const fetchYardData = async () => {
+            setYardLocations(await GetAllYards());
+        }
+        fetchYardData();
+        console.log(yardLocations);
+    }, [])
 
     let navigate = useNavigate();
 
@@ -137,7 +115,7 @@ const AdminDashboard = (): JSX.Element => {
                                                     < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center" >
                                                         <Card>
                                                             <Card.Body>
-                                                                <Card.Title>{yard.Name}</Card.Title>
+                                                                <Card.Title>{yard.name}</Card.Title>
                                                                 <Card.Text>
                                                                     <Row className="d-flex justify-content-around">
                                                                         <Col className="col-4 text-nowrap">
