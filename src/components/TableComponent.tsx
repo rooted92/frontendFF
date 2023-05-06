@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger, Button, Table } from 'react-bootstrap';
 import Footer from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
 
 const TableComponent = (): JSX.Element => {
 
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
+
     const popover = (
         <Popover id="popover-basic">
             <Popover.Header as="h3">Driver Info</Popover.Header>
             <Popover.Body>
-                <p>707-333-3333</p>
-                <p>email@email.com</p>
+                <p>need driver phone</p>
+                <p>need driver email</p>
             </Popover.Body>
         </Popover>
     );
@@ -19,7 +36,7 @@ const TableComponent = (): JSX.Element => {
         <>
             <div className="pageContainer">
                 <div className="mainContent">
-                    <NavbarComponent />
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container>
                         <Row>
                             <Col className="col-12">

@@ -96,10 +96,22 @@ const AddNewLocation = async (newYard, id) => {
 
 // Functions for DISPATCHER account
 
+const GetAllYards = async () => {
+    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/Yards/GetAllYards');
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
 
+const GetAllTrailers = async () => {
+    const response = await fetch('https://fleetfinderbackend.azurewebsites.net/Trailer/GetAllTrailers');
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
 
 // Funtions for DRIVER account
 
 
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers };

@@ -33,7 +33,13 @@ const AddLocationForm = () => {
     const [zip, setZip] = useState<string>('');
 
     const handleCancel = () => {
-        navigate('/DispatchDashboard');
+        // checking witch account is logged in to route to correct dashboard
+        if(userInfo.accountType === 'Dispatcher'){
+           navigate('/DispatchDashboard'); 
+        } else if (userInfo.accountType === 'Admin') {
+            navigate('/AdminDashboard');
+        }
+        
     }
 
     const handleAddLocation = async () => {
@@ -51,7 +57,7 @@ const AddLocationForm = () => {
         let newLocation = await AddNewLocation(yardObject, userInfo.id);
         console.log(newLocation);
         if (newLocation) {
-            navigate('/ConfirmationMessage');
+            navigate('/YardAddedConfirmation');
         } else if (!newLocation) {
             alert('Location not added');
         }

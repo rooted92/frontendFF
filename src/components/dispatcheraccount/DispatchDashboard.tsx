@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
 import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
+import { GetAllTrailers, GetAllYards } from "../../services/DataService";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -19,6 +20,21 @@ const DispatchDashboard = (): JSX.Element => {
         isDarkMode: undefined
     });
 
+    const [yardLocations, setYardLocations] = useState<Array<any>>([
+        {
+            address: null,
+            city: null,
+            id: null,
+            isDeleted: null,
+            name: null,
+            organizationID: null,
+            state: null,
+            zipcode: null
+        }
+    ]);
+
+    const [allTrailers, setAllTrailers] = useState([]);
+
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
         if (userInfo) {
@@ -26,100 +42,29 @@ const DispatchDashboard = (): JSX.Element => {
         }
     }, []);
 
-    // Seed data for yard locations
-    const [yardLocations, setYardLocations] = useState<Array<any>>([
-        {
-            ID: 1,
-            Name: 'Napa Yard',
-            Address: '123 Main St',
-            City: 'Napa',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 2,
-            Name: 'PPP Yard',
-            Address: '123 Main St',
-            City: 'Petaluma',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 3,
-            Name: 'Cottonwood Yard',
-            Address: '123 Main St',
-            City: 'Cottonwood',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 4,
-            Name: 'Owens Yard',
-            Address: '123 Main St',
-            City: 'Fairfield',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 5,
-            Name: 'Encore',
-            Address: '123 Main St',
-            City: 'Fairfield',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
-        },
-        {
-            ID: 6,
-            Name: 'U.S. Cold McClellan',
-            Address: '123 Main St',
-            City: 'Sacramento',
-            State: 'CA',
-            Zipcode: 95402,
-            OrganizationID: 1,
-            IsDeleted: false
+    useEffect(() => {
+        const fetchYardData = async () => {
+            setYardLocations(await GetAllYards());
         }
-    ]);
+        fetchYardData();
+        console.log(yardLocations);
+    }, [])
 
-    const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
-        {
-            TrailerNumber: 316,
-            inTransit: true
-        },
-        {
-            TrailerNumber: 5004,
-            inTransit: true
-        },
-        {
-            TrailerNumber: 314,
-            inTransit: false
-        },
-        {
-            TrailerNumber: 4806,
-            inTransit: true
-        },
-        {
-            TrailerNumber: 5310,
-            inTransit: true
-        },
-        {
-            TrailerNumber: 76,
-            inTransit: true
-        },
-        {
-            TrailerNumber: 701,
-            inTransit: true
+    useEffect(() => {
+        const fetchTrailerData = async () => {
+            setAllTrailers(await GetAllTrailers());
         }
-    ]);
+        fetchTrailerData();
+        console.log(allTrailers);
+    }, []);
+
+
+    // const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
+    //     {
+    //         TrailerNumber: 316,
+    //         inTransit: true
+    //     }
+    // ]);
 
     // useLocation grabs the current pathname
     const location = useLocation();
@@ -176,7 +121,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                     <Accordion.Header>In Transit</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row className="d-flex justify-content-start">
-                                                            {/* Here we will map though in transit array and create col-4 for each trailer in transit */}
+                                                            {/* Here we will map though in transit array and create col-4 for each trailer in transit
                                                             {
                                                                 trailersInTransit.map((trailer, index) => {
                                                                     if (trailer.inTransit) {
@@ -189,34 +134,14 @@ const DispatchDashboard = (): JSX.Element => {
                                                                         )
                                                                     }
                                                                 })
-                                                            }
-                                                            {/* <Col className="col-4 mb-3 align-self-center">
-                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
-                                                                    <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
-                                                                </div>
-                                                            </Col>
-                                                            <Col className="col-4 mb-3 align-self-center">
-                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
-                                                                    <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
-                                                                </div>
-                                                            </Col>
-                                                            <Col className="col-4 mb-3 align-self-center">
-                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
-                                                                    <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
-                                                                </div>
-                                                            </Col>
-                                                            <Col className="col-4 mb-3 align-self-center">
-                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
-                                                                    <p className="m-0 p-2">316 In Transit </p><span className="blueText m-0 p-2">Assigned To - Pedro C</span>
-                                                                </div>
-                                                            </Col> */}
+                                                            } */}
                                                         </Row>
                                                     </Accordion.Body>
                                                 </Accordion.Item>
                                             </Accordion>
                                         </Col>
                                     </Row>
-                                    <Row className="my-5 d-flex justify-content-center">
+                                    <Row className="my-5 d-flex">
                                         {/* here we will map through the yard locations array and create col-3 divs for each card. */}
                                         {
                                             yardLocations.map(yard => {
@@ -224,7 +149,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                     < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center" >
                                                         <Card>
                                                             <Card.Body>
-                                                                <Card.Title>{yard.Name}</Card.Title>
+                                                                <Card.Title>{yard.name}</Card.Title>
                                                                 <Card.Text>
                                                                     <Row className="d-flex justify-content-around">
                                                                         <Col className="col-4 text-nowrap">

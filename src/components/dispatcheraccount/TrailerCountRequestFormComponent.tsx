@@ -1,10 +1,28 @@
 
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Footer from "../FooterComponent";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 
 const TrailerCountRequestForm = (): JSX.Element => {
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
 
     let navigate = useNavigate();
 
@@ -21,7 +39,7 @@ const TrailerCountRequestForm = (): JSX.Element => {
             <div className="pageContainer">
                 <div className="mainContent">
                     {/* Navbar Here */}
-                    <NavbarComponent />
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container className="my-5">
                         
                         <Row className="d-flex justify-content-center">

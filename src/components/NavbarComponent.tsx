@@ -10,7 +10,7 @@ interface NavbarProps {
   accountType: string | undefined;
 }
 
-export default function NavbarComponent({accountType} : NavbarProps): JSX.Element {
+export default function NavbarComponent({ accountType }: NavbarProps): JSX.Element {
 
   let navigate = useNavigate();
 
@@ -99,18 +99,20 @@ export default function NavbarComponent({accountType} : NavbarProps): JSX.Elemen
   }
 
   const handleLinkToDashboard = () => {
-    if(accountType === 'Dispatcher'){
+    if (accountType === 'Dispatcher') {
       navigate('/DispatchDashboard');
-    } else if (accountType === 'Driver'){
-      navigate('DriverDashboard');
+    } else if (accountType === 'Driver') {
+      navigate('/DriverDashboard');
+    } else if (accountType === 'Admin') {
+      navigate('/AdminDashboard');
     }
   }
   const handleLinkToAccount = () => {
     navigate('/AccountPage');
-  } 
+  }
 
   const handleLogout = () => {
-
+    navigate('/');
   }
 
   const [show, setShow] = useState(false);

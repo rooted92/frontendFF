@@ -33,7 +33,7 @@ const SignIn = (): JSX.Element => {
                 } else if(userInfo.accountType === 'Dispatcher') {
                     navigate("/DispatchDashboard");
                 } else if(userInfo.accountType === 'Admin'){
-                    navigate("/AdminAccount");
+                    navigate("/AdminDashboard");
                 }
             }
             catch (err) {

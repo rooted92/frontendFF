@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import '../../index.css'
 import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button, Form, ListGroup } from 'react-bootstrap'
 import Logo from '../../assets/fleetlogo.png'
@@ -7,9 +7,28 @@ import NavbarComponent from '../NavbarComponent'
 import Footer from '../FooterComponent'
 
 export default function DriverAccount() { 
+
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
+
+
     return (
         <div>
-            <NavbarComponent />
+            <NavbarComponent accountType={userInfo.accountType} />
 
             <Container>
                 <Row>
