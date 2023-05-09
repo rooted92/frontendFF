@@ -4,11 +4,17 @@ import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button } from 'rea
 // import PlusIcon from '../../assets/plus.svg';
 import NavbarComponent from '../NavbarComponent';
 import Footer from '../FooterComponent';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import WelcomeMessage from '../WelcomeMsgComponent';
 
 export default function DriverDashBoard() {
 
     let navigate = useNavigate();
+    const location = useLocation();
+
+    // Temporary boolean to display welcome message
+    // Eventaully will use array from GetUpdatesFromUser 
+    const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -35,6 +41,16 @@ export default function DriverDashBoard() {
         <div className='pageContainer'>
             <div className="mainContent">
                 <NavbarComponent accountType={userInfo.accountType} />
+                {
+                    isUpdated 
+                    ?
+                    <div className=''>
+                        <WelcomeMessage checkURL={location.pathname} />
+                    </div>
+                    :
+                    <p>Hi</p>
+                }
+
                 <Container className='my-5'>
                     <Row className='justify-content-around'>
                         <Col className='col-4'>
@@ -51,8 +67,8 @@ export default function DriverDashBoard() {
                         <Col className='col-4 d-flex justify-content-center align-self-start'>
                             <Button onClick={handleSubmitTrailerCount} className='buttonColor w-auto h-5 px-2'>
                                 {/* <Row> */}
-                                    {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
-                                    + Submint Trailer Count
+                                {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
+                                + Submint Trailer Count
                                 {/* </Row> */}
                             </Button>
                         </Col>

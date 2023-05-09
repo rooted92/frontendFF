@@ -1,6 +1,6 @@
 // NOTE*** Throw this component into account dashboards (dispatch/driver/admin) depending on witch account is logged in it will display the appropriate message.
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
@@ -12,11 +12,26 @@ interface WelcomeProps {
 // destructuing object to get checkURL
 const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
 
-    const [userName, setUserName] = useState('Pedro');
     const [isNextClicked, setIsNextClicked] = useState(false);
     // console.log(props.checkURL)
 
     // setUserName('Pedro');
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
 
     const urlCheckerObject = {
         dispatch: '/DispatchDashboard',
@@ -40,7 +55,8 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-7 d-flex flex-column align-items-center'>
-                                <h1 className='text-center fw-bold'>Welcome {userName}!</h1>
+                                {/* Comeback and format name */}
+                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol>
                                     <li>Copy the organization code above and send it to your dispatch team and drivers so they can get setup their account. For security measures a new organization code will be generated every 24 hours. You can check your account for an updated security code when adding new team members.</li>
@@ -53,7 +69,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-7'>
-                                <h1 className='text-center fw-bold'>Welcome {userName}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol className='blueText'>
                                     <li>Start by clicking on the 'Add Location' button, which is located in the top right corner of your dashboard.</li>
@@ -72,7 +88,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-12 col-md-7'>
-                                <h1 className='text-center fw-bold'>Welcome {userName}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol className='blueText'>
                                     <li>Click on the ‘Submit Trailer Count’ button above.</li>
@@ -91,7 +107,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-7'>
-                                <h1 className='text-center fw-bold'>Welcome {userName}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol className='blueText'>
                                     <li>Start by clicking on the 'Add Location' button, which is located in the top right corner of your dashboard.</li>

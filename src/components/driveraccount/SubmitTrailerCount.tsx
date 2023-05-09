@@ -131,7 +131,7 @@ export default function SubmitTrailerCount() {
                                     <Card.Title className='text-center trfCuz'>Trailers Added</Card.Title>
                                     <Row className='lineCuz'>
                                         <Col>
-                                            <hr ></hr>
+                                            <hr></hr>
                                         </Col>
                                     </Row>
 
