@@ -67,7 +67,7 @@ const AccountPage = (): JSX.Element => {
         <>
             <div className="pageContainer">
                 <div className="mainContent">
-                    <NavbarComponent />
+                    <NavbarComponent  accountType={userInfo.accountType}/>
                     <Container>
                         <Row className="mt-4">
                             <Col className="col-6">
