@@ -4,8 +4,11 @@ import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button } from 'rea
 // import PlusIcon from '../../assets/plus.svg';
 import NavbarComponent from '../NavbarComponent';
 import Footer from '../FooterComponent';
+import { useNavigate } from 'react-router-dom';
 
 export default function DriverDashBoard() {
+
+    let navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -24,14 +27,18 @@ export default function DriverDashBoard() {
         }
     }, []);
 
+    const handleSubmitTrailerCount = () => {
+        navigate('/SubmitTrailerCount');
+    }
+
     return (
         <div className='pageContainer'>
             <div className="mainContent">
                 <NavbarComponent accountType={userInfo.accountType} />
-                <Container className='mx-auto mt-5'>
-                    <Row className=''>
-                        <Col className='col-6'>
-                            <Card style={{ width: '30rem', height: '25rem' }}>
+                <Container className='my-5'>
+                    <Row className='justify-content-around'>
+                        <Col className='col-4'>
+                            <Card style={{ width: '25rem', height: '28rem' }}>
                                 <Card.Body>
                                     <Card.Title className='text-center'> Past Submissions </Card.Title>
                                     <Card.Text>
@@ -41,8 +48,8 @@ export default function DriverDashBoard() {
                                 </Card.Body>
                             </Card>
                         </Col>
-                        <Col className='col-6 d-flex justify-content-center align-self-start'>
-                            <Button className='buttonColor w-auto h-5 px-2'>
+                        <Col className='col-4 d-flex justify-content-center align-self-start'>
+                            <Button onClick={handleSubmitTrailerCount} className='buttonColor w-auto h-5 px-2'>
                                 {/* <Row> */}
                                     {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
                                     + Submint Trailer Count
