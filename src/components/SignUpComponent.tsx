@@ -50,7 +50,7 @@ const SignUp = (): JSX.Element => {
     // else if admin display organization name and hide join code
 
     useEffect(() => {
-        if (account === 'Organization') {
+        if (account === 'Admin') {
             setLabel('Organization Name');
             setPlaceHolder('Enter company name');
         } else {
@@ -60,6 +60,7 @@ const SignUp = (): JSX.Element => {
     }, [account]);
 
     useEffect(() => {
+
         if (account === 'Dispatcher' || account === 'Driver') {
             setOrganizationJoinCode(organizationInput);
         }
@@ -74,15 +75,26 @@ const SignUp = (): JSX.Element => {
             AccountType: account,
             Password: password
         });
-    }, [lastName, firstName, email, phoneNumber, organizationInput, account, password]);
+    }, [lastName, firstName, email, phoneNumber, organizationJoinCode, account, password]);
 
-    // useEffect(() => {
-    //     console.log(userAccountInfo);
-    // }, [userAccountInfo]);
+    useEffect(() => {
+        console.log(userAccountInfo);
+    }, [userAccountInfo]);
 
     // useEffect(() => {
     //     console.log(userAccountInfo);
     // }, [organizationJoinCode]);
+
+    useEffect(() => {
+        if (account === 'Admin' && isOrgCreated == true) {
+            CreateAdminUser();
+        }
+    }, [userAccountInfo]);
+
+    const CreateAdminUser = async () => {
+        console.log(userAccountInfo);
+        setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+    }
 
     useEffect(() => {
         if (createdUserStr === 'Incorrect Organization Code') {
@@ -99,14 +111,12 @@ const SignUp = (): JSX.Element => {
     }, [createdUserStr]);
 
     const handleCreateAccount = async () => {
-        if (account === 'Organization') {
-            console.log(organizationInput);
+        if (account === 'Admin') {
+            // console.log(organizationInput);
             setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
             setIsOrgCreated(true);
-        }
-
-        if (isOrgCreated) {
-            setCreatedUserStr(await CreateUserAccount(userAccountInfo));
+        } else {
+            CreateAdminUser();
         }
     }
 

@@ -40,17 +40,15 @@ const AddLocationForm = () => {
         console.log('submitted');
         console.log('OrG ID', userInfo.organizationID);
         let yardObject = {
-            ID: 0,
             Name: locationName,
             Address: address,
             City: city,
             State: state,
             Zipcode: zip,
             OrganizationID: userInfo.organizationID,
-            isDeleted: false
         }
         console.log(yardObject);
-        let newLocation = await AddNewLocation(yardObject);
+        let newLocation = await AddNewLocation(yardObject, userInfo.id);
         console.log(newLocation);
         if (newLocation) {
             navigate('/ConfirmationMessage');
@@ -64,7 +62,7 @@ const AddLocationForm = () => {
             <div className="pageContainer">
                 <div className='mainContent'>
                     {/* Navbar here */}
-                    <NavbarComponent />
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container className="my-5">
                         <Row className="justify-content-center">
                             <Col className="col-6 col-md-4 addLocationForm p-4">

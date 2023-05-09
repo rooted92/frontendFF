@@ -59,8 +59,9 @@ const CreateOrganization = async (organizationName) => {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
     }
-    let data = await response.text();
-    return data;
+    let data = await response.json();
+    console.log(data);
+    return data.joinCode;
 }
 
 // SignUp Functions

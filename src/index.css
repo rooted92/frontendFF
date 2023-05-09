@@ -22,6 +22,18 @@ body {
   src: url("https://fonts.googleapis.com/css2?family=Jaldi&display=swap");
 }
 
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: rgba(8, 0, 47, 1);
+  font-family: 'Jaldi', sans-serif;
+}
+
+.mainContent {
+  flex-grow: 1;
+}
+
 .brColor{
   background-color: #08002F;
   height: 7.3125rem;
