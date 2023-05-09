@@ -150,7 +150,7 @@ const DispatchDashboard = (): JSX.Element => {
                 <div className="mainContent">
                     {/* import navbar here */}
 
-                    <NavbarComponent />
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container className="mt-5">
                         <Row className="d-flex justify-content-between mb-3">
                             <Col className="col-4">

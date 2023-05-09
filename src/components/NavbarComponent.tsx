@@ -6,7 +6,11 @@ import Bell from '../assets/Bell.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-export default function NavbarComponent(): JSX.Element {
+interface NavbarProps {
+  accountType: string | undefined;
+}
+
+export default function NavbarComponent({accountType} : NavbarProps): JSX.Element {
 
   let navigate = useNavigate();
 
@@ -94,8 +98,17 @@ export default function NavbarComponent(): JSX.Element {
     return `${monthShort} ${numericDate}`;
   }
 
-  const handleLinkToDashboard = () => navigate('/DispatchDashboard');
-  const handleLinkToAccount = () => navigate('/AccountPage');
+  const handleLinkToDashboard = () => {
+    if(accountType === 'Dispatcher'){
+      navigate('/DispatchDashboard');
+    } else if (accountType === 'Driver'){
+      navigate('DriverDashboard');
+    }
+  }
+  const handleLinkToAccount = () => {
+    navigate('/AccountPage');
+  } 
+
   const handleLogout = () => {
 
   }
@@ -118,7 +131,7 @@ export default function NavbarComponent(): JSX.Element {
               width="50"
               height="50"
               className="d-inline-block align-top"
-            />{' '}
+            />
             <p className='d-inline fs-2'>FleetFinder</p>
           </Navbar.Brand>
           <Row className='justify-content-between align-items-center'>
