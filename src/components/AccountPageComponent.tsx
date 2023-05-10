@@ -98,7 +98,7 @@ const AccountPage = (): JSX.Element => {
                                                         className="darkBlueBG"
                                                         onClick={handleShowUpdate}
                                                     >
-                                                        Update Account
+                                                        Edit Profile
                                                     </Button>
                                                 </Col>
                                                 <Col>
@@ -136,13 +136,26 @@ const AccountPage = (): JSX.Element => {
                                 {/* Update Account Modal */}
                                 <Modal show={showUpdate} onHide={handleCloseUpdate}>
                                     <Modal.Header closeButton></Modal.Header>
-                                    <Modal.Body>UPDATE ACCOUNT HERE</Modal.Body>
+                                    <Modal.Body>
+                                        <Row>
+                                            <Col lg={12}>
+                                            <p className=" fs-1 editProfileText">Edit Profile</p>
+                                            <input className="editEmailInput" type="text" placeholder="Edit Name"></input>
+                                            </Col>
+                                            <Col lg={12} className="pt-3">
+                                            <input className="editEmailInput" type="number" placeholder="Edit Phonenumber"></input>
+                                            </Col>
+                                            <Col lg={12} className="pt-3">
+                                            <input className="editEmailInput" type="email" placeholder="Edit Email"></input>
+                                            </Col>
+                                        </Row>
+                                    </Modal.Body>
                                     <Modal.Footer>
                                         <Button
                                             className="darkBlueBG"
                                             onClick={handleUpdateAccount}
                                         >
-                                            Update
+                                            Update Profile
                                         </Button>
                                         <Button className="lightBlueBG" onClick={handleCloseUpdate}>
                                             Cancel
