@@ -109,11 +109,10 @@ const DispatchDashboard = (): JSX.Element => {
 
                         {
                             yardLocations.length === 0
-                                ? <WelcomeMessage checkURL={location.pathname} />
-
+                                ?
+                                <WelcomeMessage checkURL={location.pathname} />
                                 :
                                 <>
-
                                     <Row>
                                         <Col className="col-12">
                                             <Accordion defaultActiveKey="1">
