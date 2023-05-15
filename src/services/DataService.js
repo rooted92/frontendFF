@@ -124,7 +124,7 @@ const AddTrailer = async (newTrailer, driverId) => {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
     };
-    const data = response.json();
+    const data = await response.json();
     console.log(data);
     return data;
 }
