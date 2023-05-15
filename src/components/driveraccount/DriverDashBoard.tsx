@@ -44,7 +44,7 @@ export default function DriverDashBoard() {
                 <NavbarComponent accountType={userInfo.accountType} />
                 {
                     // sample of how welcome message will work
-                    !isUpdated
+                    isUpdated
                         ?
                         <>
                             <Row className='justify-content-end'>
@@ -64,7 +64,6 @@ export default function DriverDashBoard() {
                                 <WelcomeMessage checkURL={location.pathname} />
                             </div>
                         </>
-
                         :
                         null
                 }
@@ -73,38 +72,22 @@ export default function DriverDashBoard() {
                     <Row className='justify-content-around'>
                         <Col className='col-4'>
                             <Card style={{ width: '25rem', height: '28rem' }}>
-                                <Card.Body>
+                                <Card.Body className='overflow-scroll'>
+                                    {
+                                        // we will add a ternary to check if array of past submissions is greater than 0 to show 'You have no past submissions text'
+                                    }
                                     <Card.Title className='text-center'> Past Submissions </Card.Title>
                                     <Card.Text>
                                         {/* Once we have the data, we will add a ternary here to check if submitted trailer count array is greater than 0, if it is show past submissions if not show red text */}
-                                        <p className='fs-5 text-danger text-center'>You have no past submissions</p>
+                                        {/* <p className='fs-5 text-danger text-center'>You have no past submissions</p> */}
                                     </Card.Text>
-                                    <Row className='justify-content-center overflowy-scroll h-50'>
-                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission'>
+                                    <Row className='justify-content-center'>
+                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission align-self-start'>
                                             <PastSubmissionComponent
                                                 yardName='Napa yard'
                                                 timeStamp='Jan 8, 2023 12:45PM' />
                                         </Col>
-                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission'>
-                                            <PastSubmissionComponent
-                                                yardName='Napa yard'
-                                                timeStamp='Jan 30, 2023 12:45PM' />
-                                        </Col>
-                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission'>
-                                            <PastSubmissionComponent
-                                                yardName='Napa yard'
-                                                timeStamp='Jan 30, 2023 12:45PM' />
-                                        </Col>
-                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission'>
-                                            <PastSubmissionComponent
-                                                yardName='Napa yard'
-                                                timeStamp='Jan 30, 2023 12:45PM' />
-                                        </Col>
-                                        <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission'>
-                                            <PastSubmissionComponent
-                                                yardName='Napa yard'
-                                                timeStamp='Jan 30, 2023 12:45PM' />
-                                        </Col>
+                               
                                     </Row>
                                 </Card.Body>
                             </Card>

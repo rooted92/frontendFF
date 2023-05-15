@@ -112,6 +112,21 @@ const GetAllTrailers = async () => {
 
 // Funtions for DRIVER account
 
+const AddTrailer = async (newTrailer, driverId) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/AddTrailer/${driverId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(newTrailer)
+    });
+    if (!response.ok) {
+        const message = `An Error has Occurred ${response.status}`;
+        throw new Error(message);
+    };
+    const data = response.json();
+    console.log(data);
+    return data;
+}
 
-
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, AddTrailer };

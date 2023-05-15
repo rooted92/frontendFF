@@ -4,6 +4,7 @@ import { Row, Col, Container, Card, Button, Form } from 'react-bootstrap'
 import NavbarComponent from '../NavbarComponent'
 import Footer from '../FooterComponent';
 import { useNavigate } from 'react-router-dom'
+import { AddTrailer } from '../../services/DataService';
 
 export default function SubmitTrailerCount() {
 
@@ -17,6 +18,10 @@ export default function SubmitTrailerCount() {
         organizationID: undefined,
         accountType: undefined,
         isDarkMode: undefined
+    });
+    const [trailerInfo, setTrailerInfo] = useState({
+        trailerNumber: undefined,
+        // wait here...
     });
 
     useEffect(() => {
@@ -36,6 +41,9 @@ export default function SubmitTrailerCount() {
 
     const handleAddTrailer = () => {
         console.log('trailer added!');
+        let trailer = {
+            // trailerNumber: 
+        }
     }
 
     const handleAddNewLocation = () => {
