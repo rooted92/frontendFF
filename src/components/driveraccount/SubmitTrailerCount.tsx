@@ -5,6 +5,7 @@ import NavbarComponent from '../NavbarComponent'
 import Footer from '../FooterComponent';
 import { useNavigate } from 'react-router-dom'
 import { AddTrailer } from '../../services/DataService';
+import DeleteIcon from '../../assets/delete.svg';
 
 export default function SubmitTrailerCount() {
 
@@ -70,26 +71,28 @@ export default function SubmitTrailerCount() {
             OrganizationID: userInfo.organizationID
         };
         // create trailer array in here
-        if (number === '' || type === '' || isLoaded === '' || isClean === '' || fuel === '' || length === '' || details === '') {
+        if (number === '' || type === '' || isLoaded === '' || isClean === '' || fuel === '' || length === '') {
             alert('Form incomplete');
+            return;
         } else {
             setTrailerArray(trailerArray => [...trailerArray, trailerObject]);
-            setNumber('');
-            setType('');
-            setIsLoaded('');
-            setIsClean('');
-            setFuel('');
-            setLength('');
-            setDetails('');
-            setLocation('');
         }
         console.log(trailerArray);
+    }
+
+    const handleDeleteTrailerFromList = (yardObject: any) => {
+        let yardIndex = trailerArray.indexOf(yardObject);
+        // console.log('Yard Index: ', yardIndex);
+        trailerArray.splice(yardIndex, 1);
+        setTrailerArray([...trailerArray]);
+        // console.log(trailerArray);
     }
 
     // useEffect that listens for a change in
     useEffect(() => {
         console.log('trailerArray.length changed');
-    }, [trailerArray])
+        console.log(trailerArray);
+    }, [trailerArray]);
 
     // const handleAddNewLocation = () => {
     //     console.log('New location form opened');
@@ -227,18 +230,20 @@ export default function SubmitTrailerCount() {
                         </Col>
                         <Col className='d-flex justify-content-center'>
                             <Card style={{ width: '25rem', height: '31rem' }}>
-                                <Card.Body>
+                                <Card.Body className='overflow-auto'>
                                     <Card.Title className='text-center trfCuz'>Trailers Added</Card.Title>
-                                    <Row>
+                                    <Row className='justify-content-center'>
                                         {
                                             trailerArray.length === 0
                                                 ? null :
                                                 trailerArray.map((trailer: any, index: number) => {
                                                     return (
                                                         <>
-                                                            <Col key={index} className='col-10 d-flex flex-row justify-content-between'>
-                                                                <p>{trailer.TrailerNumber}</p>
-                                                                <button>delete</button>
+                                                            <Col key={index} className='col-10 d-flex flex-row justify-content-between mb-3 inputFieldStyle rounded'>
+                                                                <p className='align-self-center m-0 fs-4 fw-bold'>{trailer.TrailerNumber}</p>
+                                                                <button onClick={() => {handleDeleteTrailerFromList(trailer)}} className='btn btn-transparent' >
+                                                                    <img src={DeleteIcon} height={'25px'} width={'auto'} alt="delete icon" />
+                                                                </button>
                                                             </Col>
                                                         </>
                                                     );
@@ -246,12 +251,12 @@ export default function SubmitTrailerCount() {
                                         }
 
                                     </Row>
-                                    <Row className='lineCuz'>
+                                    {/* <Row className='lineCuz'>
                                         <Col>
                                             <hr></hr>
                                         </Col>
-                                    </Row>
-
+                                    </Row> */}
+                                    <hr />
                                     <Row>
                                         <Col className='fCuz'>
                                             <Button onClick={handleSubmitForm} className='buttonColor'>Submit</Button>

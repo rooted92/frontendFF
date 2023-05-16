@@ -151,6 +151,11 @@ body {
   font-weight: bold !important;
 }
 
+.finishBtn {
+  position: absolute;
+  top: 23rem;
+}
+
 .footCuz{
   padding-top: 4rem;
 }
