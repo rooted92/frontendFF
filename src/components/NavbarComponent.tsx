@@ -44,36 +44,6 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
       timestamp: 1615419720,
       submittedBy: 'Pedro Castaneda',
       action: 'updated'
-    },
-    {
-      message: 'Enocore Updated',
-      timestamp: 1628161500,
-      submittedBy: 'Joaquin Reyes',
-      action: 'updated'
-    },
-    {
-      message: 'Napa Yard Updated',
-      timestamp: 1615419720,
-      submittedBy: 'Pedro Castaneda',
-      action: 'updated'
-    },
-    {
-      message: 'Enocore Updated',
-      timestamp: 1628161500,
-      submittedBy: 'Joaquin Reyes',
-      action: 'updated'
-    },
-    {
-      message: 'Napa Yard Updated',
-      timestamp: 1615419720,
-      submittedBy: 'Pedro Castaneda',
-      action: 'updated'
-    },
-    {
-      message: 'Enocore Updated',
-      timestamp: 1628161500,
-      submittedBy: 'Joaquin Reyes',
-      action: 'updated'
     }
   ]);
 

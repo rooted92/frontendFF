@@ -4,7 +4,7 @@ import { Row, Col, Container, Card, Button, Form } from 'react-bootstrap'
 import NavbarComponent from '../NavbarComponent'
 import Footer from '../FooterComponent';
 import { useNavigate } from 'react-router-dom'
-import { AddTrailer } from '../../services/DataService';
+import { AddTrailer, GetAllYards } from '../../services/DataService';
 import DeleteIcon from '../../assets/delete.svg';
 
 export default function SubmitTrailerCount() {
@@ -29,6 +29,8 @@ export default function SubmitTrailerCount() {
     const [length, setLength] = useState<string>('');
     const [details, setDetails] = useState<string>('');
     const [location, setLocation] = useState<string>('');
+    const [yardLocations, setYardLocations] = useState<any[]>([]);
+
     // create usestate array
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
 
@@ -40,6 +42,17 @@ export default function SubmitTrailerCount() {
             setUserInfo(userInfo);
         }
     }, []);
+
+    useEffect(() => {
+        const fetchYardArray = async () => {
+            setYardLocations(await GetAllYards(userInfo.organizationID));
+            
+        };
+        if(userInfo.organizationID !== undefined){
+            fetchYardArray();
+        }
+        console.log(yardLocations);
+    }, [userInfo]);
 
     const handleCancelSubmission = () => {
         navigate('/DriverDashboard');
@@ -60,6 +73,7 @@ export default function SubmitTrailerCount() {
 
     const handleAddTrailer = async () => {
         let trailerObject = {
+            
             TrailerNumber: number,
             Type: type,
             Load: isLoaded,
@@ -124,6 +138,11 @@ export default function SubmitTrailerCount() {
                                             defaultValue="Select Yard">
                                             <option disabled>Select Yard</option>
                                             {/* Here we will have a dropdown of all yards to users organization */}
+                                            {
+                                                yardLocations.map((location: any, index: number) => {
+                                                    return <option key={index} value={location.name}>{location.name}</option>
+                                                })
+                                            }
                                         </Form.Select>
                                     </Form.Group>
                                     <Row>
