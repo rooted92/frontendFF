@@ -183,3 +183,23 @@ body {
 .YLP{
   padding-left: 3rem;
 }
+
+/* ::-webkit-scrollbar {
+  width: 10px;
+} */
+
+/* Track */
+/* ::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 1rem;
+} */
+
+/* Handle */
+/* ::-webkit-scrollbar-thumb {
+  background: #2C49E1;
+} */
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #08002F;
+} */
