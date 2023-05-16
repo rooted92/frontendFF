@@ -33,7 +33,23 @@ const DispatchDashboard = (): JSX.Element => {
         }
     ]);
 
-    const [allTrailers, setAllTrailers] = useState([]);
+    type trailerType = 
+    {
+        cleanliness: string,
+        details: string,
+        fuelLevel: string,
+        id: number,
+        inTransit: boolean,
+        isDeleted: boolean,
+        length: string,
+        load: string,
+        organizationID: number,
+        possessionID: number,
+        trailerNumber: string,
+        type: string
+    }
+
+    const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
@@ -44,19 +60,26 @@ const DispatchDashboard = (): JSX.Element => {
 
     useEffect(() => {
         const fetchYardData = async () => {
-            setYardLocations(await GetAllYards());
+            setYardLocations(await GetAllYards(userInfo.organizationID));
         }
-        fetchYardData();
-        console.log(yardLocations);
-    }, [])
-
-    useEffect(() => {
         const fetchTrailerData = async () => {
-            setAllTrailers(await GetAllTrailers());
+            setAllTrailers(await GetAllTrailers(userInfo.organizationID));
         }
-        fetchTrailerData();
+        if(userInfo.organizationID != undefined) {
+            fetchYardData();
+            fetchTrailerData();
+        }
+        console.log(yardLocations);
         console.log(allTrailers);
-    }, []);
+    }, [userInfo])
+
+    // useEffect(() => {
+    //     const fetchTrailerData = async () => {
+    //         setAllTrailers(await GetAllTrailers());
+    //     }
+    //     fetchTrailerData();
+    //     console.log(allTrailers);
+    // }, []);
 
 
     // const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
@@ -120,6 +143,19 @@ const DispatchDashboard = (): JSX.Element => {
                                                     <Accordion.Header>In Transit</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row className="d-flex justify-content-start">
+                                                        {
+                                                                allTrailers.map(trailer => {
+                                                                    if(trailer.inTransit) {
+                                                                        return (
+                                                                            <Col key={trailer.id} className="col-4 mb-3 align-self-center">
+                                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                                                    <p className="m-0 p-2">{trailer.trailerNumber} In Transit </p><span className="blueText m-0 p-2">Assigned To - {trailer.possessionID}</span>
+                                                                                </div>
+                                                                            </Col>
+                                                                        )
+                                                                    }
+                                                                })
+                                                            }
                                                             {/* Here we will map though in transit array and create col-4 for each trailer in transit
                                                             {
                                                                 trailersInTransit.map((trailer, index) => {
@@ -144,24 +180,56 @@ const DispatchDashboard = (): JSX.Element => {
                                         {/* here we will map through the yard locations array and create col-3 divs for each card. */}
                                         {
                                             yardLocations.map(yard => {
+                                                let empty = 0;
+                                                let loaded = 0;
+                                                let clean = 0;
+                                                let dirty = 0;
+                                                let dryVans = 0;
+                                                let reefers = 0;
+                                                let tankers = 0;
+                                                let total = 0;
+                                                allTrailers.map(trailer => {
+                                                    // console.log(!trailer.inTransit && trailer.possessionID == yard.id);
+                                                    if(!trailer.inTransit && trailer.possessionID === yard.id)
+                                                    {
+                                                        if(trailer.load === "Empty") {
+                                                            empty++;
+                                                        } else if(trailer.load === "Loaded") {
+                                                            loaded++;
+                                                        }
+                                                        if(trailer.cleanliness == "Clean") {
+                                                            clean++;
+                                                        } else if(trailer.cleanliness == "Dirty"){
+                                                            dirty++;
+                                                        }
+                                                        if(trailer.type === "Dry Van") {
+                                                            dryVans++;
+                                                        } else if(trailer.type === "Reefer") {
+                                                            reefers++;
+                                                        } else if(trailer.type == "Tanker") {
+                                                            tankers++;
+                                                        } 
+                                                        total++;
+                                                    }
+                                                });
                                                 return (
-                                                    < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center" >
+                                                    < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center">
                                                         <Card>
                                                             <Card.Body>
                                                                 <Card.Title>{yard.name}</Card.Title>
                                                                 <Card.Text>
                                                                     <Row className="d-flex justify-content-around">
                                                                         <Col className="col-4 text-nowrap">
-                                                                            <p>Empty: 12</p>
-                                                                            <p>Loaded: 8</p>
-                                                                            <p>Clean: 4</p>
-                                                                            <p>Dirty: 1</p>
+                                                                            <p>Empty: {empty}</p>
+                                                                            <p>Loaded: {loaded}</p>
+                                                                            <p>Clean: {clean}</p>
+                                                                            <p>Dirty: {dirty}</p>
                                                                         </Col>
                                                                         <Col className="col-4 text-nowrap">
-                                                                            <p>Dry Vans: 10</p>
-                                                                            <p>Reefers: 4</p>
-                                                                            <p>Tankers: 6</p>
-                                                                            <p>Total: 20</p>
+                                                                            <p>Dry Vans: {dryVans}</p>
+                                                                            <p>Reefers: {reefers}</p>
+                                                                            <p>Tankers: {tankers}</p>
+                                                                            <p>Total: {total}</p>
                                                                         </Col>
                                                                     </Row>
                                                                 </Card.Text>
@@ -179,6 +247,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                         </Card>
                                                     </Col>
                                                 )
+                                                
                                             })
                                         }
                                     </Row>
