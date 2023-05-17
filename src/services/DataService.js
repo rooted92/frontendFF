@@ -26,7 +26,7 @@ const GetLoggedInUserData = async (email) => {
     const data = await response.json();
     console.log(data);
     return data;
-} 
+}
 
 // Functions to Create Accounts for Admin, Driver, and Dispatch
 
@@ -111,7 +111,18 @@ const GetAllTrailers = async (organizationID) => {
 }
 
 const UpdatePasswaord = async (id, password) => {
-    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserPassword/${id}/${password}`)
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserPassword/${id}/${password}`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password)
+        });
+    if (!response.ok) {
+        const message = `An Error Has Occurred ${response.status}`;
+        throw new Error(message);
+    }
     const data = await response.json()
     console.log(data);
     return data;
@@ -126,13 +137,13 @@ const UpdateEmail = async (id, email) => {
 
 const UpdateUser = async (userObject) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserInfo/`,
-    {
-        method: 'POST',
-        headers: {
-            'Content-Type': "application/json"
-        },
-        body: JSON.stringify(userObject)
-    })
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(userObject)
+        })
     if (!response.ok) {
         const message = `An Error has Occurred ${response.status}`;
         throw new Error(message);
@@ -160,5 +171,4 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
-
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer };

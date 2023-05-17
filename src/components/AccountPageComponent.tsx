@@ -3,7 +3,7 @@ import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
 import { GetLoggedInUserData } from "../services/DataService";
-import { UpdateEmail, UpdatePasswaord, UpdateUser } from "../services/DataService";
+import { UpdatePasswaord, UpdateUser } from "../services/DataService";
 
 const AccountPage = (): JSX.Element => {
 
@@ -21,7 +21,7 @@ const AccountPage = (): JSX.Element => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
-            console.log(userInfo)
+            console.log(userInfo);
         }
     }, []);
 
@@ -55,10 +55,10 @@ const AccountPage = (): JSX.Element => {
     const handleCloseUpdate = () => setShowUpdate(false);
     const handleShowUpdate = () => setShowUpdate(true);
 
-    const [id, setId] = useState('');
-    const [getNewName, setGetNewName] = useState('');
-    const [getNewEmail, setGetNewEmail] = useState('');
-    const [getNewNumber, setGetNewNumber] = useState('');
+    // const [id, setId] = useState('');
+    // const [getNewName, setGetNewName] = useState('');
+    // const [getNewEmail, setGetNewEmail] = useState('');
+    // const [getNewNumber, setGetNewNumber] = useState('');
     const [getNewPassword, setGetNewPassword] = useState('');
 
     // const handlegetNewName = () => setGetNewName()
@@ -72,20 +72,37 @@ const AccountPage = (): JSX.Element => {
         setShowDelete(false);
     };
 
-    const handleUpdateAccount = async (userId: string, newEmail: string, newPassword: string, newName: string) => {
+    const FormatName = (name: any) => {
+        return name.split(' ').reverse().map((item:string) => {
+            return `${item.charAt(0).toUpperCase()}${item.substring(1).toLowerCase()}`
+        }).join(', ');
+    }
+
+    // const 
+
+    const handleUpdateAccount = async (newPassword: string) => {
         const userUpdate = await UpdateUser(userInfo);
         console.log(userInfo.name);
         console.log(userUpdate);
         // call email function
         if (userUpdate) {
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
             handleCloseUpdate();
         } else {
             alert('Unable to save changes')
         }
+        if(newPassword !== ''){
+            const isPasswordUpdated = await UpdatePasswaord(userInfo.id, newPassword);
+            console.log(isPasswordUpdated);
+            console.log(newPassword);
+            isPasswordUpdated ? handleCloseUpdate() : alert('Unable to save password');
+        }
+        
         console.log(userInfo.name);
         console.log(userInfo);
         console.log("Account Updated");
         // call password function else return;
+       
     };
 
     return (
@@ -165,31 +182,58 @@ const AccountPage = (): JSX.Element => {
                                         <Row>
                                             <Col lg={12}>
                                                 <p className=" fs-1 editProfileText">Edit Profile</p>
-                                                <input onChange={(e) => {
-                                                    setGetNewName(e.target.value)
+                                                <input defaultValue={userInfo.name} onChange={(e: any) => {
+                                                    console.log(e.target.value);
+                                                    let formattedName: any = FormatName(e.target.value);
+                                                    console.log(formattedName);
+                                                    setUserInfo({
+                                                        id: userInfo.id,
+                                                        name: formattedName,
+                                                        email: userInfo.email,
+                                                        phoneNumber: userInfo.phoneNumber,
+                                                        organizationID: userInfo.organizationID,
+                                                        accountType: userInfo.accountType,
+                                                        isDarkMode: userInfo.isDarkMode
+                                                    });
                                                 }} className="editEmailInput" type="text" placeholder="Edit Name"></input>
                                             </Col>
                                             <Col lg={12} className="pt-3">
-                                                <input onChange={(e) => {
-                                                    setGetNewNumber(e.target.value)
-                                                }} className="editEmailInput" type="number" placeholder="Edit Phonenumber"></input>
+                                                <input defaultValue={userInfo.phoneNumber} onChange={(e: any) => {
+                                                    setUserInfo({
+                                                        id: userInfo.id,
+                                                        name: userInfo.name,
+                                                        email: userInfo.email,
+                                                        phoneNumber: e.target.value,
+                                                        organizationID: userInfo.organizationID,
+                                                        accountType: userInfo.accountType,
+                                                        isDarkMode: userInfo.isDarkMode
+                                                    })
+                                                }} className="editEmailInput" type="text" placeholder="Edit Phonenumber"></input>
                                             </Col>
                                             <Col lg={12} className="pt-3">
-                                                <input onChange={(e) => {
-                                                    setGetNewEmail(e.target.value)
+                                                <input defaultValue={userInfo.email} onChange={(e: any) => {
+                                                    setUserInfo({
+                                                        id: userInfo.id,
+                                                        name: userInfo.name,
+                                                        email: e.target.value,
+                                                        phoneNumber: userInfo.phoneNumber,
+                                                        organizationID: userInfo.organizationID,
+                                                        accountType: userInfo.accountType,
+                                                        isDarkMode: userInfo.isDarkMode
+                                                    })
                                                 }} className="editEmailInput" type="email" placeholder="Edit Email"></input>
                                             </Col>
                                             <Col lg={12} className="pt-3">
                                                 <input onChange={(e) => {
                                                     setGetNewPassword(e.target.value)
-                                                }} className="editEmailInput" type="password" placeholder="Edit Password"></input>
+                                                }} className="editEmailInput" type="password" placeholder="Change Password"></input>
                                             </Col>
                                         </Row>
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button
                                             className="darkBlueBG"
-                                            onClick={() => handleUpdateAccount(id, getNewEmail, getNewPassword, getNewName)}
+                                            onClick={() => handleUpdateAccount(getNewPassword)}
                                         >
                                             Update Profile
                                         </Button>
