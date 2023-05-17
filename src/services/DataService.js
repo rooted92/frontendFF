@@ -26,7 +26,7 @@ const GetLoggedInUserData = async (email) => {
     const data = await response.json();
     console.log(data);
     return data;
-} 
+}
 
 // Functions to Create Accounts for Admin, Driver, and Dispatch
 
@@ -110,6 +110,48 @@ const GetAllTrailers = async (organizationID) => {
     return data;
 }
 
+const UpdatePasswaord = async (id, password) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserPassword/${id}/${password}`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password)
+        });
+    if (!response.ok) {
+        const message = `An Error Has Occurred ${response.status}`;
+        throw new Error(message);
+    }
+    const data = await response.json()
+    console.log(data);
+    return data;
+}
+
+const UpdateEmail = async (id, email) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserEmail/${id}/${email}`)
+    const data = await response.json()
+    console.log(data)
+    return data;
+}
+
+const UpdateUser = async (userObject) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserInfo/`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(userObject)
+        })
+    if (!response.ok) {
+        const message = `An Error has Occurred ${response.status}`;
+        throw new Error(message);
+    }
+    const data = await response.json()
+    console.log(data);
+    return data;
+}
 const GetLastYardUpdate = async (yardID) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/UpdateLog/GetLastYardUpdate/${yardID}`);
     const data = await response.json();
@@ -118,6 +160,21 @@ const GetLastYardUpdate = async (yardID) => {
 
 // Funtions for DRIVER account
 
+const AddTrailer = async (newTrailer, driverId) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/AddTrailer/${driverId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(newTrailer)
+    });
+    if (!response.ok) {
+        const message = `An Error has Occurred ${response.status}`;
+        throw new Error(message);
+    };
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
 
-
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, GetLastYardUpdate };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate };

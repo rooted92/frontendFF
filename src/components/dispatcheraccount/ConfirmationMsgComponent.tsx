@@ -28,7 +28,7 @@ const ConfirmationMessage = () => {
     const handleReturn = () => {
         // checking which type of account is logged to route to correct page
        if(userInfo.accountType === 'Dispatcher') navigate('/DispatchDashboard');
-       else navigate('/AdminDashboard');
+       else if(userInfo.accountType === 'Admin') navigate('/AdminDashboard');
     }
 
     return (
