@@ -3,6 +3,7 @@ import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
 import { GetLoggedInUserData } from "../services/DataService";
+import { UpdateEmail, UpdatePasswaord, UpdateUser } from "../services/DataService";
 
 const AccountPage = (): JSX.Element => {
 
@@ -16,12 +17,13 @@ const AccountPage = (): JSX.Element => {
         isDarkMode: undefined
     });
 
-        useEffect(() => {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
+            console.log(userInfo)
         }
-        }, []);
+    }, []);
 
 
     // const [items, setItems] = useState([]);
@@ -53,21 +55,44 @@ const AccountPage = (): JSX.Element => {
     const handleCloseUpdate = () => setShowUpdate(false);
     const handleShowUpdate = () => setShowUpdate(true);
 
+    const [id, setId] = useState('');
+    const [getNewName, setGetNewName] = useState('');
+    const [getNewEmail, setGetNewEmail] = useState('');
+    const [getNewNumber, setGetNewNumber] = useState('');
+    const [getNewPassword, setGetNewPassword] = useState('');
+
+    // const handlegetNewName = () => setGetNewName()
+
+    useEffect(() => {
+        // console.log(userInfo)
+    }, [userInfo])
+
     const handleDeleteAccount = () => {
         console.log("Account Deleted");
         setShowDelete(false);
     };
 
-    const handleUpdateAccount = () => {
+    const handleUpdateAccount = async (userId: string, newEmail: string, newPassword: string, newName: string) => {
+        const userUpdate = await UpdateUser(userInfo);
+        console.log(userInfo.name);
+        console.log(userUpdate);
+        // call email function
+        if (userUpdate) {
+            handleCloseUpdate();
+        } else {
+            alert('Unable to save changes')
+        }
+        console.log(userInfo.name);
+        console.log(userInfo);
         console.log("Account Updated");
-        setShowUpdate(false);
+        // call password function else return;
     };
 
     return (
         <>
             <div className="pageContainer">
                 <div className="mainContent">
-                    <NavbarComponent accountType={userInfo.accountType}/>
+                    <NavbarComponent accountType={userInfo.accountType} />
                     <Container>
                         <Row className="mt-4">
                             <Col className="col-6">
@@ -98,7 +123,7 @@ const AccountPage = (): JSX.Element => {
                                                         className="darkBlueBG"
                                                         onClick={handleShowUpdate}
                                                     >
-                                                        Update Account
+                                                        Edit Profile
                                                     </Button>
                                                 </Col>
                                                 <Col>
@@ -136,13 +161,37 @@ const AccountPage = (): JSX.Element => {
                                 {/* Update Account Modal */}
                                 <Modal show={showUpdate} onHide={handleCloseUpdate}>
                                     <Modal.Header closeButton></Modal.Header>
-                                    <Modal.Body>UPDATE ACCOUNT HERE</Modal.Body>
+                                    <Modal.Body>
+                                        <Row>
+                                            <Col lg={12}>
+                                                <p className=" fs-1 editProfileText">Edit Profile</p>
+                                                <input onChange={(e) => {
+                                                    setGetNewName(e.target.value)
+                                                }} className="editEmailInput" type="text" placeholder="Edit Name"></input>
+                                            </Col>
+                                            <Col lg={12} className="pt-3">
+                                                <input onChange={(e) => {
+                                                    setGetNewNumber(e.target.value)
+                                                }} className="editEmailInput" type="number" placeholder="Edit Phonenumber"></input>
+                                            </Col>
+                                            <Col lg={12} className="pt-3">
+                                                <input onChange={(e) => {
+                                                    setGetNewEmail(e.target.value)
+                                                }} className="editEmailInput" type="email" placeholder="Edit Email"></input>
+                                            </Col>
+                                            <Col lg={12} className="pt-3">
+                                                <input onChange={(e) => {
+                                                    setGetNewPassword(e.target.value)
+                                                }} className="editEmailInput" type="password" placeholder="Edit Password"></input>
+                                            </Col>
+                                        </Row>
+                                    </Modal.Body>
                                     <Modal.Footer>
                                         <Button
                                             className="darkBlueBG"
-                                            onClick={handleUpdateAccount}
+                                            onClick={() => handleUpdateAccount(id, getNewEmail, getNewPassword, getNewName)}
                                         >
-                                            Update
+                                            Update Profile
                                         </Button>
                                         <Button className="lightBlueBG" onClick={handleCloseUpdate}>
                                             Cancel
