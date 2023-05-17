@@ -4,8 +4,11 @@ import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
 import { GetLoggedInUserData } from "../services/DataService";
 import { UpdatePasswaord, UpdateUser } from "../services/DataService";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = (): JSX.Element => {
+
+    let navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -55,13 +58,7 @@ const AccountPage = (): JSX.Element => {
     const handleCloseUpdate = () => setShowUpdate(false);
     const handleShowUpdate = () => setShowUpdate(true);
 
-    // const [id, setId] = useState('');
-    // const [getNewName, setGetNewName] = useState('');
-    // const [getNewEmail, setGetNewEmail] = useState('');
-    // const [getNewNumber, setGetNewNumber] = useState('');
     const [getNewPassword, setGetNewPassword] = useState('');
-
-    // const handlegetNewName = () => setGetNewName()
 
     useEffect(() => {
         // console.log(userInfo)
