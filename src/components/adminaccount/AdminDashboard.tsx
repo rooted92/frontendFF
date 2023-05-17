@@ -4,7 +4,7 @@ import { Col, Container, Row, Form, Button, Card, Accordion } from "react-bootst
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { useState, useEffect } from "react";
-import { GetAllYards } from "../../services/DataService";
+import { GetAllYards, GetAllTrailers } from "../../services/DataService";
 
 const AdminDashboard = (): JSX.Element => {
 
@@ -40,13 +40,38 @@ const AdminDashboard = (): JSX.Element => {
         }
     ]);
 
+    type trailerType = 
+    {
+        cleanliness: string,
+        details: string,
+        fuelLevel: string,
+        id: number,
+        inTransit: boolean,
+        isDeleted: boolean,
+        length: string,
+        load: string,
+        organizationID: number,
+        possessionID: number,
+        trailerNumber: string,
+        type: string
+    };
+
+    const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
+
     useEffect(() => {
         const fetchYardData = async () => {
-            setYardLocations(await GetAllYards());
+            setYardLocations(await GetAllYards(userInfo.organizationID));
         }
-        fetchYardData();
+        const fetchTrailerData = async () => {
+            setAllTrailers(await GetAllTrailers(userInfo.organizationID));
+        }
+        if(userInfo.organizationID != undefined) {
+            fetchYardData();
+            fetchTrailerData();
+        }
         console.log(yardLocations);
-    }, [])
+        console.log(allTrailers);
+    }, [userInfo]);
 
     let navigate = useNavigate();
 
@@ -72,6 +97,7 @@ const AdminDashboard = (): JSX.Element => {
                             <Col className="col-4 d-flex justify-content-end align-self-start">
                                 <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
                                 <Button className="darkBlueBG" onClick={handleAddLocation}>Add Location</Button>
+                                <Button className="darkBlueBG mx-2" >View Team</Button>
                             </Col>
                         </Row>
 
@@ -108,7 +134,7 @@ const AdminDashboard = (): JSX.Element => {
                                             </Accordion>
                                         </Col>
                                     </Row>
-                                    <Row className="my-5 d-flex justify-content-center">
+                                    <Row className="my-5">
                                         {
                                             yardLocations.map(yard => {
                                                 return (

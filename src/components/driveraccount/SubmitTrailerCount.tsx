@@ -28,7 +28,7 @@ export default function SubmitTrailerCount() {
     const [fuel, setFuel] = useState<string>('');
     const [length, setLength] = useState<string>('');
     const [details, setDetails] = useState<string>('');
-    const [location, setLocation] = useState<string>('');
+    const [locationID, setLocationID] = useState<string>('');
     const [yardLocations, setYardLocations] = useState<any[]>([]);
 
     // create usestate array
@@ -46,7 +46,6 @@ export default function SubmitTrailerCount() {
     useEffect(() => {
         const fetchYardArray = async () => {
             setYardLocations(await GetAllYards(userInfo.organizationID));
-            
         };
         if(userInfo.organizationID !== undefined){
             fetchYardArray();
@@ -73,7 +72,6 @@ export default function SubmitTrailerCount() {
 
     const handleAddTrailer = async () => {
         let trailerObject = {
-            
             TrailerNumber: number,
             Type: type,
             Load: isLoaded,
@@ -81,7 +79,7 @@ export default function SubmitTrailerCount() {
             FuelLevel: fuel,
             Length: length,
             Details: details,
-            PossessionID: userInfo.id,
+            PossessionID: locationID,//location id
             OrganizationID: userInfo.organizationID
         };
         // create trailer array in here
@@ -133,14 +131,14 @@ export default function SubmitTrailerCount() {
                                     <Card.Title className='text-center trfCuz'> Trailer Count Form </Card.Title>
                                     <Form.Group as={Col} className="col-12 mb-3" controlId="accountType">
                                         <Form.Select
-                                            onChange={e => { setLocation(e.target.value) }}
+                                            onChange={e => { setLocationID(e.target.value) }}
                                             className="inputFieldStyle"
-                                            defaultValue="Select Yard">
+                                            defaultValue='Select Yard'>
                                             <option disabled>Select Yard</option>
                                             {/* Here we will have a dropdown of all yards to users organization */}
                                             {
                                                 yardLocations.map((location: any, index: number) => {
-                                                    return <option key={index} value={location.name}>{location.name}</option>
+                                                    return <option key={index} value={location.id}>{location.name}</option>
                                                 })
                                             }
                                         </Form.Select>
