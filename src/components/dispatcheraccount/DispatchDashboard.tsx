@@ -4,7 +4,7 @@ import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
 import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
-import { GetAllTrailers, GetAllYards } from "../../services/DataService";
+import { GetAllTrailers, GetAllYards, GetLastYardUpdate } from "../../services/DataService";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -180,6 +180,7 @@ const DispatchDashboard = (): JSX.Element => {
                                         {/* here we will map through the yard locations array and create col-3 divs for each card. */}
                                         {
                                             yardLocations.map(yard => {
+                                                // let yardUpdate = GetLastYardUpdate(yard.id);
                                                 let empty = 0;
                                                 let loaded = 0;
                                                 let clean = 0;
