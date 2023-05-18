@@ -165,6 +165,12 @@ const GetLastYardUpdate = async (yardID) => {
     return data;
 }
 
+const GetUserByID = async (userID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUserById/${userID}`)
+    const data = await response.json();
+    return data;
+}
+
 // Funtions for DRIVER account
 
 const AddTrailer = async (newTrailer, driverId) => {
@@ -184,4 +190,4 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID };
