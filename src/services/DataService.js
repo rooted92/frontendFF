@@ -110,6 +110,13 @@ const GetAllTrailers = async (organizationID) => {
     return data;
 }
 
+const GetTrailersByYardID = async (yardId) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/GetTrailersByYardID/${yardId}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
 const UpdatePasswaord = async (id, password) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserPassword/${id}/${password}`,
         {
@@ -177,4 +184,4 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID };

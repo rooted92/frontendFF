@@ -2,8 +2,15 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger, Button, Table } from 'react-bootstrap';
 import Footer from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
+import { useParams } from "react-router-dom";
+import { GetTrailersByYardID } from "../services/DataService";
 
 const TableComponent = (): JSX.Element => {
+
+    // are we missing an endpoint to get yard by yard id?
+    const { id, yardName } = useParams();
+    const [trailerArray, setTrailerArray] = useState<any[]>([]);
+    const [name, setName] = useState<any>('');
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -20,6 +27,17 @@ const TableComponent = (): JSX.Element => {
         if (userInfo) {
             setUserInfo(userInfo);
         }
+    }, []);
+
+    useEffect(() => {
+        const FetchTrailerDataForTable = async () => {
+            let trailerData = await GetTrailersByYardID(id);
+            console.log(trailerData);
+            setTrailerArray(trailerData);
+            console.log([...trailerArray, trailerData[0]]);
+            setName(yardName);
+        }
+        FetchTrailerDataForTable();
     }, []);
 
     const popover = (
@@ -40,7 +58,7 @@ const TableComponent = (): JSX.Element => {
                     <Container>
                         <Row>
                             <Col className="col-12">
-                                <p>Name of Yard</p>
+                                <p className="fs-2">{name}</p>
                             </Col>
                         </Row>
                         <Row>
@@ -69,33 +87,24 @@ const TableComponent = (): JSX.Element => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>314</td>
-                                            <td>Reefer</td>
-                                            <td>Loaded</td>
-                                            <td>Clean</td>
-                                            <td>3/4</td>
-                                            <td>53ft</td>
-                                            <td>Flat tire passenger side rear axle</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5004</td>
-                                            <td>Dry Van</td>
-                                            <td>Empty</td>
-                                            <td>Clean</td>
-                                            <td>N/A</td>
-                                            <td>50ft</td>
-                                            <td>N/A</td>
-                                        </tr>
-                                        <tr>
-                                            <td>705</td>
-                                            <td>Tanker</td>
-                                            <td>Empty</td>
-                                            <td>Dirty</td>
-                                            <td>N/A</td>
-                                            <td>42ft</td>
-                                            <td>Climbing ladder is bent</td>
-                                        </tr>
+                                        {
+                                            trailerArray.map((trailer: any, idx: number) => {
+                                                return (
+                                                    <>
+                                                        <tr key={idx}>
+                                                            <td>{trailer.trailerNumber}</td>
+                                                            <td>{trailer.type}</td>
+                                                            <td>{trailer.load}</td>
+                                                            <td>{trailer.cleanliness}</td>
+                                                            <td>{trailer.fuelLevel}</td>
+                                                            <td>{trailer.length}</td>
+                                                            <td>{trailer.details}</td>
+                                                        </tr>
+                                                    </>
+                                                )
+                                            })
+                                        }
+
                                     </tbody>
                                 </Table>
                             </Col>

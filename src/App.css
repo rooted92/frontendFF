@@ -273,3 +273,19 @@ table {
   border: solid 1px rgba(44, 73, 225, 1) !important;
   border-radius: 1.25rem !important;
 }
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulsating {
+  animation: pulse 1s infinite;
+}
