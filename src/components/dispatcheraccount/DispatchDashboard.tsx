@@ -52,7 +52,7 @@ const DispatchDashboard = (): JSX.Element => {
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
