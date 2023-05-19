@@ -33,8 +33,10 @@ export default function SubmitTrailerCount() {
     const [yardLocations, setYardLocations] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // create usestate array
+    // array to store trailer objects
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
+    // array to store past submissions
+    const [pastSubmissions, setPastSubmissions] = useState<any>({});
 
     // const [orgID, setOrgID] = useState<number>(0);
 
@@ -72,6 +74,9 @@ export default function SubmitTrailerCount() {
             alert('Trailer not added. Check all fields are filled.');
         }
         setIsLoading(false);
+        // this line is not deleting trailers
+        setTrailerArray(trailerArray => [...trailerArray, []]);
+        console.log(trailerArray);
     }
 
     const handleAddTrailer = async () => {
@@ -91,9 +96,10 @@ export default function SubmitTrailerCount() {
             alert('Form incomplete');
             return;
         } else {
+            // we add trailer objects to array here
             setTrailerArray(trailerArray => [...trailerArray, trailerObject]);
         }
-        console.log(trailerArray);
+        // console.log(trailerArray);
     }
 
     const handleDeleteTrailerFromList = (yardObject: any) => {
@@ -106,7 +112,7 @@ export default function SubmitTrailerCount() {
 
     // useEffect that listens for a change in
     useEffect(() => {
-        console.log('trailerArray.length changed');
+        // console.log('trailerArray.length changed');
         console.log(trailerArray);
     }, [trailerArray]);
 

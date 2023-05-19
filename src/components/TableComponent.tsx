@@ -7,7 +7,7 @@ import { GetTrailersByYardID } from "../services/DataService";
 
 const TableComponent = (): JSX.Element => {
 
-    // are we missing an endpoint to get yard by yard id?
+    // how can we clear the previouse array/trailercount and bring in the new trailercount so that the array isn't pushed in twice
     const { id, yardName } = useParams();
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
     const [name, setName] = useState<any>('');
