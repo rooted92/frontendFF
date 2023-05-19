@@ -65,7 +65,7 @@ export default function SubmitTrailerCount() {
         // pass in array into fetch here
         setIsLoading(true);
         console.log(trailerArray);
-        let isTrailerArrayAdded = await AddTrailer(trailerArray, userInfo.organizationID);
+        let isTrailerArrayAdded = await AddTrailer(trailerArray, userInfo.id);
         console.log(isTrailerArrayAdded);
         if (isTrailerArrayAdded) {
             console.log('Trailer Array added!');
@@ -75,8 +75,8 @@ export default function SubmitTrailerCount() {
         }
         setIsLoading(false);
         // this line is not deleting trailers
-        setTrailerArray(trailerArray => [...trailerArray, []]);
-        console.log(trailerArray);
+        // setTrailerArray(trailerArray => [...trailerArray, []]);
+        // console.log(trailerArray);
     }
 
     const handleAddTrailer = async () => {
