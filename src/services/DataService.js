@@ -184,4 +184,11 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID };
+const DeleteUser = async (UserId) => {
+    const response = await  fetch(`https://fleetfinderbackend.azurewebsites.net/User/DeleteUser/${UserId}`)
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, DeleteUser };

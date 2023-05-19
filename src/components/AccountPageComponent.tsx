@@ -3,9 +3,15 @@ import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
 import { GetLoggedInUserData } from "../services/DataService";
-import { UpdatePasswaord, UpdateUser } from "../services/DataService";
+import { UpdatePasswaord, UpdateUser, DeleteUser } from "../services/DataService";
+import { Navigate, useNavigate } from "react-router-dom";
+
+
 
 const AccountPage = (): JSX.Element => {
+
+    let navigate = useNavigate();
+
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -67,13 +73,24 @@ const AccountPage = (): JSX.Element => {
         // console.log(userInfo)
     }, [userInfo])
 
-    const handleDeleteAccount = () => {
+    const handleDeleteAccount = async () => {
+
+        //Peform any validation we need for it
+        const DeletedUser = await DeleteUser(userInfo.id);
+        console.log(DeleteUser);
+        setShowDelete(true);
+        //If statement for delete
+        if (DeletedUser == true) {
+            navigate('/')
+        }else{
+            console.log('Unable to delete Account');
+        }
+        
         console.log("Account Deleted");
-        setShowDelete(false);
     };
 
     const FormatName = (name: any) => {
-        return name.split(' ').reverse().map((item:string) => {
+        return name.split(' ').reverse().map((item: string) => {
             return `${item.charAt(0).toUpperCase()}${item.substring(1).toLowerCase()}`
         }).join(', ');
     }
@@ -91,18 +108,18 @@ const AccountPage = (): JSX.Element => {
         } else {
             alert('Unable to save changes')
         }
-        if(newPassword !== ''){
+        if (newPassword !== '') {
             const isPasswordUpdated = await UpdatePasswaord(userInfo.id, newPassword);
             console.log(isPasswordUpdated);
             console.log(newPassword);
             isPasswordUpdated ? handleCloseUpdate() : alert('Unable to save password');
         }
-        
+
         console.log(userInfo.name);
         console.log(userInfo);
         console.log("Account Updated");
         // call password function else return;
-       
+
     };
 
     return (
