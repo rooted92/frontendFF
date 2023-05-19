@@ -100,12 +100,16 @@ const TableComponent = (): JSX.Element => {
             let date = a.getDate();
             let hour = a.getHours();
             let min = a.getMinutes();
+            let minStr = `${min}`;
             let AMPM = 'AM';
             if (hour > 12) {
                 hour = hour - 12;
                 AMPM = 'PM'
             }
-            let time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + min + AMPM;
+            if (min < 10) {
+                minStr = `0${min}`;
+            }
+            let time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + minStr + AMPM;
             return time;
         }
     }
