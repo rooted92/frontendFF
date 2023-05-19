@@ -39,7 +39,7 @@ export default function SubmitTrailerCount() {
     // const [orgID, setOrgID] = useState<number>(0);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
