@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
-import { GetLoggedInUserData } from "../services/DataService";
+import { GetOrganizationById } from "../services/DataService";
 import { UpdatePasswaord, UpdateUser } from "../services/DataService";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +19,22 @@ const AccountPage = (): JSX.Element => {
         accountType: undefined,
         isDarkMode: undefined
     });
+
+    const [orgCode, setOrgCode] = useState('');
+    const [companyName, setCompanyName] = useState('');
+
+    useEffect(() => {
+        const FetchOrganizationCode = async () => {
+            const organizationData = await GetOrganizationById(userInfo.organizationID);
+            console.log('Organiztion Data: ', organizationData);
+            setOrgCode(organizationData.joinCode);
+            setCompanyName(organizationData.name);
+            return organizationData;
+        }
+        if(userInfo.accountType === 'Admin'){
+            FetchOrganizationCode();
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
@@ -128,6 +144,12 @@ const AccountPage = (): JSX.Element => {
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
                                         Name: {userInfo.name}
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="p-3 lightBlueBorder">
+                                        Join Code: {orgCode}
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="p-3 lightBlueBorder">
+                                        Company Name: {companyName}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-4 lightBlueBorder">
                                         <Container>

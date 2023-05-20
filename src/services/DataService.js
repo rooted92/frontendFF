@@ -94,6 +94,13 @@ const AddNewLocation = async (newYard, id) => {
     return data;
 }
 
+const GetOrganizationById = async (id) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Organization/GetOrganizationByID/${id}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+} 
+
 // Functions for DISPATCHER account
 
 const GetAllYards = async (organizationID) => {
@@ -197,4 +204,4 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById };

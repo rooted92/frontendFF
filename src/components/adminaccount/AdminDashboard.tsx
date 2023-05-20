@@ -92,6 +92,11 @@ const AdminDashboard = (): JSX.Element => {
         setShow(false);
     }
 
+    const handleViewDetails = (yardId: any, yardName: any) => {
+        console.log(yardId);
+        navigate(`/YardDetails/${yardId}/${yardName}`);
+    }
+
     return (
         <>
             <div className="pageContainer">
@@ -99,11 +104,10 @@ const AdminDashboard = (): JSX.Element => {
                     <NavbarComponent accountType={userInfo.accountType} />
                     <Offcanvas show={show} onHide={handleCloseTeam}>
                         <Offcanvas.Header closeButton>
-                            <Offcanvas.Title className="text-center fw-bold">Offcanvas</Offcanvas.Title>
+                            <Offcanvas.Title className="text-center fw-bold">Manage Team</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            Some text as placeholder. In real life you can have the elements you
-                            have chosen. Like, text, images, lists, etc.
+                            <p className="text-danger text-center fw-bold">Invite team members.</p>
                         </Offcanvas.Body>
                     </Offcanvas>
                     <Container className="mt-5">
@@ -131,6 +135,19 @@ const AdminDashboard = (): JSX.Element => {
                                                     <Accordion.Header>In Transit</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row className="d-flex justify-content-start">
+                                                        {
+                                                                allTrailers.map(trailer => {
+                                                                    if(trailer.inTransit) {
+                                                                        return (
+                                                                            <Col key={trailer.id} className="col-4 mb-3 align-self-center">
+                                                                                <div className="trailerInTransit rounded d-flex justify-content-around">
+                                                                                    <p className="m-0 p-2">{trailer.trailerNumber} In Transit </p><span className="blueText m-0 p-2">Assigned To - {trailer.possessionID}</span>
+                                                                                </div>
+                                                                            </Col>
+                                                                        )
+                                                                    }
+                                                                })
+                                                            }
                                                             {/* Here we will map though in transit array and create col-4 for each trailer in transit
                                                 {
                                                     trailersInTransit.map((trailer, index) => {
@@ -154,30 +171,64 @@ const AdminDashboard = (): JSX.Element => {
                                     <Row className="my-5">
                                         {
                                             yardLocations.map(yard => {
+                                                // let yardUpdate = GetLastYardUpdate(yard.id);
+                                                console.log(yard.id)
+                                                let empty = 0;
+                                                let loaded = 0;
+                                                let clean = 0;
+                                                let dirty = 0;
+                                                let dryVans = 0;
+                                                let reefers = 0;
+                                                let tankers = 0;
+                                                let total = 0;
+                                                allTrailers.map(trailer => {
+                                                    // console.log(!trailer.inTransit && trailer.possessionID == yard.id);
+                                                    if(!trailer.inTransit && trailer.possessionID === yard.id)
+                                                    {
+                                                        if(trailer.load === "Empty") {
+                                                            empty++;
+                                                        } else if(trailer.load === "Loaded") {
+                                                            loaded++;
+                                                        }
+                                                        if(trailer.cleanliness == "Clean") {
+                                                            clean++;
+                                                        } else if(trailer.cleanliness == "Dirty"){
+                                                            dirty++;
+                                                        }
+                                                        if(trailer.type === "Dry Van") {
+                                                            dryVans++;
+                                                        } else if(trailer.type === "Reefer") {
+                                                            reefers++;
+                                                        } else if(trailer.type == "Tanker") {
+                                                            tankers++;
+                                                        } 
+                                                        total++;
+                                                    }
+                                                });
                                                 return (
-                                                    < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center" >
+                                                    < Col key={yard.id} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center">
                                                         <Card>
                                                             <Card.Body>
-                                                                <Card.Title>{yard.name}</Card.Title>
+                                                                <Card.Title className="text-truncate">{yard.name}</Card.Title>
                                                                 <Card.Text>
                                                                     <Row className="d-flex justify-content-around">
                                                                         <Col className="col-4 text-nowrap">
-                                                                            <p>Empty: 12</p>
-                                                                            <p>Loaded: 8</p>
-                                                                            <p>Clean: 4</p>
-                                                                            <p>Dirty: 1</p>
+                                                                            <p>Empty: {empty}</p>
+                                                                            <p>Loaded: {loaded}</p>
+                                                                            <p>Clean: {clean}</p>
+                                                                            <p>Dirty: {dirty}</p>
                                                                         </Col>
                                                                         <Col className="col-4 text-nowrap">
-                                                                            <p>Dry Vans: 10</p>
-                                                                            <p>Reefers: 4</p>
-                                                                            <p>Tankers: 6</p>
-                                                                            <p>Total: 20</p>
+                                                                            <p>Dry Vans: {dryVans}</p>
+                                                                            <p>Reefers: {reefers}</p>
+                                                                            <p>Tankers: {tankers}</p>
+                                                                            <p>Total: {total}</p>
                                                                         </Col>
                                                                     </Row>
                                                                 </Card.Text>
                                                                 <Row className="d-flex justify-content-center">
                                                                     <Col className="col-6">
-                                                                        <Button className="darkBlueBG">View Details</Button>
+                                                                        <Button onClick={() => handleViewDetails(yard.id, yard.name)} className="darkBlueBG">View Details</Button>
                                                                     </Col>
                                                                 </Row>
                                                                 <Row>
@@ -189,6 +240,7 @@ const AdminDashboard = (): JSX.Element => {
                                                         </Card>
                                                     </Col>
                                                 )
+                                                
                                             })
                                         }
                                     </Row>

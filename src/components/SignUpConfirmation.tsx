@@ -1,10 +1,11 @@
 import React from 'react'
 import '../index.css'
-import { Row, Col, Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap'
+import { Row, Col, Container, Button } from 'react-bootstrap'
 import Logo from '../assets/fleetlogo.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function SignUpConfirmation() {
+    const {joinCode} = useParams();
 
     let navigate = useNavigate();
 
@@ -32,6 +33,8 @@ export default function SignUpConfirmation() {
                 <Row>
                     <Col>
                         <h5 className='text-center suCuz pt-5'>Thanks for signing up!</h5>
+                        <p className='text-center suCuz'>Join Code: {joinCode}</p>
+                        <p className='text-center suCuz text-danger'>Please have your employees use this join code to register their account under you organization.</p>
                     </Col>
                 </Row>
             </Container>
