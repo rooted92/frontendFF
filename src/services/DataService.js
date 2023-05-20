@@ -110,6 +110,13 @@ const GetAllTrailers = async (organizationID) => {
     return data;
 }
 
+const GetTrailersByYardID = async (yardId) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/GetTrailersByYardID/${yardId}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
 const UpdatePasswaord = async (id, password) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserPassword/${id}/${password}`,
         {
@@ -149,10 +156,29 @@ const UpdateUser = async (userObject) => {
         throw new Error(message);
     }
     const data = await response.json()
+    // console.log(data);
+    return data;
+}
+const GetLastYardUpdate = async (yardID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/UpdateLog/GetLastYardUpdate/${yardID}`);
+    const data = await response.json();
+    return data;
+}
+
+const GetUserByID = async (userID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUserById/${userID}`)
+    const data = await response.json();
+    return data;
+}
+
+// Funtions for DRIVER account
+
+const GetTrailerCountSubmissions = async (userID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/UpdateLog/GetUpdatesByUserID/${userID}`);
+    const data = await response.json();
     console.log(data);
     return data;
 }
-// Funtions for DRIVER account
 
 const AddTrailer = async (newTrailer, driverId) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/AddTrailer/${driverId}`, {
@@ -167,8 +193,8 @@ const AddTrailer = async (newTrailer, driverId) => {
         throw new Error(message);
     };
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions };

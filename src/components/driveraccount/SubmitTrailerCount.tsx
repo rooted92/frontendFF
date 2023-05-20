@@ -6,6 +6,7 @@ import Footer from '../FooterComponent';
 import { useNavigate } from 'react-router-dom'
 import { AddTrailer, GetAllYards } from '../../services/DataService';
 import DeleteIcon from '../../assets/delete.svg';
+import LoadingPageComponent from '../LoadingPageComponent';
 
 export default function SubmitTrailerCount() {
 
@@ -30,6 +31,7 @@ export default function SubmitTrailerCount() {
     const [details, setDetails] = useState<string>('');
     const [locationID, setLocationID] = useState<string>('');
     const [yardLocations, setYardLocations] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // create usestate array
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
@@ -37,7 +39,7 @@ export default function SubmitTrailerCount() {
     // const [orgID, setOrgID] = useState<number>(0);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
@@ -47,7 +49,7 @@ export default function SubmitTrailerCount() {
         const fetchYardArray = async () => {
             setYardLocations(await GetAllYards(userInfo.organizationID));
         };
-        if(userInfo.organizationID !== undefined){
+        if (userInfo.organizationID !== undefined) {
             fetchYardArray();
         }
         console.log(yardLocations);
@@ -59,6 +61,7 @@ export default function SubmitTrailerCount() {
 
     const handleSubmitForm = async () => {
         // pass in array into fetch here
+        setIsLoading(true);
         console.log(trailerArray);
         let isTrailerArrayAdded = await AddTrailer(trailerArray, userInfo.organizationID);
         console.log(isTrailerArrayAdded);
@@ -68,6 +71,7 @@ export default function SubmitTrailerCount() {
         } else {
             alert('Trailer not added. Check all fields are filled.');
         }
+        setIsLoading(false);
     }
 
     const handleAddTrailer = async () => {
@@ -123,167 +127,173 @@ export default function SubmitTrailerCount() {
                     </Row>
                 </Container>
 
-                <Container>
-                    <Row className='d-flex justify-content-center pt-5 mb-5'>
-                        <Col className='d-flex justify-content-center'>
-                            <Card style={{ width: '33rem', height: '31rem' }}>
-                                <Card.Body>
-                                    <Card.Title className='text-center trfCuz'> Trailer Count Form </Card.Title>
-                                    <Form.Group as={Col} className="col-12 mb-3" controlId="accountType">
-                                        <Form.Select
-                                            onChange={e => { setLocationID(e.target.value) }}
-                                            className="inputFieldStyle"
-                                            defaultValue='Select Yard'>
-                                            <option disabled>Select Yard</option>
-                                            {/* Here we will have a dropdown of all yards to users organization */}
-                                            {
-                                                yardLocations.map((location: any, index: number) => {
-                                                    return <option key={index} value={location.id}>{location.name}</option>
-                                                })
-                                            }
-                                        </Form.Select>
-                                    </Form.Group>
-                                    <Row>
-                                        <Col>
-                                            <Form.Group controlId="trailerNumber">
-                                                <Form.Control onChange={e => { setNumber(e.target.value) }} className="inputFieldStyle" type="text" placeholder="Trailer Number" />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Form.Group controlId="trailerType">
+                {
+                    isLoading ?
+                        <LoadingPageComponent />
+                        :
+                        <Container>
+                            <Row className='d-flex justify-content-center pt-5 mb-5'>
+                                <Col className='d-flex justify-content-center'>
+                                    <Card style={{ width: '33rem', height: '31rem' }}>
+                                        <Card.Body>
+                                            <Card.Title className='text-center trfCuz'> Trailer Count Form </Card.Title>
+                                            <Form.Group as={Col} className="col-12 mb-3" controlId="accountType">
                                                 <Form.Select
-                                                    onChange={e => { setType(e.target.value) }}
-                                                    className='inputFieldStyle'
-                                                    defaultValue='Select Trailer Type'>
-                                                    <option disabled>Select Trailer Type</option>
-                                                    <option value="Dry Van">Dry Van</option>
-                                                    <option value="Refrigerated">Refrigerated</option>
-                                                    <option value="Tanker">Tanker</option>
-                                                    <option value="Flatbed">Flatbed</option>
+                                                    onChange={e => { setLocationID(e.target.value) }}
+                                                    className="inputFieldStyle"
+                                                    defaultValue='Select Yard'>
+                                                    <option disabled>Select Yard</option>
+                                                    {/* Here we will have a dropdown of all yards to users organization */}
+                                                    {
+                                                        yardLocations.map((location: any, index: number) => {
+                                                            return <option key={index} value={location.id}>{location.name}</option>
+                                                        })
+                                                    }
                                                 </Form.Select>
                                             </Form.Group>
-                                        </Col>
-                                    </Row>
+                                            <Row>
+                                                <Col>
+                                                    <Form.Group controlId="trailerNumber">
+                                                        <Form.Control onChange={e => { setNumber(e.target.value) }} className="inputFieldStyle" type="text" placeholder="Trailer Number" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Group controlId="trailerType">
+                                                        <Form.Select
+                                                            onChange={e => { setType(e.target.value) }}
+                                                            className='inputFieldStyle'
+                                                            defaultValue='Select Trailer Type'>
+                                                            <option disabled>Select Trailer Type</option>
+                                                            <option value="Dry Van">Dry Van</option>
+                                                            <option value="Refrigerated">Refrigerated</option>
+                                                            <option value="Tanker">Tanker</option>
+                                                            <option value="Flatbed">Flatbed</option>
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
 
-                                    <Row className='pt-3'>
-                                        <Col>
-                                            <Form.Group controlId="loadedStatus">
-                                                <Form.Select
-                                                    onChange={e => { setIsLoaded(e.target.value) }}
-                                                    className='inputFieldStyle'
-                                                    defaultValue='Select Load Status'>
-                                                    <option disabled>Select Load Status</option>
-                                                    <option value="Empty">Empty</option>
-                                                    <option value="Loaded">Loaded</option>
-                                                </Form.Select>
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Form.Group controlId="cleanlinessStatus">
-                                                <Form.Select
-                                                    onChange={e => { setIsClean(e.target.value) }}
-                                                    className='inputFieldStyle'
-                                                    defaultValue='Select Cleanliness Status'>
-                                                    <option disabled>Select Cleanliness Status</option>
-                                                    <option value="Dirty">Dirty</option>
-                                                    <option value="Clean">Clean</option>
-                                                </Form.Select>
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
+                                            <Row className='pt-3'>
+                                                <Col>
+                                                    <Form.Group controlId="loadedStatus">
+                                                        <Form.Select
+                                                            onChange={e => { setIsLoaded(e.target.value) }}
+                                                            className='inputFieldStyle'
+                                                            defaultValue='Select Load Status'>
+                                                            <option disabled>Select Load Status</option>
+                                                            <option value="Empty">Empty</option>
+                                                            <option value="Loaded">Loaded</option>
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Group controlId="cleanlinessStatus">
+                                                        <Form.Select
+                                                            onChange={e => { setIsClean(e.target.value) }}
+                                                            className='inputFieldStyle'
+                                                            defaultValue='Select Cleanliness Status'>
+                                                            <option disabled>Select Cleanliness Status</option>
+                                                            <option value="Dirty">Dirty</option>
+                                                            <option value="Clean">Clean</option>
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
 
-                                    <Row className='pt-3'>
-                                        <Col>
-                                            <Form.Group controlId="fuelLevel">
-                                                <Form.Select
-                                                    onChange={e => { setFuel(e.target.value) }}
-                                                    className='inputFieldStyle'
-                                                    defaultValue='Select Fuel Level'>
-                                                    <option disabled>Select Fuel Level</option>
-                                                    <option value="N/A">N/A</option>
-                                                    <option value="Empty">Empty</option>
-                                                    <option value="1/8">1/8</option>
-                                                    <option value="1/4">1/4</option>
-                                                    <option value="3/8">3/8</option>
-                                                    <option value="1/2">1/2</option>
-                                                    <option value="5/8">5/8</option>
-                                                    <option value="3/4">3/4</option>
-                                                    <option value="7/8">7/8</option>
-                                                    <option value="Full">Full</option>
-                                                </Form.Select>
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Form.Group controlId="trailerLength">
-                                                <Form.Select
-                                                    onChange={e => { setLength(e.target.value) }}
-                                                    className='inputFieldStyle'
-                                                    defaultValue='Select Trailer Length'>
-                                                    <option disabled>Select Trailer Length</option>
-                                                    <option value="36ft">36ft</option>
-                                                    <option value="48ft">48ft</option>
-                                                    <option value="50ft">50ft</option>
-                                                    <option value="53ft">53ft</option>r
-                                                </Form.Select>
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
+                                            <Row className='pt-3'>
+                                                <Col>
+                                                    <Form.Group controlId="fuelLevel">
+                                                        <Form.Select
+                                                            onChange={e => { setFuel(e.target.value) }}
+                                                            className='inputFieldStyle'
+                                                            defaultValue='Select Fuel Level'>
+                                                            <option disabled>Select Fuel Level</option>
+                                                            <option value="N/A">N/A</option>
+                                                            <option value="Empty">Empty</option>
+                                                            <option value="1/8">1/8</option>
+                                                            <option value="1/4">1/4</option>
+                                                            <option value="3/8">3/8</option>
+                                                            <option value="1/2">1/2</option>
+                                                            <option value="5/8">5/8</option>
+                                                            <option value="3/4">3/4</option>
+                                                            <option value="7/8">7/8</option>
+                                                            <option value="Full">Full</option>
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Group controlId="trailerLength">
+                                                        <Form.Select
+                                                            onChange={e => { setLength(e.target.value) }}
+                                                            className='inputFieldStyle'
+                                                            defaultValue='Select Trailer Length'>
+                                                            <option disabled>Select Trailer Length</option>
+                                                            <option value="36ft">36ft</option>
+                                                            <option value="48ft">48ft</option>
+                                                            <option value="50ft">50ft</option>
+                                                            <option value="53ft">53ft</option>r
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
 
-                                    <Row className='pt-3'>
-                                        <Col>
-                                            <Form.Group controlId="details">
-                                                <Form.Control onChange={e => { setDetails(e.target.value) }} style={{ height: '5rem' }} className="inputFieldStyle" type="text" placeholder="Additional details..." />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
+                                            <Row className='pt-3'>
+                                                <Col>
+                                                    <Form.Group controlId="details">
+                                                        <Form.Control onChange={e => { setDetails(e.target.value) }} style={{ height: '5rem' }} className="inputFieldStyle" type="text" placeholder="Additional details..." />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
 
-                                    <Row className='justify-content-center gap-2'>
-                                        <Col className='col-4 pt-4 d-flex justify-content-end'>
-                                            <Button onClick={handleAddTrailer} type='button'>Add Trailer</Button>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col className='d-flex justify-content-center'>
-                            <Card style={{ width: '25rem', height: '31rem' }}>
-                                <Card.Body className='overflow-auto'>
-                                    <Card.Title className='text-center trfCuz'>Trailers Added</Card.Title>
-                                    <Row className='justify-content-center'>
-                                        {
-                                            trailerArray.length === 0
-                                                ? null :
-                                                trailerArray.map((trailer: any, index: number) => {
-                                                    return (
-                                                        <>
-                                                            <Col key={index} className='col-10 d-flex flex-row justify-content-between mb-3 inputFieldStyle rounded'>
-                                                                <p className='align-self-center m-0 fs-4 fw-bold'>{trailer.TrailerNumber}</p>
-                                                                <button onClick={() => {handleDeleteTrailerFromList(trailer)}} className='btn btn-transparent' >
-                                                                    <img src={DeleteIcon} height={'25px'} width={'auto'} alt="delete icon" />
-                                                                </button>
-                                                            </Col>
-                                                        </>
-                                                    );
-                                                })
-                                        }
+                                            <Row className='justify-content-center gap-2'>
+                                                <Col className='col-4 pt-4 d-flex justify-content-end'>
+                                                    <Button onClick={handleAddTrailer} type='button'>Add Trailer</Button>
+                                                </Col>
+                                            </Row>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col className='d-flex justify-content-center'>
+                                    <Card style={{ width: '25rem', height: '31rem' }}>
+                                        <Card.Body className='overflow-auto'>
+                                            <Card.Title className='text-center trfCuz'>Trailers Added</Card.Title>
+                                            <Row className='justify-content-center'>
+                                                {
+                                                    trailerArray.length === 0
+                                                        ? null :
+                                                        trailerArray.map((trailer: any, index: number) => {
+                                                            return (
+                                                                <>
+                                                                    <Col key={index} className='col-10 d-flex flex-row justify-content-between mb-3 inputFieldStyle rounded'>
+                                                                        <p className='align-self-center m-0 fs-4 fw-bold'>{trailer.TrailerNumber}</p>
+                                                                        <button onClick={() => { handleDeleteTrailerFromList(trailer) }} className='btn btn-transparent' >
+                                                                            <img src={DeleteIcon} height={'25px'} width={'auto'} alt="delete icon" />
+                                                                        </button>
+                                                                    </Col>
+                                                                </>
+                                                            );
+                                                        })
+                                                }
 
-                                    </Row>
-                                    {/* <Row className='lineCuz'>
+                                            </Row>
+                                            {/* <Row className='lineCuz'>
                                         <Col>
                                             <hr></hr>
                                         </Col>
                                     </Row> */}
-                                    <hr />
-                                    <Row>
-                                        <Col className='fCuz'>
-                                            <Button onClick={handleSubmitForm} className='buttonColor'>Submit</Button>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
+                                            <hr />
+                                            <Row>
+                                                <Col className='fCuz'>
+                                                    <Button onClick={handleSubmitForm} className='buttonColor'>Submit</Button>
+                                                </Col>
+                                            </Row>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Container>
+                }
+
             </div>
             <Footer />
         </div>

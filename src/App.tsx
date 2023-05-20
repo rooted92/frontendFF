@@ -36,7 +36,7 @@ function App() {
           <Route path='/DriverAccount' element={<DriverAccount />} />
           <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
           <Route path='/AccountPage' element={<AccountPage />} />
-          <Route path='/YardDetails' element={<TableComponent />} />
+          <Route path='/YardDetails/:id/:yardName' element={<TableComponent />} />
           <Route path='/AdminDashboard' element={<AdminDashboard />} />
           <Route path='/YardAddedConfirmation' element={<ConfirmationMessage />} />
         </Routes>

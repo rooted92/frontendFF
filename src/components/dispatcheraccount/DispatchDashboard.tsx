@@ -4,7 +4,7 @@ import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
 import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
-import { GetAllTrailers, GetAllYards } from "../../services/DataService";
+import { GetAllTrailers, GetAllYards, GetLastYardUpdate } from "../../services/DataService";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -52,7 +52,7 @@ const DispatchDashboard = (): JSX.Element => {
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
@@ -104,12 +104,10 @@ const DispatchDashboard = (): JSX.Element => {
         navigate('/AddLocationForm');
     }
 
-    const handleViewDetails = () => {
-        navigate('/YardDetails');
+    const handleViewDetails = (yardId: any, yardName: any) => {
+        console.log(yardId);
+        navigate(`/YardDetails/${yardId}/${yardName}`);
     }
-
-    // const [truckNumber, setTruckNumber] = useState<number>(0);
-    // const [routeName, setRouteName] = useState<string>('');
 
     return (
         <>
@@ -180,6 +178,8 @@ const DispatchDashboard = (): JSX.Element => {
                                         {/* here we will map through the yard locations array and create col-3 divs for each card. */}
                                         {
                                             yardLocations.map(yard => {
+                                                // let yardUpdate = GetLastYardUpdate(yard.id);
+                                                console.log(yard.id)
                                                 let empty = 0;
                                                 let loaded = 0;
                                                 let clean = 0;
@@ -213,10 +213,10 @@ const DispatchDashboard = (): JSX.Element => {
                                                     }
                                                 });
                                                 return (
-                                                    < Col key={yard.ID} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center">
+                                                    < Col key={yard.id} className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4 d-flex flex-column align-items-center">
                                                         <Card>
                                                             <Card.Body>
-                                                                <Card.Title>{yard.name}</Card.Title>
+                                                                <Card.Title className="text-truncate">{yard.name}</Card.Title>
                                                                 <Card.Text>
                                                                     <Row className="d-flex justify-content-around">
                                                                         <Col className="col-4 text-nowrap">
@@ -235,7 +235,7 @@ const DispatchDashboard = (): JSX.Element => {
                                                                 </Card.Text>
                                                                 <Row className="d-flex justify-content-center">
                                                                     <Col className="col-6">
-                                                                        <Button onClick={handleViewDetails} className="darkBlueBG">View Details</Button>
+                                                                        <Button onClick={() => handleViewDetails(yard.id, yard.name)} className="darkBlueBG">View Details</Button>
                                                                     </Col>
                                                                 </Row>
                                                                 <Row>

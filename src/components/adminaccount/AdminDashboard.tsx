@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../FooterComponent";
-import { Col, Container, Row, Form, Button, Card, Accordion } from "react-bootstrap";
+import { Col, Container, Row, Form, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { useState, useEffect } from "react";
@@ -19,6 +19,7 @@ const AdminDashboard = (): JSX.Element => {
         accountType: undefined,
         isDarkMode: undefined
     });
+    const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
@@ -40,21 +41,21 @@ const AdminDashboard = (): JSX.Element => {
         }
     ]);
 
-    type trailerType = 
-    {
-        cleanliness: string,
-        details: string,
-        fuelLevel: string,
-        id: number,
-        inTransit: boolean,
-        isDeleted: boolean,
-        length: string,
-        load: string,
-        organizationID: number,
-        possessionID: number,
-        trailerNumber: string,
-        type: string
-    };
+    type trailerType =
+        {
+            cleanliness: string,
+            details: string,
+            fuelLevel: string,
+            id: number,
+            inTransit: boolean,
+            isDeleted: boolean,
+            length: string,
+            load: string,
+            organizationID: number,
+            possessionID: number,
+            trailerNumber: string,
+            type: string
+        };
 
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
 
@@ -65,7 +66,7 @@ const AdminDashboard = (): JSX.Element => {
         const fetchTrailerData = async () => {
             setAllTrailers(await GetAllTrailers(userInfo.organizationID));
         }
-        if(userInfo.organizationID != undefined) {
+        if (userInfo.organizationID != undefined) {
             fetchYardData();
             fetchTrailerData();
         }
@@ -84,20 +85,36 @@ const AdminDashboard = (): JSX.Element => {
         navigate('/AddLocationForm');
     }
 
+    const handleShowTeam = () => {
+        setShow(true);
+    }
+    const handleCloseTeam = () => {
+        setShow(false);
+    }
+
     return (
         <>
             <div className="pageContainer">
                 <div className="mainContent">
                     <NavbarComponent accountType={userInfo.accountType} />
+                    <Offcanvas show={show} onHide={handleCloseTeam}>
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title className="text-center fw-bold">Offcanvas</Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body>
+                            Some text as placeholder. In real life you can have the elements you
+                            have chosen. Like, text, images, lists, etc.
+                        </Offcanvas.Body>
+                    </Offcanvas>
                     <Container className="mt-5">
                         <Row className="d-flex justify-content-between mb-3">
-                            <Col className="col-4">
+                            <Col className="col-6">
                                 <p className="fs-3">Yard Locations</p>
                             </Col>
-                            <Col className="col-4 d-flex justify-content-end align-self-start">
+                            <Col className="col-6 d-flex justify-content-end align-self-start">
                                 <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
                                 <Button className="darkBlueBG" onClick={handleAddLocation}>Add Location</Button>
-                                <Button className="darkBlueBG mx-2" >View Team</Button>
+                                <Button className="darkBlueBG mx-2" onClick={handleShowTeam} >Manage Team</Button>
                             </Col>
                         </Row>
 

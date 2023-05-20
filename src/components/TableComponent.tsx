@@ -2,8 +2,39 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger, Button, Table } from 'react-bootstrap';
 import Footer from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
+import { useParams } from "react-router-dom";
+import { GetLastYardUpdate, GetTrailersByYardID, GetUserByID } from "../services/DataService";
 
 const TableComponent = (): JSX.Element => {
+
+    // are we missing an endpoint to get yard by yard id?
+    const { id, yardName } = useParams();
+    const [trailerArray, setTrailerArray] = useState<any[]>([]);
+    const [name, setName] = useState<any>('');
+    const [lastYardUpdate, setLastYardUpdate] = useState({
+        id: undefined,
+        yardID: undefined,
+        userID: undefined,
+        organizationID: undefined,
+        dateUpdated: undefined,
+        details: undefined
+    });
+    const [lastUpdateUser, setLastUpdateUser] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    })
+
+    // public int ID { get; set; }
+    //     public int YardID { get; set; }
+    //     public int UserID { get; set; }
+    //     public int OrganizationID { get; set; }
+    //     public long DateUpdated { get; set; }
+    //     public string? Details { get; set; }
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -16,21 +47,83 @@ const TableComponent = (): JSX.Element => {
     });
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
     }, []);
 
+    useEffect(() => {
+        const FetchTrailerDataForTable = async () => {
+            let trailerData = await GetTrailersByYardID(id);
+            console.log(trailerData);
+            setTrailerArray(trailerData);
+            console.log([...trailerArray, trailerData[0]]);
+            setName(yardName);
+        }
+        FetchTrailerDataForTable();
+    }, []);
+
+    useEffect(() => {
+        const FetchLastYardUpdate = async () => {
+            let yardUpdate = await GetLastYardUpdate(id);
+            console.log(yardUpdate);
+            setLastYardUpdate(yardUpdate);
+        }
+        FetchLastYardUpdate();
+    }, []);
+
+    useEffect(() => {
+        const FetchLastUpdateUser = async () => {
+            let user = await GetUserByID(lastYardUpdate.userID);
+            console.log(user);
+            setLastUpdateUser(user);
+        }
+        if(lastYardUpdate.userID != undefined) {
+            FetchLastUpdateUser();
+        }
+    }, [lastYardUpdate]);
+
+    const FormatUserName = (name: string | undefined) => {
+        if(name != undefined) {
+            const nameArray = name.split(", ");   
+            return `${nameArray[1]} ${nameArray[0]}`;
+        }
+    }
+
+    const FormatDateTime = (unixTime: number | undefined) => {
+        if(unixTime != undefined) {
+            let a = new Date(unixTime * 1000);
+            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let year = a.getFullYear();
+            let month = months[a.getMonth()];
+            let date = a.getDate();
+            let hour = a.getHours();
+            let min = a.getMinutes();
+            let minStr = `${min}`;
+            let AMPM = 'AM';
+            if (hour > 12) {
+                hour = hour - 12;
+                AMPM = 'PM'
+            }
+            if (min < 10) {
+                minStr = `0${min}`;
+            }
+            let time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + minStr + AMPM;
+            return time;
+        }
+    }
+
     const popover = (
         <Popover id="popover-basic">
             <Popover.Header as="h3">Driver Info</Popover.Header>
             <Popover.Body>
-                <p>need driver phone</p>
-                <p>need driver email</p>
+                <p>Phone Number: {lastUpdateUser.phoneNumber}</p>
+                <p>Email: {lastUpdateUser.email}</p>
             </Popover.Body>
         </Popover>
     );
+
 
     return (
         <>
@@ -40,15 +133,15 @@ const TableComponent = (): JSX.Element => {
                     <Container>
                         <Row>
                             <Col className="col-12">
-                                <p>Name of Yard</p>
+                                <p className="fs-2">{name}</p>
                             </Col>
                         </Row>
                         <Row>
                             <Col className="col-6">
-                                <p className="align-self-center m-0">Last updated on : Feb 24, 2023 9:36AM</p>
+                                <p className="align-self-center m-0">Last updated on: {FormatDateTime(lastYardUpdate.dateUpdated)}</p>
                             </Col>
                             <Col className="col-6 d-flex justify-content-end">
-                                <p className="d-inline m-0 align-self-center">Updated by: Pedro Castaneda</p>
+                                <p className="d-inline m-0 align-self-center">Updated by: {FormatUserName(lastUpdateUser.name)}</p>
                                 <OverlayTrigger trigger="click" placement="top" overlay={popover}>
                                     <Button className="btn btn-link bg-transparent text-decoration-none m-0 py-0 d-inline">driver info</Button>
                                 </OverlayTrigger>
@@ -69,33 +162,24 @@ const TableComponent = (): JSX.Element => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>314</td>
-                                            <td>Reefer</td>
-                                            <td>Loaded</td>
-                                            <td>Clean</td>
-                                            <td>3/4</td>
-                                            <td>53ft</td>
-                                            <td>Flat tire passenger side rear axle</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5004</td>
-                                            <td>Dry Van</td>
-                                            <td>Empty</td>
-                                            <td>Clean</td>
-                                            <td>N/A</td>
-                                            <td>50ft</td>
-                                            <td>N/A</td>
-                                        </tr>
-                                        <tr>
-                                            <td>705</td>
-                                            <td>Tanker</td>
-                                            <td>Empty</td>
-                                            <td>Dirty</td>
-                                            <td>N/A</td>
-                                            <td>42ft</td>
-                                            <td>Climbing ladder is bent</td>
-                                        </tr>
+                                        {
+                                            trailerArray.map((trailer: any, idx: number) => {
+                                                return (
+                                                    <>
+                                                        <tr key={idx}>
+                                                            <td>{trailer.trailerNumber}</td>
+                                                            <td>{trailer.type}</td>
+                                                            <td>{trailer.load}</td>
+                                                            <td>{trailer.cleanliness}</td>
+                                                            <td>{trailer.fuelLevel}</td>
+                                                            <td>{trailer.length}</td>
+                                                            <td>{trailer.details}</td>
+                                                        </tr>
+                                                    </>
+                                                )
+                                            })
+                                        }
+
                                     </tbody>
                                 </Table>
                             </Col>
