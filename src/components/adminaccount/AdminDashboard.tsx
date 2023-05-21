@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../FooterComponent";
-import { Col, Container, Row, Form, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
+import { Col, Container, Row, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { useState, useEffect } from "react";
