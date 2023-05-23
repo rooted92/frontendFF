@@ -62,7 +62,7 @@ const AdminDashboard = (): JSX.Element => {
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         //userInfo is undefined... check that admin info is the same as driver/dispatch info.. this may be causing the issue
         console.log(userInfo);
         if (userInfo) {
@@ -71,6 +71,7 @@ const AdminDashboard = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
+        console.log(userInfo.organizationID)
         const fetchYardData = async () => {
             setYardLocations(await GetAllYards(userInfo.organizationID));
         }
@@ -132,11 +133,9 @@ const AdminDashboard = (): JSX.Element => {
                                 <Button className="darkBlueBG mx-2" onClick={handleShowTeam} >Manage Team</Button>
                             </Col>
                         </Row>
-
                         {
                             yardLocations.length === 0
                                 ? <WelcomeMessage checkURL={location.pathname} />
-
                                 :
                                 <>
                                     <Row>

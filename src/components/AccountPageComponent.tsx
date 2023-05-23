@@ -3,7 +3,7 @@ import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
 import { GetOrganizationById } from "../services/DataService";
-import { UpdatePasswaord, UpdateUser } from "../services/DataService";
+import { UpdatePasswaord, UpdateUser, FormatName } from "../services/DataService";
 import { useNavigate } from "react-router-dom";
 
 const AccountPage = (): JSX.Element => {
@@ -22,6 +22,7 @@ const AccountPage = (): JSX.Element => {
 
     const [orgCode, setOrgCode] = useState('');
     const [companyName, setCompanyName] = useState('');
+    const [formattedName, setFormattedName] = useState<any>('');
 
     useEffect(() => {
         const FetchOrganizationCode = async () => {
@@ -31,7 +32,7 @@ const AccountPage = (): JSX.Element => {
             setCompanyName(organizationData.name);
             return organizationData;
         }
-        if(userInfo.accountType === 'Admin'){
+        if (userInfo.accountType === 'Admin') {
             FetchOrganizationCode();
         }
     }, [userInfo]);
@@ -41,6 +42,7 @@ const AccountPage = (): JSX.Element => {
         if (userInfo) {
             setUserInfo(userInfo);
             console.log(userInfo);
+            setFormattedName(FormatName(userInfo.name));
         }
     }, []);
 
@@ -85,14 +87,6 @@ const AccountPage = (): JSX.Element => {
         setShowDelete(false);
     };
 
-    const FormatName = (name: any) => {
-        return name.split(' ').reverse().map((item:string) => {
-            return `${item.charAt(0).toUpperCase()}${item.substring(1).toLowerCase()}`
-        }).join(', ');
-    }
-
-    // const 
-
     const handleUpdateAccount = async (newPassword: string) => {
         const userUpdate = await UpdateUser(userInfo);
         console.log(userInfo.name);
@@ -104,18 +98,18 @@ const AccountPage = (): JSX.Element => {
         } else {
             alert('Unable to save changes')
         }
-        if(newPassword !== ''){
+        if (newPassword !== '') {
             const isPasswordUpdated = await UpdatePasswaord(userInfo.id, newPassword);
             console.log(isPasswordUpdated);
             console.log(newPassword);
             isPasswordUpdated ? handleCloseUpdate() : alert('Unable to save password');
         }
-        
+
         console.log(userInfo.name);
         console.log(userInfo);
         console.log("Account Updated");
         // call password function else return;
-       
+
     };
 
     return (
@@ -128,7 +122,7 @@ const AccountPage = (): JSX.Element => {
                             <Col className="col-6">
                                 <p className="fs-3 p-auto blueText">Account</p>
                             </Col>
-                            <Col className="col-6 d-flex justify-content-end">DakrMode</Col>
+                            <Col className="col-6 d-flex justify-content-end"></Col>
                         </Row>
                         <Row className="mb-3">
                             <Col className="col-4">
@@ -143,14 +137,21 @@ const AccountPage = (): JSX.Element => {
                                         Phone: {userInfo.phoneNumber}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Name: {userInfo.name}
+                                        Name: {formattedName}
                                     </ListGroup.Item>
-                                    <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Join Code: {orgCode}
-                                    </ListGroup.Item>
-                                    <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Company Name: {companyName}
-                                    </ListGroup.Item>
+                                    {
+                                        userInfo.accountType === 'Admin' ?
+                                            <>
+                                                <ListGroup.Item className="p-3 lightBlueBorder">
+                                                    Join Code: {orgCode}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item className="p-3 lightBlueBorder">
+                                                    Company Name: {companyName}
+                                                </ListGroup.Item>
+                                            </> :
+                                            null
+                                    }
+
                                     <ListGroup.Item className="p-4 lightBlueBorder">
                                         <Container>
                                             <Row className="d-flex justify-content-center">
