@@ -1,13 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../index.css'
 import { Row, Col, Container, Button } from 'react-bootstrap'
 import Logo from '../assets/fleetlogo.png'
 import { useNavigate, useParams } from 'react-router-dom'
+import { createQualifiedName } from 'typescript'
 
 export default function SignUpConfirmation() {
-    const {joinCode} = useParams();
+    const { joinCode, type } = useParams();
 
     let navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    });
+
+    useEffect(() => {
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
+        if (userInfo) {
+            console.log(userInfo);
+            setUserInfo(userInfo);
+        }
+    }, []);
 
     const handleReturnToSignIn = () => {
         navigate('/');
@@ -33,8 +51,14 @@ export default function SignUpConfirmation() {
                 <Row>
                     <Col>
                         <h5 className='text-center suCuz pt-5'>Thanks for signing up!</h5>
-                        <p className='text-center suCuz'>Join Code: {joinCode}</p>
-                        <p className='text-center suCuz text-danger'>Please have your employees use this join code to register their account under you organization.</p>
+                        {type === 'Admin' ?
+                            <>
+                                <p className='text-center suCuz'>Join Code: {joinCode}</p>
+                                <p className='text-center suCuz text-danger'>Please have your employees use this join code to register their account under you organization.</p>
+                            </>
+                            : null
+                        }
+
                     </Col>
                 </Row>
             </Container>

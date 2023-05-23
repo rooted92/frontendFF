@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../FooterComponent";
-import { Col, Container, Row, Form, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
+import { Col, Container, Row, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import { useState, useEffect } from "react";
@@ -10,6 +10,8 @@ const AdminDashboard = (): JSX.Element => {
 
     const location = useLocation();
 
+
+    // check signin component to see what userInfo is returning for admin account! You may find the answer there
     const [userInfo, setUserInfo] = useState({
         id: undefined,
         name: undefined,
@@ -30,14 +32,14 @@ const AdminDashboard = (): JSX.Element => {
 
     const [yardLocations, setYardLocations] = useState<Array<any>>([
         {
-            ID: null,
-            Name: null,
-            Address: null,
-            City: null,
-            State: null,
-            Zipcode: null,
-            OrganizationID: null,
-            IsDeleted: null
+            address: null,
+            city: null,
+            id: null,
+            isDeleted: null,
+            name: null,
+            organizationID: null,
+            state: null,
+            zipcode: null
         }
     ]);
 
@@ -58,6 +60,15 @@ const AdminDashboard = (): JSX.Element => {
         };
 
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        //userInfo is undefined... check that admin info is the same as driver/dispatch info.. this may be causing the issue
+        console.log(userInfo);
+        if (userInfo) {
+            setUserInfo(userInfo);
+        }
+    }, []);
 
     useEffect(() => {
         const fetchYardData = async () => {
@@ -135,9 +146,9 @@ const AdminDashboard = (): JSX.Element => {
                                                     <Accordion.Header>In Transit</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row className="d-flex justify-content-start">
-                                                        {
+                                                            {
                                                                 allTrailers.map(trailer => {
-                                                                    if(trailer.inTransit) {
+                                                                    if (trailer.inTransit) {
                                                                         return (
                                                                             <Col key={trailer.id} className="col-4 mb-3 align-self-center">
                                                                                 <div className="trailerInTransit rounded d-flex justify-content-around">
@@ -183,25 +194,24 @@ const AdminDashboard = (): JSX.Element => {
                                                 let total = 0;
                                                 allTrailers.map(trailer => {
                                                     // console.log(!trailer.inTransit && trailer.possessionID == yard.id);
-                                                    if(!trailer.inTransit && trailer.possessionID === yard.id)
-                                                    {
-                                                        if(trailer.load === "Empty") {
+                                                    if (!trailer.inTransit && trailer.possessionID === yard.id) {
+                                                        if (trailer.load === "Empty") {
                                                             empty++;
-                                                        } else if(trailer.load === "Loaded") {
+                                                        } else if (trailer.load === "Loaded") {
                                                             loaded++;
                                                         }
-                                                        if(trailer.cleanliness == "Clean") {
+                                                        if (trailer.cleanliness == "Clean") {
                                                             clean++;
-                                                        } else if(trailer.cleanliness == "Dirty"){
+                                                        } else if (trailer.cleanliness == "Dirty") {
                                                             dirty++;
                                                         }
-                                                        if(trailer.type === "Dry Van") {
+                                                        if (trailer.type === "Dry Van") {
                                                             dryVans++;
-                                                        } else if(trailer.type === "Reefer") {
+                                                        } else if (trailer.type === "Reefer") {
                                                             reefers++;
-                                                        } else if(trailer.type == "Tanker") {
+                                                        } else if (trailer.type == "Tanker") {
                                                             tankers++;
-                                                        } 
+                                                        }
                                                         total++;
                                                     }
                                                 });
@@ -240,7 +250,7 @@ const AdminDashboard = (): JSX.Element => {
                                                         </Card>
                                                     </Col>
                                                 )
-                                                
+
                                             })
                                         }
                                     </Row>

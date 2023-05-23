@@ -76,7 +76,7 @@ const SignUp = (): JSX.Element => {
     }
 
     useEffect(() => {
-        const validateAccount = (joinCode: any) => {
+        const validateAccount = (joinCode: any, type: any) => {
             if (createdUserStr === 'Incorrect Organization Code') {
             // Incorrect organzition code
             alert(createdUserStr)
@@ -86,10 +86,10 @@ const SignUp = (): JSX.Element => {
             // take them to signup if account was created
             // User account created
             // console.log(createdUserStr);
-            navigate(`/SignUpConfirmation/${joinCode}`);
+            navigate(`/SignUpConfirmation/${joinCode}/${type}`);
         }
         }
-        validateAccount(organizationJoinCode);
+        validateAccount(organizationJoinCode, account);
     }, [createdUserStr]);
 
     const handleCreateAccount = async () => {
