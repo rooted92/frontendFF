@@ -85,11 +85,11 @@ const AccountPage = (): JSX.Element => {
     const handleDeleteAccount = async () => {
 
         //Peform any validation we need for it
-        const DeletedUser = await DeleteUser(userInfo.id);
+        const deletedUser = await DeleteUser(userInfo.id);
         console.log(DeleteUser);
         setShowDelete(true);
         //If statement for delete
-        if (DeletedUser == true) {
+        if (deletedUser == true) {
             navigate('/')
         }else{
             console.log('Unable to delete Account');
