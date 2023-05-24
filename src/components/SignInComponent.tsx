@@ -80,8 +80,8 @@ const SignIn = (): JSX.Element => {
                     :
                     <>
                         <Container fluid>
-                            <Row >
-                                <Col xs={5} className="align-self-center">
+                            <Row>
+                                <Col className="d-none d-lg-block col-lg-4 col-xl-5 align-self-center">
                                     <Row className="justify-content-center">
                                         <Row className="justify-content-center mb-4">
                                             <Col className="col-12 d-flex flex-row justify-content-center">
@@ -138,7 +138,73 @@ const SignIn = (): JSX.Element => {
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col xs={7} className="splashImg p-0">
+                                {/* This form will show in screens 768px or smaller */}
+                                <Col className="d-lg-none smScreenColBgImg vh-100">
+                                    <Row className="justify-content-center mb-4 mt-5">
+                                        <Col className="col-12 d-flex flex-row justify-content-center">
+                                            <img className="loginFleetLogo" src={FleetFinderIcon} alt="Fleet Finder logo" />
+                                            <p className="text-start text-white fs-1 pt-2">FleetFinder</p>
+                                        </Col>
+                                    </Row>
+                                    <Row className="d-flex justify-content-center">
+                                        <Col className="col-4 align-items-center mt-5 loginBox bg-white">
+                                            <Form className="d-flex flex-column align-items-center">
+                                                <Form.Group controlId="emailLoginInput">
+                                                    <Form.Label visuallyHidden>Email</Form.Label>
+                                                    {/* <Form.Control className="mt-5" type="email" placeholder="Email"></Form.Control> */}
+                                                    <input
+                                                        required
+                                                        type="email"
+                                                        className="mt-5 loginInput"
+                                                        placeholder="Email"
+                                                        // Destructuring 'e' object
+                                                        onChange={({ target: { value } }) => {
+                                                            setEmail(value)
+                                                            // console.log(value);
+                                                        }} />
+                                                </Form.Group>
+                                                <Form.Group controlId="passwordLoginInput">
+                                                    <Form.Label visuallyHidden>Password</Form.Label>
+                                                    <input
+                                                        required
+                                                        type="password"
+                                                        className="mt-3 loginInput"
+                                                        placeholder="Password"
+                                                        onChange={({ target: { value } }) => {
+                                                            setPassword(value);
+                                                            // console.log(value);
+                                                        }} />
+                                                </Form.Group>
+                                                <Button
+                                                    // type="submit"
+                                                    className="signInButton mt-3 text-white"
+                                                    onClick={handleLogin} >Sign In</Button>
+                                            </Form>
+
+                                            <Row className="mt-5 signUpText">
+                                                <Col className="col-12 p-0 text-center">
+                                                    {/* Set link to correct path... */}
+                                                    <p>Don't have an account? <Nav.Link as={Link} to="/SignUp" className="blueText d-inline">Sign Up!</Nav.Link></p>
+                                                </Col>
+                                            </Row>
+
+                                        </Col>
+                                    </Row>
+                                    <Row className="justify-content-center">
+                                        <Col className="col-8 bg-dark my-4 border rounded">
+                                            <p className="text-danger fw-bold text-center mt-3">{errorMsg}</p>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col className="col-12 mt-5 text-center d-flex flex-column align-content-center p-0">
+                                            <div className="splashTextSmall">
+                                                <p className="m-0 mt-5 fs-2">The <span className="yellowText">ultimate solution</span></p>
+                                                <p className="fs-2">for managing your trailers.</p>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col className="d-none d-lg-block col-lg-8 col-xl-7 splashImg p-0">
                                     <Row className="m-0">
                                         <Col className="col-12 text-center d-flex flex-column align-content-center p-0">
                                             <div className="splashText">

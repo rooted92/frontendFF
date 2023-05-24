@@ -54,6 +54,14 @@ body {
 
 }
 
+.splashTextSmall {
+  font-size: 3.25rem;
+  font-family: 'Orelega One', cursive;
+  color: white;
+  background-color: rgba(8, 0, 47, 0.68);
+  height: 12.4375rem;
+}
+
 .signUpText {
   position: sticky;
   top: 36.5rem;
@@ -106,6 +114,14 @@ input .form-control {
   background-color: rgba(44, 73, 225, 1) !important;
   border: none;
   border-radius: .625rem;
+}
+
+.smScreenColBgImg {
+  background-image: url('./assets/truckSplashImg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* width: 100%;
+  height: 100%; */
 }
 
 /* END sign in page CSS */
