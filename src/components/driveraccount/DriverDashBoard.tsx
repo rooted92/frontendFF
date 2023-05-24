@@ -70,17 +70,17 @@ export default function DriverDashBoard() {
 
                 <Container className='my-5'>
                     <Row className='justify-content-around'>
-                        <Col className='col-4'>
+                        {/* <Col className='col-4' lg={4} md={6} sm={12}>
                             <Card style={{ width: '25rem', height: '28rem' }}>
                                 <Card.Body className='overflow-scroll'>
-                                    {
-                                        // we will add a ternary to check if array of past submissions is greater than 0 to show 'You have no past submissions text'
-                                    }
+                                    { */}
+                                        {/* // we will add a ternary to check if array of past submissions is greater than 0 to show 'You have no past submissions text' */}
+                                    {/* }
                                     <Card.Title className='text-center'> Past Submissions </Card.Title>
-                                    <Card.Text>
+                                    <Card.Text> */}
                                         {/* Once we have the data, we will add a ternary here to check if submitted trailer count array is greater than 0, if it is show past submissions if not show red text */}
                                         {/* <p className='fs-5 text-danger text-center'>You have no past submissions</p> */}
-                                    </Card.Text>
+                                    {/* </Card.Text>
                                     <Row className='justify-content-center'>
                                         <Col className='col-10 px-3 my-2 mx-4 py-2 rounded pastSubmission align-self-start'>
                                             <PastSubmissionComponent
@@ -91,9 +91,9 @@ export default function DriverDashBoard() {
                                     </Row>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                        <Col className='col-4 d-flex justify-content-center align-self-start'>
-                            <Button onClick={handleSubmitTrailerCount} className='buttonColor w-auto h-5 px-2'>
+                        </Col> */}
+                        <Col className='col-4 d-flex justify-content-center align-self-start' lg={3} md={6} sm={12}>
+                            <Button onClick={handleSubmitTrailerCount} className='buttonColor h-5 px-2'>
                                 {/* <Row> */}
                                 {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
                                 + Submint Trailer Count

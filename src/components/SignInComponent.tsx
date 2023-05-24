@@ -46,6 +46,8 @@ const SignIn = (): JSX.Element => {
     let navigate = useNavigate();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [passwordError, setPasswordError] = useState('');
+    const [isValid, setValid] = useState(false);
 
     const handleLogin = async () => {
         setIsLoading(true);
@@ -60,6 +62,53 @@ const SignIn = (): JSX.Element => {
         setUserInfo(await GetLoggedInUserData(email));
         setIsLoading(false);
     }
+
+    // const validateEmail = () => {
+    //     if (email == userInfo.email) {
+    //         console.log('Correct Email')
+    //     } else {
+    //         console.log('Please Enter Correct Email');
+    //     }
+    // };
+
+    const handleEmailChange = (event: any) => {
+        const inputEmail = event.target.value;
+        setEmail(inputEmail);
+        setValid(validateEmail(inputEmail));
+    };
+
+    const validateEmail = (email: any) => {
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return emailRegex.test(email);
+    };
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const validatePassword = (password: string) => {
+        if (!passwordPattern.test(password)) {
+            setErrorMessage(
+                'Password must be at least eight characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.'
+            );
+        } else {
+            setErrorMessage('');
+        }
+    };
+
+    // useEffect(() => {
+    //     validatePassword();
+    //     console.log(password);
+    //   }, [password]);
+
+    // const handlePasswordChange = (e: any) => {
+    //     e.preventDefault();
+
+    //     if (validatePassword()) {
+    //         console.log('Strong Password')
+    //     } else {
+    //         console.log('Not Long enough')
+    //     }
+    // }
 
 
     return (
@@ -102,12 +151,14 @@ const SignIn = (): JSX.Element => {
                                                     <input
                                                         required
                                                         type="password"
+                                                        value={password}
                                                         className="mt-3 loginInput"
                                                         placeholder="Password"
                                                         onChange={({ target: { value } }) => {
                                                             setPassword(value);
                                                             // console.log(value);
                                                         }} />
+                                                        {errorMessage}
                                                 </Form.Group>
                                                 <Button
                                                     // type="submit"
