@@ -17,18 +17,19 @@ const SignUp = (): JSX.Element => {
     }
     
     let navigate = useNavigate();
-    const [account, setAccount] = useState<null | string>(null);
-    const [firstName, setFirstName] = useState<null | string>(null);
-    const [lastName, setLastName] = useState<null | string>(null);
-    const [phoneNumber, setPhoneNumber] = useState<null | string>(null);
-    const [email, setEmail] = useState<null | string>(null);
-    const [password, setPassword] = useState<null | string>(null);
-    const [organizationInput, setOrganizationInput] = useState<null | string>(null);
-    const [organizationJoinCode, setOrganizationJoinCode] = useState<null | string>(null);
+    const [account, setAccount] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [organizationInput, setOrganizationInput] = useState<string>('');
+    const [organizationJoinCode, setOrganizationJoinCode] = useState<string>('');
     const [label, setLabel] = useState<string>('');
     const [placeHolder, setPlaceHolder] = useState<string>('');
     const [isOrgCreated, setIsOrgCreated] = useState<boolean>(false);
     const [createdUserStr, setCreatedUserStr] = useState<string>('');
+    const [isValid, setValid] = useState(false);
 
     const [userAccountInfo, setUserAccountInfo] = useState({});
 
@@ -95,12 +96,41 @@ const SignUp = (): JSX.Element => {
     const handleCreateAccount = async () => {
         if (account === 'Admin') {
             // console.log(organizationInput);
-            setOrganizationJoinCode(await CreateOrganization({Name: organizationInput}));
+            setOrganizationJoinCode(await CreateOrganization({ Name: organizationInput }));
             setIsOrgCreated(true);
         } else {
             CreateAdminUser();
         }
     }
+
+    const handleEmailChange = (event: any) => {
+        const inputEmail = event.target.value;
+        setEmail(inputEmail);
+        setValid(validateEmail(inputEmail));
+    };
+
+    const validateEmail = (email: any) => {
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return emailRegex.test(email);
+    };
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const [errorMessage, setErrorMessage] = useState('');
+    const [errMessage, setErrMessage] = useState('')
+
+    const validatePassword = (password: string) => {
+        if (!passwordPattern.test(password)) {
+            setErrorMessage('Invalid Password');
+        } else {
+            setErrorMessage('Strong Password');
+           
+        }
+    };
+
+    // useEffect(() => {
+    //     validatePassword();
+
+    //   }, [password]);
 
     return (
         <>
@@ -171,7 +201,11 @@ const SignUp = (): JSX.Element => {
                                         className="inputFieldStyle"
                                         type="email"
                                         placeholder="user@example.com"
-                                        onChange={e => { setEmail(e.target.value) }} />
+                                        onChange={e => { 
+                                            setEmail(e.target.value)
+                                            validateEmail(e.target.value);
+                                        
+                                        }} />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="password">
@@ -180,7 +214,15 @@ const SignUp = (): JSX.Element => {
                                         className="inputFieldStyle"
                                         type="password"
                                         placeholder="Password"
-                                        onChange={e => { setPassword(e.target.value) }} />
+                                        onChange={e => {
+                                            setPassword(e.target.value)
+                                            validatePassword(e.target.value)
+                                        }
+                                        } />
+                                    {passwordPattern ?
+                                        <p className="text-danger fw-bold text-center">{errorMessage}</p>
+                                        :
+                                        <p className="text-success fw-bold text-center">{errorMessage}</p>}
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="organizationNameAndCode">

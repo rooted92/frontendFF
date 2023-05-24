@@ -218,10 +218,17 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
+const DeleteUser = async (UserId) => {
+    const response = await  fetch(`https://fleetfinderbackend.azurewebsites.net/User/DeleteUser/${UserId}`)
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
 const FormatName = (name) => {
     return name.split(', ').reverse().map(item => {
         return `${item.charAt(0).toUpperCase()}${item.substring(1).toLowerCase()}`
     }).join(' ');
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName, GetUserByOrganization };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName, GetUserByOrganization, DeleteUser };

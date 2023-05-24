@@ -32,6 +32,7 @@ export default function SubmitTrailerCount() {
     const [locationID, setLocationID] = useState<string>('');
     const [yardLocations, setYardLocations] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isCompleted, setIsCompleted] = useState<boolean>(true);
 
     // create usestate array
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
@@ -88,7 +89,7 @@ export default function SubmitTrailerCount() {
         };
         // create trailer array in here
         if (number === '' || type === '' || isLoaded === '' || isClean === '' || fuel === '' || length === '') {
-            alert('Form incomplete');
+            setIsCompleted(false);
             return;
         } else {
             setTrailerArray(trailerArray => [...trailerArray, trailerObject]);
@@ -133,7 +134,7 @@ export default function SubmitTrailerCount() {
                         :
                         <Container>
                             <Row className='d-flex justify-content-center pt-5 mb-5'>
-                                <Col className='d-flex justify-content-center'>
+                                <Col className='d-flex justify-content-center col-6 col-sm-9' xs={12} sm={9} lg={6}>
                                     <Card style={{ width: '33rem', height: '31rem' }}>
                                         <Card.Body>
                                             <Card.Title className='text-center trfCuz'> Trailer Count Form </Card.Title>
@@ -244,16 +245,20 @@ export default function SubmitTrailerCount() {
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
-
-                                            <Row className='justify-content-center gap-2'>
-                                                <Col className='col-4 pt-4 d-flex justify-content-end'>
+                                                    
+                                            <Row className='justify-content-between'>
+                                                <Col className='col-7 align-self-center'>
+                                                <p className='fIncomplete'>{isCompleted ? null: 'Form is incomplete'}</p>
+                                                </Col>
+                                                <Col className='col-5 pt-4 align-self-center'>
+                                                    
                                                     <Button onClick={handleAddTrailer} type='button'>Add Trailer</Button>
                                                 </Col>
                                             </Row>
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                                <Col className='d-flex justify-content-center'>
+                                <Col className='d-flex justify-content-center mt-5 mt-lg-0'  xs={12} sm={9} lg={6}>
                                     <Card style={{ width: '25rem', height: '31rem' }}>
                                         <Card.Body className='overflow-auto'>
                                             <Card.Title className='text-center trfCuz'>Trailers Added</Card.Title>

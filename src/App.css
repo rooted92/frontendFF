@@ -305,3 +305,12 @@ table {
 .pulsating {
   animation: pulse 1s infinite;
 }
+
+.errMesColor{
+  color: green !important;
+}
+
+.fIncomplete{
+  color: red !important;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
