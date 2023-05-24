@@ -3,13 +3,13 @@ import Footer from "../FooterComponent";
 import { Col, Container, Row, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
+import DeleteIcon from '../../assets/delete.svg'
 import { useState, useEffect } from "react";
-import { GetAllYards, GetAllTrailers } from "../../services/DataService";
+import { GetAllYards, GetAllTrailers, GetUserByOrganization, FormatName } from "../../services/DataService";
 
 const AdminDashboard = (): JSX.Element => {
 
     const location = useLocation();
-
 
     // check signin component to see what userInfo is returning for admin account! You may find the answer there
     const [userInfo, setUserInfo] = useState({
@@ -22,6 +22,7 @@ const AdminDashboard = (): JSX.Element => {
         isDarkMode: undefined
     });
     const [show, setShow] = useState<boolean>(false);
+    const [team, setTeam] = useState<any[]>([]);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
@@ -84,6 +85,19 @@ const AdminDashboard = (): JSX.Element => {
         }
         console.log(yardLocations);
         console.log(allTrailers);
+        const fetchTeam = async () => {
+            let teamData = await GetUserByOrganization(userInfo.organizationID);
+            console.log(teamData);
+            let teamArray = teamData.map((member: any) => {
+                // if(accountType === 'Dispatcher' || accountType === 'Driver'){
+                //     console.log(name);
+                return member.name;
+                // }
+            });
+            console.log(teamArray);
+            setTeam(teamArray);
+        }
+        fetchTeam();
     }, [userInfo]);
 
     let navigate = useNavigate();
@@ -109,6 +123,10 @@ const AdminDashboard = (): JSX.Element => {
         navigate(`/YardDetails/${yardId}/${yardName}`);
     }
 
+    const handleRemoveMember = () => {
+        
+    }
+
     return (
         <>
             <div className="pageContainer">
@@ -119,7 +137,27 @@ const AdminDashboard = (): JSX.Element => {
                             <Offcanvas.Title className="text-center fw-bold">Manage Team</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <p className="text-danger text-center fw-bold">Invite team members.</p>
+                            {
+                                team.length === 0 ?
+                                    <p className="text-danger text-center fw-bold">Invite team members.</p>
+                                    :
+                                    team.map((member: any, index: any) => {
+                                        console.log(member)
+                                        return (
+                                            <>
+                                                <Row className="justify-content-center my-2">
+                                                    <Col key={index} className="col-10 d-flex flex-row justify-content-between px-4 py-3 bg-white rounded text-dark fw-bold fs-5">
+                                                        <p className="m-0 pt-1">{FormatName(member)}</p>
+                                                        <button className='btn btn-transparent' >
+                                                            <img src={DeleteIcon} height={'25px'} width={'auto'} alt="delete icon" />
+                                                        </button>
+                                                    </Col>
+                                                </Row>
+                                            </>
+                                        )
+                                    })
+                            }
+
                         </Offcanvas.Body>
                     </Offcanvas>
                     <Container className="mt-5">
@@ -182,7 +220,7 @@ const AdminDashboard = (): JSX.Element => {
                                         {
                                             yardLocations.map(yard => {
                                                 // let yardUpdate = GetLastYardUpdate(yard.id);
-                                                console.log(yard.id)
+                                                // console.log(yard.id)
                                                 let empty = 0;
                                                 let loaded = 0;
                                                 let clean = 0;
