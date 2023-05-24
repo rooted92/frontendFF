@@ -56,7 +56,10 @@ const TrailerCountRequestForm = (): JSX.Element => {
     let navigate = useNavigate();
 
     const handleCancel = () => {
-        navigate('/DispatchDashboard');
+        if(userInfo.accountType === 'Dispatcher'){
+            navigate('/DispatchDashboard');
+        } else navigate('/AdminDashboard')
+        
     }
 
     const handleSubmit = () => {

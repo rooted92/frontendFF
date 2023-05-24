@@ -94,6 +94,7 @@ const AdminDashboard = (): JSX.Element => {
                 return member.name;
                 }
             }).map((member: any) => {
+                // find way to return object of user with name and id
                 return member.name;
             });
             console.log(teamArray);
