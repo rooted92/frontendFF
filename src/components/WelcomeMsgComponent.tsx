@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { FormatName } from '../services/DataService';
 
 // using interface to make props object
 interface WelcomeProps {
@@ -25,11 +26,13 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
         accountType: undefined,
         isDarkMode: undefined
     });
+    const [formattedName, setFormattedName] = useState<any>('');
 
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
+            setFormattedName(FormatName(userInfo.name));
         }
     }, []);
 
@@ -56,7 +59,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-7 d-flex flex-column align-items-center'>
                                 {/* Comeback and format name */}
-                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {formattedName}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol>
                                     <li>Copy the organization code above and send it to your dispatch team and drivers so they can get setup their account. For security measures a new organization code will be generated every 24 hours. You can check your account for an updated security code when adding new team members.</li>
@@ -69,7 +72,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-7'>
-                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {formattedName}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol className='blueText'>
                                     <li>Start by clicking on the 'Add Location' button, which is located in the top right corner of your dashboard.</li>
@@ -88,7 +91,7 @@ const WelcomeMessage = ({ checkURL }: WelcomeProps): JSX.Element => {
                     <Container>
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-12 col-md-7'>
-                                <h1 className='text-center fw-bold'>Welcome {userInfo.name}!</h1>
+                                <h1 className='text-center fw-bold'>Welcome {formattedName}!</h1>
                                 <p className='text-center fs-1'>To get started follow the steps below:</p>
                                 <ol className='blueText'>
                                     <li>Click on the ‘Submit Trailer Count’ button above.</li>

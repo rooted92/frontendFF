@@ -2,19 +2,9 @@ import { Container, Row, Col, Form, Button, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import FleetFinderIcon from '../assets/fleetlogo.png';
 import { useEffect, useState } from "react";
-import { CreateUserAccount, GetOrganizationByJoinCode, CreateOrganization } from "../services/DataService";
+import { CreateUserAccount, CreateOrganization } from "../services/DataService";
 
 const SignUp = (): JSX.Element => {
-
-    // TODO - Create an object that will hold sign up form data
-    // For dispatch/driver check ther organziation code then create account
-    // run two endpoints check code and create account
-    // if ADMIN vvv
-    // For admin, create organization fistr then create amdmin user account
-    // so have two functions one that wil first create org using org endpoint
-    // then another to create amin account
-    // (organiztion if deleted will need to delete whole organization not just admin account)
-
 
     // Create type for userAccountInfo object
     type UserAccountType = {
@@ -25,10 +15,7 @@ const SignUp = (): JSX.Element => {
         AccountType?: string | null,
         Password?: string | null
     }
-
-    // Using union types to let typescript know the data type will either be null or a string/number
-    // let userAccountInfo: UserAccountType  = {};
-
+    
     let navigate = useNavigate();
     const [account, setAccount] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
@@ -45,10 +32,6 @@ const SignUp = (): JSX.Element => {
     const [isValid, setValid] = useState(false);
 
     const [userAccountInfo, setUserAccountInfo] = useState({});
-
-
-    // if account is dispatcher or driver hide organization name and only display join code
-    // else if admin display organization name and hide join code
 
     useEffect(() => {
         if (account === 'Admin') {
@@ -82,10 +65,6 @@ const SignUp = (): JSX.Element => {
         console.log(userAccountInfo);
     }, [userAccountInfo]);
 
-    // useEffect(() => {
-    //     console.log(userAccountInfo);
-    // }, [organizationJoinCode]);
-
     useEffect(() => {
         if (account === 'Admin' && isOrgCreated == true) {
             CreateAdminUser();
@@ -98,7 +77,8 @@ const SignUp = (): JSX.Element => {
     }
 
     useEffect(() => {
-        if (createdUserStr === 'Incorrect Organization Code') {
+        const validateAccount = (joinCode: any, type: any) => {
+            if (createdUserStr === 'Incorrect Organization Code') {
             // Incorrect organzition code
             alert(createdUserStr)
         } else if (createdUserStr === 'User Already Exists') {
@@ -107,8 +87,10 @@ const SignUp = (): JSX.Element => {
             // take them to signup if account was created
             // User account created
             // console.log(createdUserStr);
-            navigate('/SignUpConfirmation');
+            navigate(`/SignUpConfirmation/${joinCode}/${type}`);
         }
+        }
+        validateAccount(organizationJoinCode, account);
     }, [createdUserStr]);
 
     const handleCreateAccount = async () => {

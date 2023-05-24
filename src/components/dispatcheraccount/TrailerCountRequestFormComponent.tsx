@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Footer from "../FooterComponent";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
+import { GetAllYards, GetUserByOrganization, FormatName } from "../../services/DataService";
 
 const TrailerCountRequestForm = (): JSX.Element => {
 
@@ -16,6 +17,8 @@ const TrailerCountRequestForm = (): JSX.Element => {
         accountType: undefined,
         isDarkMode: undefined
     });
+    const [yards, setYards] = useState<any[]>([]);
+    const [drivers, setDrivers] = useState<any[]>([]);
 
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
@@ -23,6 +26,32 @@ const TrailerCountRequestForm = (): JSX.Element => {
             setUserInfo(userInfo);
         }
     }, []);
+
+    useEffect(() => {
+        const fetchYardNames = async (orgID: any) => {
+            let yardData = await GetAllYards(orgID);
+            let yardArray = yardData.map((yard: any) => {
+                return yard.name;
+            })
+            console.log(yardData);
+            console.log(yardArray);
+            setYards(yardArray);
+        }
+        fetchYardNames(userInfo.organizationID);
+        const fetchDrivers = async (orgID: any) => {
+            let driverData = await GetUserByOrganization(orgID);
+            let driverArray = driverData.map((driver: any) => {
+                if(driver.accountType === 'Driver'){
+                    // return FormatName(driver.name);
+                    return driver.name;
+                }
+            })
+            setDrivers(driverArray);
+            console.log(driverData);
+            console.log(driverArray);
+        }
+        fetchDrivers(userInfo.organizationID);
+    }, [userInfo]);
 
     let navigate = useNavigate();
 
@@ -50,9 +79,11 @@ const TrailerCountRequestForm = (): JSX.Element => {
                                         <Form.Label>Location</Form.Label>
                                         <Form.Select aria-label="Default select example">
                                             <option>Select Location</option>
-                                            <option value="Napa Yard">Napa Yard</option>
-                                            <option value="PPP Yard">PPP Yard</option>
-                                            <option value="U.S. Cold McClellan">U.S. Cold McClellan</option>
+                                            {
+                                                yards.map((yard: any) => {
+                                                    return <option>{yard}</option>
+                                                })
+                                            }
                                         </Form.Select>
                                     </Form.Group>
 
@@ -60,9 +91,13 @@ const TrailerCountRequestForm = (): JSX.Element => {
                                         <Form.Label>Driver</Form.Label>
                                         <Form.Select aria-label="Default select example">
                                             <option>Select Driver</option>
-                                            <option value="Napa Yard">Drew Nilsson</option>
-                                            <option value="PPP Yard">Manuel Leyva</option>
-                                            <option value="U.S. Cold McClellan">Pedro Castaneda</option>
+                                            {
+                                                drivers.map((driver: any) => {
+                                                    if(driver !== undefined){
+                                                        return <option>{FormatName(driver)}</option>
+                                                    }
+                                                })
+                                            }
                                         </Form.Select>
                                     </Form.Group>
                                     <Row className="mt-3">

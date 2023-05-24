@@ -16,6 +16,7 @@ export default function DriverDashBoard() {
 
     // Temporary boolean to display welcome message
     // Eventaully will use array from GetUpdatesFromUser 
+    // Check this function above to see if you can use as boolean if account was created for first time.
     const [isUpdated, setIsUpdated] = useState<boolean>(false);
     
 
@@ -65,7 +66,7 @@ export default function DriverDashBoard() {
                                     }} className='buttonColor mt-4 w-auto h-5 px-2'>
                                         {/* <Row> */}
                                         {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
-                                        + Submint Trailer Count
+                                        + Submit Trailer Count
                                         {/* </Row> */}
                                     </Button>
                                 </Col>
@@ -107,7 +108,7 @@ export default function DriverDashBoard() {
                             <Button onClick={handleSubmitTrailerCount} className='buttonColor h-5 px-2'>
                                 {/* <Row> */}
                                 {/* <img className='' src={PlusIcon} alt="plus icon" /> */}
-                                + Submint Trailer Count
+                                + Submit Trailer Count
                                 {/* </Row> */}
                             </Button>
                         </Col>

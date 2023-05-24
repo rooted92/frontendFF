@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Container, Col, Row, ListGroup, Button, Modal } from "react-bootstrap";
 import NavbarComponent from "./NavbarComponent";
 import Footer from "./FooterComponent";
-import { GetLoggedInUserData } from "../services/DataService";
-import { UpdatePasswaord, UpdateUser, DeleteUser } from "../services/DataService";
-import { Navigate, useNavigate } from "react-router-dom";
-
-
+import { GetOrganizationById } from "../services/DataService";
+import { UpdatePasswaord, UpdateUser, FormatName, DeleteUser } from "../services/DataService";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = (): JSX.Element => {
 
     let navigate = useNavigate();
-
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -23,11 +20,29 @@ const AccountPage = (): JSX.Element => {
         isDarkMode: undefined
     });
 
+    const [orgCode, setOrgCode] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [formattedName, setFormattedName] = useState<any>('');
+
+    useEffect(() => {
+        const FetchOrganizationCode = async () => {
+            const organizationData = await GetOrganizationById(userInfo.organizationID);
+            console.log('Organiztion Data: ', organizationData);
+            setOrgCode(organizationData.joinCode);
+            setCompanyName(organizationData.name);
+            return organizationData;
+        }
+        if (userInfo.accountType === 'Admin') {
+            FetchOrganizationCode();
+        }
+    }, [userInfo]);
+
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
             console.log(userInfo);
+            setFormattedName(FormatName(userInfo.name));
         }
     }, []);
 
@@ -61,13 +76,7 @@ const AccountPage = (): JSX.Element => {
     const handleCloseUpdate = () => setShowUpdate(false);
     const handleShowUpdate = () => setShowUpdate(true);
 
-    // const [id, setId] = useState('');
-    // const [getNewName, setGetNewName] = useState('');
-    // const [getNewEmail, setGetNewEmail] = useState('');
-    // const [getNewNumber, setGetNewNumber] = useState('');
     const [getNewPassword, setGetNewPassword] = useState('');
-
-    // const handlegetNewName = () => setGetNewName()
 
     useEffect(() => {
         // console.log(userInfo)
@@ -88,14 +97,6 @@ const AccountPage = (): JSX.Element => {
         
         console.log("Account Deleted");
     };
-
-    const FormatName = (name: any) => {
-        return name.split(' ').reverse().map((item: string) => {
-            return `${item.charAt(0).toUpperCase()}${item.substring(1).toLowerCase()}`
-        }).join(', ');
-    }
-
-    // const 
 
     const handleUpdateAccount = async (newPassword: string) => {
         const userUpdate = await UpdateUser(userInfo);
@@ -132,7 +133,7 @@ const AccountPage = (): JSX.Element => {
                             <Col className="col-6">
                                 <p className="fs-3 p-auto blueText">Account</p>
                             </Col>
-                            <Col className="col-6 d-flex justify-content-end">DakrMode</Col>
+                            <Col className="col-6 d-flex justify-content-end"></Col>
                         </Row>
                         <Row className="mb-3">
                             <Col className="col-4">
@@ -147,8 +148,21 @@ const AccountPage = (): JSX.Element => {
                                         Phone: {userInfo.phoneNumber}
                                     </ListGroup.Item>
                                     <ListGroup.Item className="p-3 lightBlueBorder">
-                                        Name: {userInfo.name}
+                                        Name: {formattedName}
                                     </ListGroup.Item>
+                                    {
+                                        userInfo.accountType === 'Admin' ?
+                                            <>
+                                                <ListGroup.Item className="p-3 lightBlueBorder">
+                                                    Join Code: {orgCode}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item className="p-3 lightBlueBorder">
+                                                    Company Name: {companyName}
+                                                </ListGroup.Item>
+                                            </> :
+                                            null
+                                    }
+
                                     <ListGroup.Item className="p-4 lightBlueBorder">
                                         <Container>
                                             <Row className="d-flex justify-content-center">

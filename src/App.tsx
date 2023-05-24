@@ -34,7 +34,7 @@ function App() {
           <Route path='/SubmitTrailerCount' element={<SubmitTrailerCount />} />
           <Route path='/ThankYouForSubmission' element={<ThankYouForSubmission />} />
           <Route path='/DriverAccount' element={<DriverAccount />} />
-          <Route path='/SignUpConfirmation' element={<SignUpConfirmation />} />
+          <Route path='/SignUpConfirmation/:joinCode/:type' element={<SignUpConfirmation />} />
           <Route path='/AccountPage' element={<AccountPage />} />
           <Route path='/YardDetails/:id/:yardName' element={<TableComponent />} />
           <Route path='/AdminDashboard' element={<AdminDashboard />} />

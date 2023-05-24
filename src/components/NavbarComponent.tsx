@@ -82,6 +82,8 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
   }
 
   const handleLogout = () => {
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('Token');
     navigate('/');
   }
 
