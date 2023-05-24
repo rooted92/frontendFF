@@ -88,14 +88,17 @@ const AdminDashboard = (): JSX.Element => {
         const fetchTeam = async () => {
             let teamData = await GetUserByOrganization(userInfo.organizationID);
             console.log(teamData);
-            let teamArray = teamData.map((member: any) => {
-                // if(accountType === 'Dispatcher' || accountType === 'Driver'){
-                //     console.log(name);
+            let teamArray = teamData.filter((member: any) => {
+                if(member.accountType === 'Dispatcher' || member.accountType === 'Driver'){
+                    console.log(member.name);
                 return member.name;
-                // }
+                }
+            }).map((member: any) => {
+                return member.name;
             });
             console.log(teamArray);
             setTeam(teamArray);
+            console.log(team);
         }
         fetchTeam();
     }, [userInfo]);
@@ -123,8 +126,8 @@ const AdminDashboard = (): JSX.Element => {
         navigate(`/YardDetails/${yardId}/${yardName}`);
     }
 
-    const handleRemoveMember = () => {
-        
+    const handleDeleteMember = () => {
+
     }
 
     return (
