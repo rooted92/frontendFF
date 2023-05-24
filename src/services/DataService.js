@@ -185,6 +185,13 @@ const GetUserByID = async (userID) => {
     return data;
 }
 
+const GetUserByOrganization = async (organizationId) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUsersByOrganizationId/${organizationId}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
 // Funtions for DRIVER account
 
 const GetTrailerCountSubmissions = async (userID) => {
@@ -217,4 +224,4 @@ const FormatName = (name) => {
     }).join(' ');
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName, GetUserByOrganization };
