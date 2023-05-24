@@ -18,7 +18,7 @@ const DispatchAccountPage = (): JSX.Element => {
     });
 
         useEffect(() => {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+            const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }

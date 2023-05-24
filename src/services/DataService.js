@@ -156,7 +156,7 @@ const UpdateUser = async (userObject) => {
         throw new Error(message);
     }
     const data = await response.json()
-    console.log(data);
+    // console.log(data);
     return data;
 }
 const GetLastYardUpdate = async (yardID) => {
@@ -165,7 +165,20 @@ const GetLastYardUpdate = async (yardID) => {
     return data;
 }
 
+const GetUserByID = async (userID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUserById/${userID}`)
+    const data = await response.json();
+    return data;
+}
+
 // Funtions for DRIVER account
+
+const GetTrailerCountSubmissions = async (userID) => {
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/UpdateLog/GetUpdatesByUserID/${userID}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
 
 const AddTrailer = async (newTrailer, driverId) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/AddTrailer/${driverId}`, {
@@ -180,7 +193,7 @@ const AddTrailer = async (newTrailer, driverId) => {
         throw new Error(message);
     };
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 

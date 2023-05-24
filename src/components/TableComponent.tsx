@@ -3,7 +3,7 @@ import { Container, Row, Col, Popover, OverlayTrigger, Button, Table } from 'rea
 import Footer from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
 import { useParams } from "react-router-dom";
-import { GetTrailersByYardID } from "../services/DataService";
+import { GetLastYardUpdate, GetTrailersByYardID, GetUserByID } from "../services/DataService";
 
 const TableComponent = (): JSX.Element => {
 
@@ -11,6 +11,30 @@ const TableComponent = (): JSX.Element => {
     const { id, yardName } = useParams();
     const [trailerArray, setTrailerArray] = useState<any[]>([]);
     const [name, setName] = useState<any>('');
+    const [lastYardUpdate, setLastYardUpdate] = useState({
+        id: undefined,
+        yardID: undefined,
+        userID: undefined,
+        organizationID: undefined,
+        dateUpdated: undefined,
+        details: undefined
+    });
+    const [lastUpdateUser, setLastUpdateUser] = useState({
+        id: undefined,
+        name: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        organizationID: undefined,
+        accountType: undefined,
+        isDarkMode: undefined
+    })
+
+    // public int ID { get; set; }
+    //     public int YardID { get; set; }
+    //     public int UserID { get; set; }
+    //     public int OrganizationID { get; set; }
+    //     public long DateUpdated { get; set; }
+    //     public string? Details { get; set; }
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -23,7 +47,7 @@ const TableComponent = (): JSX.Element => {
     });
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
@@ -40,15 +64,66 @@ const TableComponent = (): JSX.Element => {
         FetchTrailerDataForTable();
     }, []);
 
+    useEffect(() => {
+        const FetchLastYardUpdate = async () => {
+            let yardUpdate = await GetLastYardUpdate(id);
+            console.log(yardUpdate);
+            setLastYardUpdate(yardUpdate);
+        }
+        FetchLastYardUpdate();
+    }, []);
+
+    useEffect(() => {
+        const FetchLastUpdateUser = async () => {
+            let user = await GetUserByID(lastYardUpdate.userID);
+            console.log(user);
+            setLastUpdateUser(user);
+        }
+        if(lastYardUpdate.userID != undefined) {
+            FetchLastUpdateUser();
+        }
+    }, [lastYardUpdate]);
+
+    const FormatUserName = (name: string | undefined) => {
+        if(name != undefined) {
+            const nameArray = name.split(", ");   
+            return `${nameArray[1]} ${nameArray[0]}`;
+        }
+    }
+
+    const FormatDateTime = (unixTime: number | undefined) => {
+        if(unixTime != undefined) {
+            let a = new Date(unixTime * 1000);
+            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let year = a.getFullYear();
+            let month = months[a.getMonth()];
+            let date = a.getDate();
+            let hour = a.getHours();
+            let min = a.getMinutes();
+            let minStr = `${min}`;
+            let AMPM = 'AM';
+            if (hour > 12) {
+                hour = hour - 12;
+                AMPM = 'PM'
+            }
+            if (min < 10) {
+                minStr = `0${min}`;
+            }
+            let time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + minStr + AMPM;
+            return time;
+        }
+    }
+
     const popover = (
         <Popover id="popover-basic">
             <Popover.Header as="h3">Driver Info</Popover.Header>
             <Popover.Body>
-                <p>need driver phone</p>
-                <p>need driver email</p>
+                <p>Phone Number: {lastUpdateUser.phoneNumber}</p>
+                <p>Email: {lastUpdateUser.email}</p>
             </Popover.Body>
         </Popover>
     );
+
 
     return (
         <>
@@ -63,10 +138,10 @@ const TableComponent = (): JSX.Element => {
                         </Row>
                         <Row>
                             <Col className="col-6">
-                                <p className="align-self-center m-0">Last updated on : Feb 24, 2023 9:36AM</p>
+                                <p className="align-self-center m-0">Last updated on: {FormatDateTime(lastYardUpdate.dateUpdated)}</p>
                             </Col>
                             <Col className="col-6 d-flex justify-content-end">
-                                <p className="d-inline m-0 align-self-center">Updated by: Pedro Castaneda</p>
+                                <p className="d-inline m-0 align-self-center">Updated by: {FormatUserName(lastUpdateUser.name)}</p>
                                 <OverlayTrigger trigger="click" placement="top" overlay={popover}>
                                     <Button className="btn btn-link bg-transparent text-decoration-none m-0 py-0 d-inline">driver info</Button>
                                 </OverlayTrigger>

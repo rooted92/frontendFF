@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../../index.css'
-import { Row, Col, Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
+import { Row, Col, Container, Card, Button } from 'react-bootstrap';
 // import PlusIcon from '../../assets/plus.svg';
 import NavbarComponent from '../NavbarComponent';
 import Footer from '../FooterComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
 import WelcomeMessage from '../WelcomeMsgComponent';
 import PastSubmissionComponent from './PastSubmissionComponent';
+import { GetTrailerCountSubmissions } from '../../services/DataService';
 
 export default function DriverDashBoard() {
 
@@ -16,6 +17,7 @@ export default function DriverDashBoard() {
     // Temporary boolean to display welcome message
     // Eventaully will use array from GetUpdatesFromUser 
     const [isUpdated, setIsUpdated] = useState<boolean>(false);
+    
 
     const [userInfo, setUserInfo] = useState({
         id: undefined,
@@ -28,11 +30,20 @@ export default function DriverDashBoard() {
     });
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
         }
     }, []);
+
+    // This will fetch all previous trailer count submissions user has made.
+    useEffect(() => {
+        const FetchSubmissionsData = async () => {
+            let updates = await GetTrailerCountSubmissions(userInfo.id);
+            console.log(updates);
+        }
+        FetchSubmissionsData();
+    }, [userInfo]);
 
     const handleSubmitTrailerCount = () => {
         navigate('/SubmitTrailerCount');

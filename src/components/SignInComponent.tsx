@@ -23,11 +23,11 @@ const SignIn = (): JSX.Element => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
         // console.log(token);
         if (token.token != null) {
             try {
-                localStorage.setItem('Token', token.token);
+                sessionStorage.setItem('Token', token.token);
                 // console.log(userInfo);
                 if (userInfo.accountType === 'Driver') {
                     navigate("/DriverDashboard");
