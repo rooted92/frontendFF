@@ -9,15 +9,22 @@ const Login = async (loginUser) => {
             },
             body: JSON.stringify(loginUser)
         });
+    // if (!response.ok) {
+    //     const message = `An error has occured ${response.status}`;
+    //     throw new Error(message);
+    // }
     if (!response.ok) {
-        const message = `An error has occured ${response.status}`;
-        throw new Error(message);
+        let message;
+        if(response.status === 401 || response.status === 400){
+            message = 'Failed to Login make sure credentials are correct.';
+        } else if (response.status === 500) {
+            message = 'Login Failed, Internal Server Error.';
+        } else message = 'We are experiencing technical difficulty due to an unknow error. Please try again later.'
+        return message;
     }
     const data = await response.json();
     console.log(data);
     return data;
-    // const data = response.json();
-    // console.log(data);
 }
 
 const GetLoggedInUserData = async (email) => {

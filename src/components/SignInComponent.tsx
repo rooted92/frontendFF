@@ -21,6 +21,7 @@ const SignIn = (): JSX.Element => {
         token: null,
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
 
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -54,9 +55,16 @@ const SignIn = (): JSX.Element => {
             password
         }
 
-        // console.log(userData);
-
-        setToken(await Login(userData));
+        console.log(userData);
+        const newToken = await Login(userData);
+        console.log(newToken)
+        setToken(newToken);
+        console.log(token);
+        if (typeof newToken === 'string') {
+            setErrorMsg(newToken);
+            setIsLoading(false);
+            return;
+        }
         setUserInfo(await GetLoggedInUserData(email));
         setIsLoading(false);
     }
@@ -121,6 +129,12 @@ const SignIn = (): JSX.Element => {
                                                     <p>Don't have an account? <Nav.Link as={Link} to="/SignUp" className="blueText d-inline">Sign Up!</Nav.Link></p>
                                                 </Col>
                                             </Row>
+
+                                        </Col>
+                                    </Row>
+                                    <Row className="justify-content-center">
+                                        <Col className="col-8">
+                                            <p className="text-danger fw-bold text-center mt-3">{errorMsg}</p>
                                         </Col>
                                     </Row>
                                 </Col>
