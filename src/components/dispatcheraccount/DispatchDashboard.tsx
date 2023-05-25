@@ -119,10 +119,10 @@ const DispatchDashboard = (): JSX.Element => {
                     <NavbarComponent accountType={userInfo.accountType} />
                     <Container className="mt-5">
                         <Row className="d-flex justify-content-between mb-3">
-                            <Col className="col-4">
-                                <p className="fs-3">Yard Locations</p>
+                            <Col className="col-12 col-md-6">
+                                <p className="fs-3 text-center text-md-start">Yard Locations</p>
                             </Col>
-                            <Col className="col-4 d-flex justify-content-end align-self-start">
+                            <Col className="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-self-start">
                                 <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
                                 <Button className="darkBlueBG" onClick={handleAddLocation}>Add Location</Button>
                             </Col>
@@ -134,8 +134,8 @@ const DispatchDashboard = (): JSX.Element => {
                                 <WelcomeMessage checkURL={location.pathname} />
                                 :
                                 <>
-                                    <Row>
-                                        <Col className="col-12">
+                                    <Row className="justify-content-center">
+                                        <Col className="col-9 col-md-12">
                                             <Accordion defaultActiveKey="1">
                                                 <Accordion.Item eventKey="0">
                                                     <Accordion.Header>In Transit</Accordion.Header>

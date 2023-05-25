@@ -56,7 +56,7 @@ const DispatchAccountPage = (): JSX.Element => {
                                 <p className="fs-3 p-auto blueText">Account</p>
                             </Col>
                             <Col className="col-6 d-flex justify-content-end">
-                                DakrMode
+                                {/* DakrMode */}
                             </Col>
                         </Row>
                         <Row className="mb-3">

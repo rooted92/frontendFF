@@ -22,6 +22,7 @@ const SignIn = (): JSX.Element => {
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState<string>('');
+    const [errorClass, setErrorClass] = useState<string>('');
 
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -64,9 +65,11 @@ const SignIn = (): JSX.Element => {
         // console.log(token);
         if (typeof newToken === 'string') {
             setErrorMsg(newToken);
+            setErrorClass('col-8 bg-dark my-4 border rounded')
             setIsLoading(false);
             return;
         }
+        setErrorClass('')
         setUserInfo(await GetLoggedInUserData(email));
         setIsLoading(false);
     }
@@ -102,22 +105,6 @@ const SignIn = (): JSX.Element => {
             setErrorMessage('');
         }
     };
-
-    // useEffect(() => {
-    //     validatePassword();
-    //     console.log(password);
-    //   }, [password]);
-
-    // const handlePasswordChange = (e: any) => {
-    //     e.preventDefault();
-
-    //     if (validatePassword()) {
-    //         console.log('Strong Password')
-    //     } else {
-    //         console.log('Not Long enough')
-    //     }
-    // }
-
 
     return (
         <div>
@@ -242,7 +229,7 @@ const SignIn = (): JSX.Element => {
                                         </Col>
                                     </Row>
                                     <Row className="justify-content-center">
-                                        <Col className="col-8 bg-dark my-4 border rounded">
+                                        <Col className={errorClass}>
                                             <p className="text-danger fw-bold text-center mt-3">{errorMsg}</p>
                                         </Col>
                                     </Row>
