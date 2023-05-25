@@ -1,11 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../FooterComponent";
-import { Col, Container, Row, Button, Card, Accordion, Offcanvas } from "react-bootstrap";
+import { Col, Container, Row, Button, Card, Accordion, Offcanvas, Modal } from "react-bootstrap";
 import NavbarComponent from "../NavbarComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import DeleteIcon from '../../assets/delete.svg'
 import { useState, useEffect } from "react";
-import { GetAllYards, GetAllTrailers, GetUserByOrganization, FormatName } from "../../services/DataService";
+import { GetAllYards, GetAllTrailers, GetUserByOrganization, FormatName, DeleteUser } from "../../services/DataService";
 
 const AdminDashboard = (): JSX.Element => {
 
@@ -23,6 +23,7 @@ const AdminDashboard = (): JSX.Element => {
     });
     const [show, setShow] = useState<boolean>(false);
     const [team, setTeam] = useState<any[]>([]);
+    const [isUserDeleted, setIsUserDeleted] = useState<boolean>(false);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
@@ -61,6 +62,7 @@ const AdminDashboard = (): JSX.Element => {
         };
 
     const [allTrailers, setAllTrailers] = useState<Array<trailerType>>([]);
+    const [showDelete, setShowDelete] = useState<boolean>(false);
 
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
@@ -89,20 +91,29 @@ const AdminDashboard = (): JSX.Element => {
             let teamData = await GetUserByOrganization(userInfo.organizationID);
             console.log(teamData);
             let teamArray = teamData.filter((member: any) => {
-                if(member.accountType === 'Dispatcher' || member.accountType === 'Driver'){
+                console.log('MEMBER ARRAY')
+                console.log(member);
+                if (member.accountType === 'Dispatcher' || member.accountType === 'Driver') {
                     console.log(member.name);
-                return member.name;
+                    let memberObject = {
+                        id: member.id,
+                        name: member.name
+                    }
+                    console.log('Here is member OBJECT')
+                    console.log(memberObject);
+                    return memberObject;
                 }
             }).map((member: any) => {
                 // find way to return object of user with name and id
-                return member.name;
+                console.log('HERE IS MEMBER IN MAP');
+                return member;
             });
             console.log(teamArray);
             setTeam(teamArray);
             console.log(team);
         }
         fetchTeam();
-    }, [userInfo]);
+    }, [userInfo, isUserDeleted]);
 
     let navigate = useNavigate();
 
@@ -122,13 +133,35 @@ const AdminDashboard = (): JSX.Element => {
         setShow(false);
     }
 
+    const handleShowDelete = () => {
+        setShowDelete(true);
+    }
+
+    const handleCloseDelete = () => {
+        setShowDelete(false)
+    }
+
     const handleViewDetails = (yardId: any, yardName: any) => {
         console.log(yardId);
         navigate(`/YardDetails/${yardId}/${yardName}`);
     }
 
-    const handleDeleteMember = () => {
-
+    const handleDeleteMember = async (memberId: number) => {
+        setIsUserDeleted(false);
+        console.log('member deleted')
+        const deletedUser = await DeleteUser(memberId);
+        console.log(deletedUser);
+        setShowDelete(true);
+        //If statement for delete
+        if (deletedUser == true) {
+            // navigate('/AdminDashboard');
+            setIsUserDeleted(true);
+        }else{
+            console.log('Unable to delete Account');
+        }
+        console.log("Account Deleted");
+        setShowDelete(false);
+        setShow(false);
     }
 
     return (
@@ -145,16 +178,33 @@ const AdminDashboard = (): JSX.Element => {
                                 team.length === 0 ?
                                     <p className="text-danger text-center fw-bold">Invite team members.</p>
                                     :
-                                    team.map((member: any, index: any) => {
-                                        console.log(member)
+                                    team.map((member: any) => {
+                                        // console.log(member.id)
                                         return (
                                             <>
                                                 <Row className="justify-content-center my-2">
-                                                    <Col key={index} className="col-10 d-flex flex-row justify-content-between px-4 py-3 bg-white rounded text-dark fw-bold fs-5">
-                                                        <p className="m-0 pt-1">{FormatName(member)}</p>
-                                                        <button className='btn btn-transparent' >
+                                                    <Col key={member.id} className="col-10 d-flex flex-row justify-content-between px-4 py-3 bg-white rounded text-dark fw-bold fs-5">
+                                                        <p className="m-0 pt-1">{FormatName(member.name)}</p>
+                                                        <button onClick={handleShowDelete} className='btn btn-transparent' >
                                                             <img src={DeleteIcon} height={'25px'} width={'auto'} alt="delete icon" />
                                                         </button>
+                                                        <Modal show={showDelete} onHide={handleCloseDelete}>
+                                                            <Modal.Header closeButton></Modal.Header>
+                                                            <Modal.Body>
+                                                                Are you sure you want to delete account?
+                                                            </Modal.Body>
+                                                            <Modal.Footer>
+                                                                <Button
+                                                                    className="btn-danger"
+                                                                    onClick={() => handleDeleteMember(member.id)}
+                                                                >
+                                                                    Delete
+                                                                </Button>
+                                                                <Button className="lightBlueBG" onClick={handleCloseDelete}>
+                                                                    Cancel
+                                                                </Button>
+                                                            </Modal.Footer>
+                                                        </Modal>
                                                     </Col>
                                                 </Row>
                                             </>

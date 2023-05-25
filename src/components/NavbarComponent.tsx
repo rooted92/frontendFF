@@ -156,29 +156,5 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
         </Container>
       </Navbar>
     </>
-    //  <div className='brColor'>
-    //      <Navbar expand="lg">
-    //     <Container >
-    //       <h3 className='fleetCustomize'> <img src={Logo} alt='Fleet Logo' height='30px' /> Fleet Finder </h3>
-    //       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-    //       <Navbar.Collapse id="basic-navbar-nav">  
-    //       <h6 className='dashCuz'> <span className='bellNoti'> <img src={Bell} alt='Fleet Logo' height='25px' /> </span> Dashboard <span className='accCount'> Account </span> </h6> 
-    //       </Navbar.Collapse>
-    //     </Container>
-    //   </Navbar>
-    //  </div>
   )
 }
-
-
-
-
-{/* <Row>
-        <Col>
-        <h3 className="fleetCustomize"> <img src={Logo} alt='Fleet Logo' height='30px' /> Fleet Finder </h3>
-        </Col>
-
-        <Col>
-        <h6 className='notiCuz'> <img src={Bell} alt='Fleet Logo' height='30px' /> Dashboard <span className='accCuz'> Account </span> </h6>
-        </Col>
-       </Row> */}
