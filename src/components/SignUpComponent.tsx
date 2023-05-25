@@ -15,7 +15,7 @@ const SignUp = (): JSX.Element => {
         AccountType?: string | null,
         Password?: string | null
     }
-    
+
     let navigate = useNavigate();
     const [account, setAccount] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
@@ -79,16 +79,16 @@ const SignUp = (): JSX.Element => {
     useEffect(() => {
         const validateAccount = (joinCode: any, type: any) => {
             if (createdUserStr === 'Incorrect Organization Code') {
-            // Incorrect organzition code
-            alert(createdUserStr)
-        } else if (createdUserStr === 'User Already Exists') {
-            alert(createdUserStr)
-        } else if (createdUserStr === 'User Account Created') {
-            // take them to signup if account was created
-            // User account created
-            // console.log(createdUserStr);
-            navigate(`/SignUpConfirmation/${joinCode}/${type}`);
-        }
+                // Incorrect organzition code
+                alert(createdUserStr)
+            } else if (createdUserStr === 'User Already Exists') {
+                alert(createdUserStr)
+            } else if (createdUserStr === 'User Account Created') {
+                // take them to signup if account was created
+                // User account created
+                // console.log(createdUserStr);
+                navigate(`/SignUpConfirmation/${joinCode}/${type}`);
+            }
         }
         validateAccount(organizationJoinCode, account);
     }, [createdUserStr]);
@@ -123,7 +123,7 @@ const SignUp = (): JSX.Element => {
             setErrorMessage('Invalid Password');
         } else {
             setErrorMessage('Strong Password');
-           
+
         }
     };
 
@@ -135,7 +135,7 @@ const SignUp = (): JSX.Element => {
     return (
         <>
             <div className="pageContainer">
-                <Container className="mx-4">
+                <Container className="mx-auto d-none d-lg-block">
                     <Row className="py-5 w-100 d-flex justify-content-between m-0">
                         <Col className="col-6 d-flex flex-row justify-content-center leftSignUpColumn rounded rounded-4">
                             <Row className="d-flex w-100 justify-content-center">
@@ -201,10 +201,121 @@ const SignUp = (): JSX.Element => {
                                         className="inputFieldStyle"
                                         type="email"
                                         placeholder="user@example.com"
-                                        onChange={e => { 
+                                        onChange={e => {
                                             setEmail(e.target.value)
                                             validateEmail(e.target.value);
-                                        
+
+                                        }} />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        className="inputFieldStyle"
+                                        type="password"
+                                        placeholder="Password"
+                                        onChange={e => {
+                                            setPassword(e.target.value)
+                                            validatePassword(e.target.value)
+                                        }
+                                        } />
+                                    {passwordPattern ?
+                                        <p className="text-danger fw-bold text-center">{errorMessage}</p>
+                                        :
+                                        <p className="text-success fw-bold text-center">{errorMessage}</p>}
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="organizationNameAndCode">
+                                    <Form.Label>{label}</Form.Label>
+                                    <Form.Control
+                                        className="inputFieldStyle"
+                                        type="text"
+                                        placeholder={placeHolder}
+                                        onChange={e => { setOrganizationInput(e.target.value) }} />
+                                </Form.Group>
+
+                                <Button
+                                    className="createAccountBtn mt-3"
+                                    variant="primary"
+                                    // type="submit"
+                                    onClick={handleCreateAccount}>
+                                    Create Account
+                                </Button>
+                            </Form>
+                            <Row className="mt-3">
+                                <Col>
+                                    <p className="text-center">Already have an account? <Nav.Link className="d-inline blueText" as={Link} to='/'>Sign In!</Nav.Link></p>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container className="mx-auto d-block d-lg-none">
+                    <Row className="justify-content-center mt-5">
+                        <Col className="col-12 d-flex justify-content-center">
+                            <img src={FleetFinderIcon} alt="Fleet Finder Icon" height={'90rem'} width={'auto'} />
+                            <p className="d-inline-flex align-self-center fs-1 m-0">Fleet Finder</p>
+                        </Col>
+                        <Col className="col-10 mt-3">
+                            <p className="fs-1 fw-bold mb-4">Sign Up</p>
+                            <Form>
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} className="col-12 mb-3" controlId="accountType">
+                                        <Form.Label>Account Type</Form.Label>
+                                        <Form.Select
+                                            className="inputFieldStyle"
+                                            defaultValue="Select Account Type"
+                                            // placeholder="Select Account Type"
+                                            onChange={e => {
+                                                setAccount(e.target.value);
+                                                // HandleSetLabelAndPlaceholder(e.target.value);
+                                            }}>
+                                            <option disabled>Select Account Type</option>
+                                            <option value='Dispatcher'>Dispatcher</option>
+                                            <option value='Driver'>Driver</option>
+                                            <option value='Admin'>Organization</option>
+                                        </Form.Select>
+                                    </Form.Group>
+
+                                    <Form.Group as={Col} controlId="firstName">
+                                        <Form.Label>First Name</Form.Label>
+                                        <Form.Control
+                                            className="inputFieldStyle"
+                                            type="text"
+                                            placeholder="First Name"
+                                            onChange={e => setFirstName(e.target.value)} />
+                                    </Form.Group>
+
+                                    <Form.Group as={Col} controlId="lastName">
+                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Control
+                                            className="inputFieldStyle"
+                                            type="text"
+                                            placeholder="Last Name"
+                                            onChange={e => { setLastName(e.target.value) }} />
+                                    </Form.Group>
+                                </Row>
+
+                                <Form.Group className="mb-3" controlId="phoneNumber">
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                        className="inputFieldStyle"
+                                        type="tel"
+                                        placeholder="(555)-555-5555"
+                                        pattern='([0-9]{3})-[0-9]{3}-[0-9]{4}'
+                                        onChange={e => { setPhoneNumber(e.target.value) }} />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        className="inputFieldStyle"
+                                        type="email"
+                                        placeholder="user@example.com"
+                                        onChange={e => {
+                                            setEmail(e.target.value)
+                                            validateEmail(e.target.value);
+
                                         }} />
                                 </Form.Group>
 
@@ -251,7 +362,6 @@ const SignUp = (): JSX.Element => {
                     </Row>
                 </Container>
             </div>
-
         </>
     )
 }
