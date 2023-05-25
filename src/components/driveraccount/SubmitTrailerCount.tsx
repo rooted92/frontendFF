@@ -31,6 +31,7 @@ export default function SubmitTrailerCount() {
     const [details, setDetails] = useState<string>('');
     const [locationID, setLocationID] = useState<string>('');
     const [yardLocations, setYardLocations] = useState<any[]>([]);
+    const [yardName, setYardName] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isCompleted, setIsCompleted] = useState<boolean>(true);
 
@@ -88,7 +89,7 @@ export default function SubmitTrailerCount() {
             OrganizationID: userInfo.organizationID
         };
         // create trailer array in here
-        if (number === '' || type === '' || isLoaded === '' || isClean === '' || fuel === '' || length === '') {
+        if (number === '' || type === '' || isLoaded === '' || isClean === '' || fuel === '' || length === '' || yardName === '') {
             setIsCompleted(false);
             return;
         } else {
@@ -140,7 +141,10 @@ export default function SubmitTrailerCount() {
                                             <Card.Title className='text-center trfCuz'> Trailer Count Form </Card.Title>
                                             <Form.Group as={Col} className="col-12 mb-3" controlId="accountType">
                                                 <Form.Select
-                                                    onChange={e => { setLocationID(e.target.value) }}
+                                                    onChange={e => { 
+                                                        setLocationID(e.target.value)
+                                                        setYardName(e.target.value);
+                                                    }}
                                                     className="inputFieldStyle"
                                                     defaultValue='Select Yard'>
                                                     <option disabled>Select Yard</option>
