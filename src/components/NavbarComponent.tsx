@@ -1,6 +1,6 @@
 // import '../index.css'
 import '../App.css';
-import { Row, Col, Navbar, Container, Nav, Button, Offcanvas } from 'react-bootstrap';
+import { Row, Col, Navbar, Container, Nav, Button, Offcanvas, NavDropdown } from 'react-bootstrap';
 import Logo from '../assets/fleetlogo.png';
 import Bell from '../assets/Bell.png';
 import { useNavigate } from 'react-router-dom';
@@ -96,7 +96,7 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
 
   return (
     <>
-      <Navbar className='mainNav' variant="dark">
+      <Navbar className='mainNav' collapseOnSelect expand="lg" variant="dark">
         <Container>
           <Navbar.Brand href="#home">
             <img
@@ -108,8 +108,11 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
             />
             <p className='d-inline fs-2'>FleetFinder</p>
           </Navbar.Brand>
-          <Row className='justify-content-between align-items-center'>
-            <Col className='col-3 d-flex flex-row justify-content-start'>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+            </Nav>
+            <Nav>
               <Button
                 className='bg-transparent bellButton d-flex align-items-center'
                 onClick={handleShow}>
@@ -142,43 +145,17 @@ export default function NavbarComponent({ accountType }: NavbarProps): JSX.Eleme
                   </Row>
                 </Offcanvas.Body>
               </Offcanvas>
-            </Col>
-            <Col className='col-3'>
+
               <Nav.Link className='text-white' onClick={handleLinkToDashboard}>Dashboard</Nav.Link>
-            </Col>
-            <Col className='col-3'>
+
               <Nav.Link className='text-white' onClick={handleLinkToAccount}>Account</Nav.Link>
-            </Col>
-            <Col className='col-3 p-0'>
+
               <Nav.Link className='text-white' onClick={handleLogout}>Logout</Nav.Link>
-            </Col>
-          </Row>
+
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
-    //  <div className='brColor'>
-    //      <Navbar expand="lg">
-    //     <Container >
-    //       <h3 className='fleetCustomize'> <img src={Logo} alt='Fleet Logo' height='30px' /> Fleet Finder </h3>
-    //       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-    //       <Navbar.Collapse id="basic-navbar-nav">  
-    //       <h6 className='dashCuz'> <span className='bellNoti'> <img src={Bell} alt='Fleet Logo' height='25px' /> </span> Dashboard <span className='accCount'> Account </span> </h6> 
-    //       </Navbar.Collapse>
-    //     </Container>
-    //   </Navbar>
-    //  </div>
   )
 }
-
-
-
-
-{/* <Row>
-        <Col>
-        <h3 className="fleetCustomize"> <img src={Logo} alt='Fleet Logo' height='30px' /> Fleet Finder </h3>
-        </Col>
-
-        <Col>
-        <h6 className='notiCuz'> <img src={Bell} alt='Fleet Logo' height='30px' /> Dashboard <span className='accCuz'> Account </span> </h6>
-        </Col>
-       </Row> */}
