@@ -75,7 +75,7 @@ const TrailerCountRequestForm = (): JSX.Element => {
                     <Container className="my-5">
                         
                         <Row className="d-flex justify-content-center">
-                            <Col className="col-4 requestForm p-4">
+                            <Col className="col-lg-4 col-xl-4 col-sm-6 requestForm p-4" md={6}>
                                 <h2 className="text-center fw-bold">Trailer Count Request</h2>
                                 <Form>
                                     <Form.Group className="mb-3" controlId="yardLocation">

@@ -78,7 +78,7 @@ const AddLocationForm = () => {
                             :
                             <Container className="my-5">
                                 <Row className="justify-content-center">
-                                    <Col className="col-6 col-md-4 addLocationForm p-4">
+                                    <Col className="col-xl-4 col-lg-5 col-md-6 addLocationForm p-4">
                                         <h2 className="text-center fw-bold">Add New Location</h2>
                                         <Form>
                                             <Form.Group className="mb-3" controlId="locationName">
