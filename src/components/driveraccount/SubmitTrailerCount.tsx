@@ -115,8 +115,8 @@ export default function SubmitTrailerCount() {
 
     // useEffect that listens for a change in
     useEffect(() => {
-        console.log('trailerArray.length changed');
-        // console.log(trailerArray);
+        // console.log('trailerArray.length changed');
+        console.log(trailerArray);
     }, [trailerArray]);
 
     // const handleAddNewLocation = () => {
