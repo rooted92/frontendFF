@@ -216,13 +216,13 @@ const AdminDashboard = (): JSX.Element => {
                     </Offcanvas>
                     <Container className="mt-5">
                         <Row className="d-flex justify-content-between mb-3">
-                            <Col className="col-6">
-                                <p className="fs-3">Yard Locations</p>
+                            <Col className="col-12 col-md-4">
+                                <p className="fs-3 text-center text-md-start">Yard Locations</p>
                             </Col>
-                            <Col className="col-6 d-flex justify-content-end align-self-start">
+                            <Col className="col-12 flex-wrap flex-md-nowrap col-md-8 d-flex justify-content-center justify-content-md-end align-self-start">
                                 <Button className="mx-2 lightBlueBG" onClick={handleRequest}>Request Trailer Count</Button>
                                 <Button className="darkBlueBG" onClick={handleAddLocation}>Add Location</Button>
-                                <Button className="darkBlueBG mx-2" onClick={handleShowTeam} >Manage Team</Button>
+                                <Button className="darkBlueBG mx-2 mt-3 mt-md-0" onClick={handleShowTeam} >Manage Team</Button>
                             </Col>
                         </Row>
                         {
@@ -230,8 +230,8 @@ const AdminDashboard = (): JSX.Element => {
                                 ? <WelcomeMessage checkURL={location.pathname} />
                                 :
                                 <>
-                                    <Row>
-                                        <Col className="col-12">
+                                    <Row className="justify-content-center">
+                                        <Col className="col-9 col-md-12">
                                             <Accordion defaultActiveKey="1">
                                                 <Accordion.Item eventKey="0">
                                                     <Accordion.Header>In Transit</Accordion.Header>
