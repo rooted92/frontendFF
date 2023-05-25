@@ -136,7 +136,7 @@ const AccountPage = (): JSX.Element => {
                             <Col className="col-6 d-flex justify-content-end"></Col>
                         </Row>
                         <Row className="mb-3">
-                            <Col className="col-4">
+                            <Col className="col-xl-4 col-lg-5 col-md-7">
                                 <ListGroup className="listGroupStyleTemplate">
                                     <ListGroup.Item className="p-3 lightBlueBorder">
                                         <p className="fs-2 m-0">{userInfo.accountType}</p>
