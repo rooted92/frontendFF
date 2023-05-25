@@ -202,6 +202,7 @@ const GetTrailerCountSubmissions = async (userID) => {
 }
 
 const AddTrailer = async (newTrailer, driverId) => {
+    console.log(typeof driverId);
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/AddTrailer/${driverId}`, {
         method: 'POST',
         headers: {
