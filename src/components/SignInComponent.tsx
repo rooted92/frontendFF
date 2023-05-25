@@ -39,7 +39,7 @@ const SignIn = (): JSX.Element => {
                 }
             }
             catch (err) {
-                console.log(err);
+                // console.log(err);
             }
         }
     }, [userInfo]);
@@ -57,11 +57,11 @@ const SignIn = (): JSX.Element => {
             password
         }
 
-        console.log(userData);
+        // console.log(userData);
         const newToken = await Login(userData);
-        console.log(newToken)
+        // console.log(newToken)
         setToken(newToken);
-        console.log(token);
+        // console.log(token);
         if (typeof newToken === 'string') {
             setErrorMsg(newToken);
             setIsLoading(false);

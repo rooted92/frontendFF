@@ -45,8 +45,8 @@ const AddLocationForm = () => {
 
     const handleAddLocation = async () => {
         setIsLoading(true);
-        console.log('submitted');
-        console.log('OrG ID', userInfo.organizationID);
+        // console.log('submitted');
+        // console.log('OrG ID', userInfo.organizationID);
         let yardObject = {
             Name: locationName,
             Address: address,
@@ -55,9 +55,9 @@ const AddLocationForm = () => {
             Zipcode: zip,
             OrganizationID: userInfo.organizationID,
         }
-        console.log(yardObject);
+        // console.log(yardObject);
         let newLocation = await AddNewLocation(yardObject, userInfo.id);
-        console.log(newLocation);
+        // console.log(newLocation);
         if (newLocation) {
             navigate('/YardAddedConfirmation');
         } else if (!newLocation) {

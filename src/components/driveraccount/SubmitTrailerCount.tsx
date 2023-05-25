@@ -64,11 +64,12 @@ export default function SubmitTrailerCount() {
     const handleSubmitForm = async () => {
         // pass in array into fetch here
         setIsLoading(true);
-        console.log(trailerArray);
-        let isTrailerArrayAdded = await AddTrailer(trailerArray, userInfo.organizationID);
-        console.log(isTrailerArrayAdded);
+        // console.log(trailerArray);
+        // console.log('USER ID: ', userInfo.id);
+        let isTrailerArrayAdded = await AddTrailer(trailerArray, userInfo.id);
+        // console.log(isTrailerArrayAdded);
         if (isTrailerArrayAdded) {
-            console.log('Trailer Array added!');
+            // console.log('Trailer Array added!');
             navigate('/ThankYouForSubmission');
         } else {
             alert('Trailer not added. Check all fields are filled.');
@@ -95,7 +96,7 @@ export default function SubmitTrailerCount() {
         } else {
             setTrailerArray(trailerArray => [...trailerArray, trailerObject]);
         }
-        console.log(trailerArray);
+        // console.log(trailerArray);
     }
 
     const handleDeleteTrailerFromList = (yardObject: any) => {
@@ -109,7 +110,7 @@ export default function SubmitTrailerCount() {
     // useEffect that listens for a change in
     useEffect(() => {
         console.log('trailerArray.length changed');
-        console.log(trailerArray);
+        // console.log(trailerArray);
     }, [trailerArray]);
 
     // const handleAddNewLocation = () => {
@@ -285,11 +286,6 @@ export default function SubmitTrailerCount() {
                                                 }
 
                                             </Row>
-                                            {/* <Row className='lineCuz'>
-                                        <Col>
-                                            <hr></hr>
-                                        </Col>
-                                    </Row> */}
                                             <hr />
                                             <Row>
                                                 <Col className='fCuz'>

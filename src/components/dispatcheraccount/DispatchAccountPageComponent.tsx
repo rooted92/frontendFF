@@ -24,7 +24,7 @@ const DispatchAccountPage = (): JSX.Element => {
         }
         }, []);
 
-    console.log(userInfo);
+    // console.log(userInfo);
     const [showDelete, setShowDelete] = useState<boolean>(false);
     const [showUpdate, setShowUpdate] = useState<boolean>(false);
 

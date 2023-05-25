@@ -27,7 +27,7 @@ const AccountPage = (): JSX.Element => {
     useEffect(() => {
         const FetchOrganizationCode = async () => {
             const organizationData = await GetOrganizationById(userInfo.organizationID);
-            console.log('Organiztion Data: ', organizationData);
+            // console.log('Organiztion Data: ', organizationData);
             setOrgCode(organizationData.joinCode);
             setCompanyName(organizationData.name);
             return organizationData;
@@ -41,7 +41,7 @@ const AccountPage = (): JSX.Element => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
             setUserInfo(userInfo);
-            console.log(userInfo);
+            // console.log(userInfo);
             setFormattedName(FormatName(userInfo.name));
         }
     }, []);
@@ -86,7 +86,7 @@ const AccountPage = (): JSX.Element => {
 
         //Peform any validation we need for it
         const deletedUser = await DeleteUser(userInfo.id);
-        console.log(DeleteUser);
+        // console.log(DeleteUser);
         setShowDelete(true);
         //If statement for delete
         if (deletedUser == true) {
@@ -94,14 +94,13 @@ const AccountPage = (): JSX.Element => {
         }else{
             console.log('Unable to delete Account');
         }
-        
         console.log("Account Deleted");
     };
 
     const handleUpdateAccount = async (newPassword: string) => {
         const userUpdate = await UpdateUser(userInfo);
-        console.log(userInfo.name);
-        console.log(userUpdate);
+        // console.log(userInfo.name);
+        // console.log(userUpdate);
         // call email function
         if (userUpdate) {
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -111,16 +110,14 @@ const AccountPage = (): JSX.Element => {
         }
         if (newPassword !== '') {
             const isPasswordUpdated = await UpdatePasswaord(userInfo.id, newPassword);
-            console.log(isPasswordUpdated);
-            console.log(newPassword);
+            // console.log(isPasswordUpdated);
+            // console.log(newPassword);
             isPasswordUpdated ? handleCloseUpdate() : alert('Unable to save password');
         }
 
-        console.log(userInfo.name);
-        console.log(userInfo);
-        console.log("Account Updated");
-        // call password function else return;
-
+        // console.log(userInfo.name);
+        // console.log(userInfo);
+        // console.log("Account Updated");
     };
 
     return (
@@ -214,9 +211,9 @@ const AccountPage = (): JSX.Element => {
                                             <Col lg={12}>
                                                 <p className=" fs-1 editProfileText">Edit Profile</p>
                                                 <input defaultValue={userInfo.name} onChange={(e: any) => {
-                                                    console.log(e.target.value);
+                                                    // console.log(e.target.value);
                                                     let formattedName: any = FormatName(e.target.value);
-                                                    console.log(formattedName);
+                                                    // console.log(formattedName);
                                                     setUserInfo({
                                                         id: userInfo.id,
                                                         name: formattedName,

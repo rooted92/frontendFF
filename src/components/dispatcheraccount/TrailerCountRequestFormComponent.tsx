@@ -33,8 +33,8 @@ const TrailerCountRequestForm = (): JSX.Element => {
             let yardArray = yardData.map((yard: any) => {
                 return yard.name;
             })
-            console.log(yardData);
-            console.log(yardArray);
+            // console.log(yardData);
+            // console.log(yardArray);
             setYards(yardArray);
         }
         fetchYardNames(userInfo.organizationID);
@@ -47,8 +47,8 @@ const TrailerCountRequestForm = (): JSX.Element => {
                 }
             })
             setDrivers(driverArray);
-            console.log(driverData);
-            console.log(driverArray);
+            // console.log(driverData);
+            // console.log(driverArray);
         }
         fetchDrivers(userInfo.organizationID);
     }, [userInfo]);

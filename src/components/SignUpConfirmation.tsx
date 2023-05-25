@@ -22,7 +22,7 @@ export default function SignUpConfirmation() {
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         if (userInfo) {
-            console.log(userInfo);
+            // console.log(userInfo);
             setUserInfo(userInfo);
         }
     }, []);

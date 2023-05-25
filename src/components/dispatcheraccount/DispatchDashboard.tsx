@@ -69,8 +69,8 @@ const DispatchDashboard = (): JSX.Element => {
             fetchYardData();
             fetchTrailerData();
         }
-        console.log(yardLocations);
-        console.log(allTrailers);
+        // console.log(yardLocations);
+        // console.log(allTrailers);
     }, [userInfo])
 
     // useEffect(() => {
@@ -100,12 +100,12 @@ const DispatchDashboard = (): JSX.Element => {
     }
 
     const handleAddLocation = () => {
-        console.log(userInfo);
+        // console.log(userInfo);
         navigate('/AddLocationForm');
     }
 
     const handleViewDetails = (yardId: any, yardName: any) => {
-        console.log(yardId);
+        // console.log(yardId);
         navigate(`/YardDetails/${yardId}/${yardName}`);
     }
 
@@ -179,7 +179,7 @@ const DispatchDashboard = (): JSX.Element => {
                                         {
                                             yardLocations.map(yard => {
                                                 // let yardUpdate = GetLastYardUpdate(yard.id);
-                                                console.log(yard.id)
+                                                // console.log(yard.id)
                                                 let empty = 0;
                                                 let loaded = 0;
                                                 let clean = 0;

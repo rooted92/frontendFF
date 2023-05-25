@@ -56,9 +56,9 @@ const TableComponent = (): JSX.Element => {
     useEffect(() => {
         const FetchTrailerDataForTable = async () => {
             let trailerData = await GetTrailersByYardID(id);
-            console.log(trailerData);
+            // console.log(trailerData);
             setTrailerArray(trailerData);
-            console.log([...trailerArray, trailerData[0]]);
+            // console.log([...trailerArray, trailerData[0]]);
             setName(yardName);
         }
         FetchTrailerDataForTable();
@@ -67,7 +67,8 @@ const TableComponent = (): JSX.Element => {
     useEffect(() => {
         const FetchLastYardUpdate = async () => {
             let yardUpdate = await GetLastYardUpdate(id);
-            console.log(yardUpdate);
+            // console.log('HERE IS THE YARD UPDATE')
+            // console.log(yardUpdate);
             setLastYardUpdate(yardUpdate);
         }
         FetchLastYardUpdate();
@@ -76,7 +77,7 @@ const TableComponent = (): JSX.Element => {
     useEffect(() => {
         const FetchLastUpdateUser = async () => {
             let user = await GetUserByID(lastYardUpdate.userID);
-            console.log(user);
+            // console.log(user);
             setLastUpdateUser(user);
         }
         if(lastYardUpdate.userID != undefined) {

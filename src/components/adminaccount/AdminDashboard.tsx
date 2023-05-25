@@ -67,14 +67,14 @@ const AdminDashboard = (): JSX.Element => {
     useEffect(() => {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
         //userInfo is undefined... check that admin info is the same as driver/dispatch info.. this may be causing the issue
-        console.log(userInfo);
+        // console.log(userInfo);
         if (userInfo) {
             setUserInfo(userInfo);
         }
     }, []);
 
     useEffect(() => {
-        console.log(userInfo.organizationID)
+        // console.log(userInfo.organizationID)
         const fetchYardData = async () => {
             setYardLocations(await GetAllYards(userInfo.organizationID));
         }
@@ -85,32 +85,32 @@ const AdminDashboard = (): JSX.Element => {
             fetchYardData();
             fetchTrailerData();
         }
-        console.log(yardLocations);
-        console.log(allTrailers);
+        // console.log(yardLocations);
+        // console.log(allTrailers);
         const fetchTeam = async () => {
             let teamData = await GetUserByOrganization(userInfo.organizationID);
-            console.log(teamData);
+            // console.log(teamData);
             let teamArray = teamData.filter((member: any) => {
-                console.log('MEMBER ARRAY')
-                console.log(member);
+                // console.log('MEMBER ARRAY')
+                // console.log(member);
                 if (member.accountType === 'Dispatcher' || member.accountType === 'Driver') {
-                    console.log(member.name);
+                    // console.log(member.name);
                     let memberObject = {
                         id: member.id,
                         name: member.name
                     }
-                    console.log('Here is member OBJECT')
-                    console.log(memberObject);
+                    // console.log('Here is member OBJECT')
+                    // console.log(memberObject);
                     return memberObject;
                 }
             }).map((member: any) => {
                 // find way to return object of user with name and id
-                console.log('HERE IS MEMBER IN MAP');
+                // console.log('HERE IS MEMBER IN MAP');
                 return member;
             });
-            console.log(teamArray);
+            // console.log(teamArray);
             setTeam(teamArray);
-            console.log(team);
+            // console.log(team);
         }
         fetchTeam();
     }, [userInfo, isUserDeleted]);
@@ -122,7 +122,7 @@ const AdminDashboard = (): JSX.Element => {
     }
 
     const handleAddLocation = () => {
-        console.log(userInfo);
+        // console.log(userInfo);
         navigate('/AddLocationForm');
     }
 
@@ -142,7 +142,7 @@ const AdminDashboard = (): JSX.Element => {
     }
 
     const handleViewDetails = (yardId: any, yardName: any) => {
-        console.log(yardId);
+        // console.log(yardId);
         navigate(`/YardDetails/${yardId}/${yardName}`);
     }
 
@@ -150,7 +150,7 @@ const AdminDashboard = (): JSX.Element => {
         setIsUserDeleted(false);
         console.log('member deleted')
         const deletedUser = await DeleteUser(memberId);
-        console.log(deletedUser);
+        // console.log(deletedUser);
         setShowDelete(true);
         //If statement for delete
         if (deletedUser == true) {

@@ -23,7 +23,7 @@ const Login = async (loginUser) => {
         return message;
     }
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -31,7 +31,7 @@ const GetLoggedInUserData = async (email) => {
     // waiting on email as route
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUserInfo/${email}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -67,7 +67,7 @@ const CreateOrganization = async (organizationName) => {
         throw new Error(message);
     }
     let data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data.joinCode;
 }
 
@@ -79,7 +79,7 @@ const GetOrganizationByJoinCode = async (joinCode) => {
         throw new Error(message);
     }
     let data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -97,14 +97,14 @@ const AddNewLocation = async (newYard, id) => {
         throw new Error(message);
     }
     let data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 const GetOrganizationById = async (id) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Organization/GetOrganizationByID/${id}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 } 
 
@@ -113,21 +113,21 @@ const GetOrganizationById = async (id) => {
 const GetAllYards = async (organizationID) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/GetAllYardsByOrganizationID/${organizationID}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 const GetAllTrailers = async (organizationID) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/GetTrailersByOrganizationID/${organizationID}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 const GetTrailersByYardID = async (yardId) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Trailer/GetTrailersByYardID/${yardId}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -145,14 +145,14 @@ const UpdatePasswaord = async (id, password) => {
         throw new Error(message);
     }
     const data = await response.json()
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 const UpdateEmail = async (id, email) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/UpdateUserEmail/${id}/${email}`)
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     return data;
 }
 
@@ -188,7 +188,7 @@ const GetUserByID = async (userID) => {
 const GetUserByOrganization = async (organizationId) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/GetUsersByOrganizationId/${organizationId}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -197,7 +197,7 @@ const GetUserByOrganization = async (organizationId) => {
 const GetTrailerCountSubmissions = async (userID) => {
     const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/UpdateLog/GetUpdatesByUserID/${userID}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -221,7 +221,7 @@ const AddTrailer = async (newTrailer, driverId) => {
 const DeleteUser = async (UserId) => {
     const response = await  fetch(`https://fleetfinderbackend.azurewebsites.net/User/DeleteUser/${UserId}`)
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
