@@ -15,7 +15,7 @@ const Login = async (loginUser) => {
     // }
     if (!response.ok) {
         let message;
-        if(response.status === 401 || response.status === 400){
+        if (response.status === 401 || response.status === 400) {
             message = 'Failed to Login make sure credentials are correct.';
         } else if (response.status === 500) {
             message = 'Login Failed, Internal Server Error.';
@@ -106,7 +106,7 @@ const GetOrganizationById = async (id) => {
     const data = await response.json();
     // console.log(data);
     return data;
-} 
+}
 
 // Functions for DISPATCHER account
 
@@ -219,8 +219,26 @@ const AddTrailer = async (newTrailer, driverId) => {
     return data;
 }
 
+const DeleteYardFromDashboard = async (yardObject, userId) => {
+    console.log(yardObject);
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/Yards/DeleteYard/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(yardObject)
+    });
+    if(!response.ok){
+        const message = `An error has ocurred ${response.status}`;
+        throw new Error(message);
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
+
 const DeleteUser = async (UserId) => {
-    const response = await  fetch(`https://fleetfinderbackend.azurewebsites.net/User/DeleteUser/${UserId}`)
+    const response = await fetch(`https://fleetfinderbackend.azurewebsites.net/User/DeleteUser/${UserId}`)
     const data = await response.json();
     // console.log(data);
     return data;
@@ -232,4 +250,4 @@ const FormatName = (name) => {
     }).join(' ');
 }
 
-export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName, GetUserByOrganization, DeleteUser };
+export { Login, GetLoggedInUserData, CreateUserAccount, CreateOrganization, GetOrganizationByJoinCode, AddNewLocation, GetAllYards, GetAllTrailers, UpdateEmail, UpdatePasswaord, UpdateUser, AddTrailer, GetLastYardUpdate, GetTrailersByYardID, GetUserByID, GetTrailerCountSubmissions, GetOrganizationById, FormatName, GetUserByOrganization, DeleteUser, DeleteYardFromDashboard };

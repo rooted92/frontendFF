@@ -115,20 +115,18 @@ const SignUp = (): JSX.Element => {
     };
 
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const [errorMessage, setErrorMessage] = useState('');
-    const [errMessage, setErrMessage] = useState('')
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     const validatePassword = (password: string) => {
         if (!passwordPattern.test(password)) {
-            setErrorMessage('Invalid Password');
-        } else {
-            setErrorMessage('Strong Password');
-
+            setIsPasswordValid(false);
+        } else if (passwordPattern.test(password)) {
+            setIsPasswordValid(true);
         }
     };
 
     // useEffect(() => {
-    //     validatePassword();
+    //     validatePassword(password);
 
     //   }, [password]);
 
@@ -219,10 +217,12 @@ const SignUp = (): JSX.Element => {
                                             validatePassword(e.target.value)
                                         }
                                         } />
-                                    {passwordPattern ?
-                                        <p className="text-danger fw-bold text-center">{errorMessage}</p>
-                                        :
-                                        <p className="text-success fw-bold text-center">{errorMessage}</p>}
+                                    {
+                                        !isPasswordValid ?
+                                            <p className="text-danger mt-1 fs-6">Password must be at least 8 characters with one uppercase, one lowercase and one special character.</p>
+                                            :
+                                            <p className="text-success mt-1">Valid password.</p>
+                                    }
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="organizationNameAndCode">
@@ -330,10 +330,12 @@ const SignUp = (): JSX.Element => {
                                             validatePassword(e.target.value)
                                         }
                                         } />
-                                    {passwordPattern ?
-                                        <p className="text-danger fw-bold text-center">{errorMessage}</p>
-                                        :
-                                        <p className="text-success fw-bold text-center">{errorMessage}</p>}
+                                    {
+                                        isPasswordValid ?
+                                            <p className="text-danger mt-1 fs-6">Password must be at least 8 characters with one uppercase, one lowercase and one special character.</p>
+                                            :
+                                            <p className="text-success mt-1">Valid password.</p>
+                                    }
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="organizationNameAndCode">

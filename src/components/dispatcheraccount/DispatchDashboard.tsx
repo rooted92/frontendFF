@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../FooterComponent";
 import WelcomeMessage from "../WelcomeMsgComponent";
 import NavbarComponent from "../NavbarComponent";
-import { Button, Col, Container, Row, Accordion, Card, Navbar } from "react-bootstrap";
-import { GetAllTrailers, GetAllYards, GetLastYardUpdate } from "../../services/DataService";
+import { Button, Col, Container, Row, Accordion, Card } from "react-bootstrap";
+import { GetAllTrailers, GetAllYards, DeleteYardFromDashboard } from "../../services/DataService";
 
 // Create a models folder and import from there trailer, driver, etc. models
 
@@ -71,23 +71,11 @@ const DispatchDashboard = (): JSX.Element => {
         }
         // console.log(yardLocations);
         // console.log(allTrailers);
-    }, [userInfo])
+    }, [userInfo]);
 
-    // useEffect(() => {
-    //     const fetchTrailerData = async () => {
-    //         setAllTrailers(await GetAllTrailers());
-    //     }
-    //     fetchTrailerData();
-    //     console.log(allTrailers);
-    // }, []);
+    useEffect(() => {
 
-
-    // const [trailersInTransit, setTrailersInTransit] = useState<Array<any>>([
-    //     {
-    //         TrailerNumber: 316,
-    //         inTransit: true
-    //     }
-    // ]);
+    }, [])
 
     // useLocation grabs the current pathname
     const location = useLocation();
@@ -107,6 +95,15 @@ const DispatchDashboard = (): JSX.Element => {
     const handleViewDetails = (yardId: any, yardName: any) => {
         // console.log(yardId);
         navigate(`/YardDetails/${yardId}/${yardName}`);
+    }
+
+    const handleDeleteYard = async (yardObject: any, userId: any) => {
+        console.log(yardObject, userId);
+        let isYardDeleted = await DeleteYardFromDashboard(yardObject, userId);
+        console.log(isYardDeleted);
+        if(isYardDeleted){
+            setYardLocations(await GetAllYards(userInfo.organizationID));
+        }
     }
 
     return (
@@ -179,7 +176,7 @@ const DispatchDashboard = (): JSX.Element => {
                                         {
                                             yardLocations.map(yard => {
                                                 // let yardUpdate = GetLastYardUpdate(yard.id);
-                                                // console.log(yard.id)
+                                                // console.log(yard);
                                                 let empty = 0;
                                                 let loaded = 0;
                                                 let clean = 0;
@@ -233,9 +230,15 @@ const DispatchDashboard = (): JSX.Element => {
                                                                         </Col>
                                                                     </Row>
                                                                 </Card.Text>
-                                                                <Row className="d-flex justify-content-center">
+                                                                <Row className="d-flex justify-content-around">
                                                                     <Col className="col-6">
                                                                         <Button onClick={() => handleViewDetails(yard.id, yard.name)} className="darkBlueBG">View Details</Button>
+                                                                    </Col>
+                                                                    <Col className="col-6">
+                                                                        <Button onClick={() => handleDeleteYard(yard, userInfo.id)} className="btn btn-danger">
+                                                                           <p>Delete Yard</p> 
+                                                                            <img src="" alt="delete icon" />
+                                                                        </Button>
                                                                     </Col>
                                                                 </Row>
                                                                 <Row>
