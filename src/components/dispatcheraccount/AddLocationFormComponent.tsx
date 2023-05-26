@@ -33,6 +33,7 @@ const AddLocationForm = () => {
     const [state, setState] = useState<string>('');
     const [zip, setZip] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isFieldEmpty, setIsFieldEmpty] = useState<boolean>(false);
 
     const handleCancel = () => {
         // checking witch account is logged in to route to correct dashboard
@@ -45,8 +46,6 @@ const AddLocationForm = () => {
 
     const handleAddLocation = async () => {
         setIsLoading(true);
-        // console.log('submitted');
-        // console.log('OrG ID', userInfo.organizationID);
         let yardObject = {
             Name: locationName,
             Address: address,
@@ -55,7 +54,16 @@ const AddLocationForm = () => {
             Zipcode: zip,
             OrganizationID: userInfo.organizationID,
         }
-        // console.log(yardObject);
+        // iterate over object to check if value from key is empty string
+        let checkIfNull: boolean = Object.values(yardObject).some((val: any) => {
+            // console.log(val);
+            return val === '';
+        });
+        if(checkIfNull){
+            setIsLoading(false);
+            setIsFieldEmpty(true);
+            return;
+        }
         let newLocation = await AddNewLocation(yardObject, userInfo.id);
         // console.log(newLocation);
         if (newLocation) {
@@ -80,6 +88,7 @@ const AddLocationForm = () => {
                                 <Row className="justify-content-center">
                                     <Col className="col-xl-4 col-lg-5 col-md-6 addLocationForm p-4">
                                         <h2 className="text-center fw-bold">Add New Location</h2>
+                                        <p className="text-center fw-bold text-danger">{isFieldEmpty ? 'Please fill in required fields.' : null}</p>
                                         <Form>
                                             <Form.Group className="mb-3" controlId="locationName">
                                                 <Form.Label visuallyHidden>Location Name</Form.Label>
